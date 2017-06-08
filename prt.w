@@ -127,12 +127,6 @@
 #include	<netinet/in.h>
 #include	<arpa/inet.h>
 
-#ifdef	USE_LIBWRAP
-#include	"tcpd.h"
-int allow_severity, deny_severity;
-extern int hosts_ctl(char *daemon, char *client_name, char *client_addr, char *client_user);
-#endif
-
 #define		BASEPORT	9100
 #define		PIDFILE		"/var/run/prt.pid"
 #define		LOCKFILE	"/var/lock/prt"
@@ -621,17 +615,6 @@ void server(int lpnumber)
 	memset(&client, 0, sizeof(client));
 	while ((fd = accept(netfd, (struct sockaddr *)&client, &clientlen)) >= 0) {
 		char host[INET6_ADDRSTRLEN];
-#ifdef	USE_LIBWRAP
-		if (hosts_ctl("p910nd", STRING_UNKNOWN, get_ip_str((struct sockaddr *)&client,
-			host, sizeof(host)), STRING_UNKNOWN) == 0) {
-			dolog(LOGOPTS,
-			       "Connection from %s port %hu rejected\n",
-				get_ip_str((struct sockaddr *)&client, host, sizeof(host)),
-				get_port((struct sockaddr *)&client));
-			close(fd);
-			continue;
-		}
-#endif
 		dolog(LOG_NOTICE, "Connection from %s port %hu accepted\n",
 			get_ip_str((struct sockaddr *)&client, host, sizeof(host)),
 			get_port((struct sockaddr *)&client));
