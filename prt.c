@@ -134,14 +134,8 @@ extern int hosts_ctl(char *daemon, char *client_name, char *client_addr, char *c
 
 #define		BASEPORT	9100
 #define		PIDFILE		"/var/run/prt.pid"
-#ifdef		LOCKFILE_DIR
-#define		LOCKFILE	LOCKFILE_DIR "/prt"
-#else
-#define		LOCKFILE	"/var/lock/subsys/prt"
-#endif
-#ifndef		PRINTERFILE
-#define         PRINTERFILE     "/dev/lp%c"
-#endif
+#define		LOCKFILE	"/var/lock/prt"
+#define         PRINTERFILE     "/dev/usb/lp0"
 #define		LOGOPTS		LOG_ERR
 
 #define		BUFFER_SIZE	8192
@@ -166,9 +160,9 @@ static char *progname;
 static char version[] = "Version 0.97";
 static char copyright[] = "Copyright (c) 2008-2014 Ken Yap and others, GPLv2";
 static int lockfd = -1;
-static char *device = 0;
+static char *device = NULL;
 static int bidir = 0;
-static char *bindaddr = 0;
+static char *bindaddr = NULL;
 static int log_to_stdout = 0;
 
 
@@ -231,15 +225,12 @@ void dolog(int level, char* msg, ...)
 int open_printer(int lpnumber)
 {
 	int lp;
-	char lpname[sizeof(PRINTERFILE)];
 
-#ifdef	TESTING
-	(void)snprintf(lpname, sizeof(lpname), "/dev/tty");
+#ifdef TESTING
+	device = "/dev/tty";
 #else
-	(void)snprintf(lpname, sizeof(lpname), PRINTERFILE, lpnumber);
+	device = PRINTERFILE;
 #endif
-	if (device == 0)
-		device = lpname;
 	if ((lp = open(device, bidir ? (O_RDWR|O_NONBLOCK) : O_WRONLY)) == -1) {
 		if (errno != EBUSY)
 			dolog(LOGOPTS, "%s: %m\n", device);
@@ -691,9 +682,6 @@ int main(int argc, char *argv[])
 			break;
 		case 'd':
 			log_to_stdout = 1;
-			break;
-		case 'f':
-			device = optarg;
 			break;
 		case 'i':
 			bindaddr = optarg;
