@@ -1,113 +1,112 @@
-@ @c
-/*
- *	Port 9100+n daemon
- *	Accepts a connection from port 9100+n and copy stream to
- *	/dev/lpn, where n = 0,1,2.
- *
- *	GPLv2 license, read COPYING
- *
- *	Run standalone as: p910nd [0|1|2]
- *
- *	Run under inetd as:
- *	p910n stream tcp nowait root /usr/sbin/tcpd p910nd [0|1|2]
- *	 where p910n is an /etc/services entry for
- *	 port 9100, 9101 or 9102 as the case may be.
- *	 root can be replaced by any uid with rw permission on /dev/lpn
- *
- *	Port 9100+n will then be passively opened
- *	n defaults to 0
- *
- *	Version 0.97
- *	Patches by Stefan Sichler.
- *	Stream to printer is only closed after EOF from network if 
- *	it is no more busy, otherwise printer driver may discard data of last 
- *	write() at close().
- *
- *	Version 0.96
- *	Patches by Stefan Sichler.
- *	Fixed bi-directional mode to stay alive until connection is closed.
- *	Fixed timeout value in select() (controlling in/out balancing).
- *	Fixed network-to-printer buffer reporting EOF although there was data 
- *	left in the buffer.
- *	Added log-to-stdout option (-d).
- *
- *	Version 0.95
- *	Patch by Mario Izquierdo
- *	Fix incomplete conversion to manipulate new ip_addr structure
- *	when LIBWRAP is selected
- *
- *	Version 0.94
- *	Patch by Guenther Niess:
- *	Support IPv6
- *	Patch by Philip Prindeville:
- *	Increase socket buffer size
- *	Use %hu for printing port
- *	Makefile fixes for LIBWRAP
- *
- *	Version 0.93
- *	Fix open call to include mode, required for O_CREAT
- *
- *	Version 0.92
- *	Patches by Dave Brown.  Use raw I/O syscalls instead of
- *	stdio buffering.  Buffer system to handle talkative bidi
- *	devices better on low-powered hosts.
- *
- *	Version 0.91
- *	Patch by Hans Harder.  Close printer device after each use to
- *	avoid crashing when hotpluggable devices going away.
- *	Don't wait 10 seconds after successful open.
- *
- *	Version 0.9
- *	Patch by Kostas Liakakis to keep retrying every 10 seconds
- *	if EBUSY is returned by open_printer, apparently NetBSD
- *	does this if the printer is not on.
- *	Patch by Albert Bartoszko (al_bin@vp_pl), August 2006
- *	Work with hotpluggable devices
- *	Improve Makefile
- *
- *	(The last two patches conflict somewhat, Liakakis's patch
- *	retries opening the device every 10 seconds until successful,
- *	whereas Bartoszko's patch exits if the printer device cannot be opened.
- *	The problem is with a hotpluggable device, that device node may
- *	not appear again.
- *
- *	I have opted for Liakakis's behaviour. Let me know if this can
- *	be improved. Perhaps we need another option that chooses the
- *	behaviour. - Ken)
- *
- *	Version 0.8
- *	Allow specifying address to bind to
- *
- *	Version 0.7
- *	Bidirectional data transfer
- *
- *	Version 0.6
- *	Arne Bernin fixed some cast warnings, corrected the version number
- *	and added a -v option to print the version.
- *
- *	Version 0.5
- *	-DUSE_LIBWRAP and -lwrap enables hosts_access (tcpwrappers) checking.
- *
- *	Version 0.4
- *	Ken Yap (greenpossum@users.sourceforge.net), April 2001
- *	Placed under GPL.
- *
- *	Added -f switch to specify device which overrides /dev/lpn.
- *	But number is still required get distinct ports and locks.
- *
- *	Added locking so that two invocations of the daemon under inetd
- *	don't try to open the printer at the same time. This can happen
- *	even if there is one host running clients because the previous
- *	client can exit after it has sent all data but the printer has not
- *	finished printing and inetd starts up a new daemon when the next
- *	request comes in too soon.
- *
- *	Various things could be Linux specific. I don't
- *	think there is much demand for this program outside of PCs,
- *	but if you port it to other distributions or platforms,
- *	I'd be happy to receive your patches.
- */
+@ 
+	Port 9100+n daemon
+	Accepts a connection from port 9100+n and copy stream to
+	/dev/lpn, where n = 0,1,2.
 
+	GPLv2 license, read COPYING
+
+	Run standalone as: p910nd [0|1|2]
+
+	Run under inetd as:
+	p910n stream tcp nowait root /usr/sbin/tcpd p910nd [0|1|2]
+	 where p910n is an /etc/services entry for
+	 port 9100, 9101 or 9102 as the case may be.
+	 root can be replaced by any uid with rw permission on /dev/lpn
+
+	Port 9100+n will then be passively opened
+	n defaults to 0
+
+	Version 0.97
+	Patches by Stefan Sichler.
+	Stream to printer is only closed after EOF from network if 
+	it is no more busy, otherwise printer driver may discard data of last 
+	write() at close().
+
+	Version 0.96
+	Patches by Stefan Sichler.
+	Fixed bi-directional mode to stay alive until connection is closed.
+	Fixed timeout value in select() (controlling in/out balancing).
+	Fixed network-to-printer buffer reporting EOF although there was data 
+	left in the buffer.
+	Added log-to-stdout option (-d).
+
+	Version 0.95
+	Patch by Mario Izquierdo
+	Fix incomplete conversion to manipulate new |ip_addr| structure
+	when LIBWRAP is selected
+
+	Version 0.94
+	Patch by Guenther Niess:
+	Support IPv6
+	Patch by Philip Prindeville:
+	Increase socket buffer size
+	Use %hu for printing port
+	Makefile fixes for LIBWRAP
+
+	Version 0.93
+	Fix open call to include mode, required for |O_CREAT|
+
+	Version 0.92
+	Patches by Dave Brown.  Use raw I/O syscalls instead of
+	stdio buffering.  Buffer system to handle talkative bidi
+	devices better on low-powered hosts.
+
+	Version 0.91
+	Patch by Hans Harder.  Close printer device after each use to
+	avoid crashing when hotpluggable devices going away.
+	Don't wait 10 seconds after successful open.
+
+	{\emergencystretch=2em Version 0.9
+	Patch by Kostas Liakakis to keep retrying every 10 seconds
+	if EBUSY is returned by |open_printer|, apparently NetBSD
+	does this if the printer is not on. \par}
+	Patch by Albert Bartoszko, August 2006
+	Work with hotpluggable devices
+	Improve Makefile
+
+	(The last two patches conflict somewhat, Liakakis's patch
+	retries opening the device every 10 seconds until successful,
+	whereas Bartoszko's patch exits if the printer device cannot be opened.
+	The problem is with a hotpluggable device, that device node may
+	not appear again.
+
+	I have opted for Liakakis's behaviour. Let me know if this can
+	be improved. Perhaps we need another option that chooses the
+	behaviour. - Ken)
+
+	Version 0.8
+	Allow specifying address to bind to
+
+	Version 0.7
+	Bidirectional data transfer
+
+	Version 0.6
+	Arne Bernin fixed some cast warnings, corrected the version number
+	and added a -v option to print the version.
+
+	Version 0.5
+	|-DUSE_LIBWRAP| and |-lwrap| enables |hosts_access| (tcpwrappers) checking.
+
+	Version 0.4
+	Ken Yap (greenpossum@@users.sourceforge.net), April 2001
+	Placed under GPL.
+
+	Added -f switch to specify device which overrides /dev/lpn.
+	But number is still required get distinct ports and locks.
+
+	Added locking so that two invocations of the daemon under inetd
+	don't try to open the printer at the same time. This can happen
+	even if there is one host running clients because the previous
+	client can exit after it has sent all data but the printer has not
+	finished printing and inetd starts up a new daemon when the next
+	request comes in too soon.
+
+	Various things could be Linux specific. I don't
+	think there is much demand for this program outside of PCs,
+	but if you port it to other distributions or platforms,
+	I'd be happy to receive your patches.
+
+@c
 #include	<unistd.h>
 #include	<stdlib.h>
 #include	<stdio.h>
@@ -326,7 +325,7 @@ ssize_t readBuffer(Buffer_t * b)
 		} else
 			result = 0; // in case there is still data in the buffer, ignore the error by now
 	}
-	/* Return the value returned by read(), which is -1 (error), or #bytes read. */
+	/* Return the value returned by read(), which is -1 (error), or number of read bytes. */
 	return result;
 }
 
@@ -369,7 +368,7 @@ ssize_t writeBuffer(Buffer_t * b)
 	else if (b->eof_read)
 		b->eof_sent = 1;
 	
-	/* Return the write() result, -1 (error) or #bytes written. */
+	/* Return the write() result, -1 (error) or number of written bytes. */
 	return result;
 }
 
@@ -687,10 +686,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	/* We used to pass (LOG_PERROR|LOG_PID|LOG_LPR|LOG_ERR) to syslog, but
-	 * syslog ignored the LOG_PID and LOG_PERROR option.  I.e. the intention
-	 * was to add both options but the effect was to have neither.
-	 * I disagree with the intention to add PERROR.  --Stef  */
+	/* We used to pass |(LOG_PERROR| \.{\char'174} |LOG_PID| \.{\char'174} |LOG_LPR|
+	   \.{\char'174} |LOG_ERR)| to syslog, but
+	   syslog ignored the |LOG_PID| and |LOG_PERROR| option.  I.e. the intention
+	   was to add both options but the effect was to have neither.
+	   I disagree with the intention to add |PERROR|.  --Stef  */
 	if (!log_to_stdout)
 		openlog(p, LOG_PID, LOG_LPR);
 
