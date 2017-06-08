@@ -1,3 +1,4 @@
+@ @c
 /*
  *	Port 9100+n daemon
  *	Accepts a connection from port 9100+n and copy stream to
@@ -466,7 +467,8 @@ int copy_stream(int fd, int lp)
 		}
 		dolog(LOG_NOTICE,
 		       "Finished job: %d/%d bytes sent to printer, %d/%d bytes sent to network\n",
-		       networkToPrinterBuffer.totalout,networkToPrinterBuffer.totalin, printerToNetworkBuffer.totalout, printerToNetworkBuffer.totalin);
+		       networkToPrinterBuffer.totalout,networkToPrinterBuffer.totalin,
+		       printerToNetworkBuffer.totalout, printerToNetworkBuffer.totalin);
 	} else {
 		/* Unidirectional: simply read from network, and write to printer. */
 		while (!networkToPrinterBuffer.eof_sent && !networkToPrinterBuffer.err) {
@@ -477,30 +479,32 @@ int copy_stream(int fd, int lp)
 			if (result > 0)
 				dolog(LOG_DEBUG,"wrote %d bytes to printer\n",result);
 		}
-		dolog(LOG_NOTICE, "Finished job: %d/%d bytes sent to printer\n", networkToPrinterBuffer.totalout, networkToPrinterBuffer.totalin);
-	}
-	return (networkToPrinterBuffer.err?-1:0);
+		dolog(LOG_NOTICE, "Finished job: %d/%d bytes sent to printer\n",
+		networkToPrinterBuffer.totalout, networkToPrinterBuffer.totalin);
+  }
+  return (networkToPrinterBuffer.err?-1:0);
 }
 
 void one_job(int lpnumber)
 {
-	int lp;
-	struct sockaddr_storage client;
-	socklen_t clientlen = sizeof(client);
+  int lp;
+  struct sockaddr_storage client;
+  socklen_t clientlen = sizeof(client);
 
-	if (getpeername(0, (struct sockaddr *)&client, &clientlen) >= 0) {
-		char host[INET6_ADDRSTRLEN];
-		dolog(LOG_NOTICE, "Connection from %s port %hu\n", get_ip_str((struct sockaddr *)&client, host, sizeof(host)), get_port((struct sockaddr *)&client));
-	}
-	if (get_lock(lpnumber) == 0)
-		return;
-	/* Make sure lp device is open... */
-	while ((lp = open_printer(lpnumber)) == -1)
-		sleep(10);
-	if (copy_stream(0, lp) < 0)
-		dolog(LOGOPTS, "copy_stream: %m\n");
-	close(lp);
-	free_lock();
+  if (getpeername(0, (struct sockaddr *)&client, &clientlen) >= 0) {
+	char host[INET6_ADDRSTRLEN];
+	dolog(LOG_NOTICE, "Connection from %s port %hu\n", get_ip_str((struct sockaddr *)&client,
+	host, sizeof(host)), get_port((struct sockaddr *)&client));
+  }
+  if (get_lock(lpnumber) == 0)
+	return;
+  /* Make sure lp device is open... */
+  while ((lp = open_printer(lpnumber)) == -1)
+	sleep(10);
+  if (copy_stream(0, lp) < 0)
+	dolog(LOGOPTS, "copy_stream: %m\n");
+  close(lp);
+  free_lock();
 }
 
 void server(int lpnumber)
@@ -618,14 +622,19 @@ void server(int lpnumber)
 	while ((fd = accept(netfd, (struct sockaddr *)&client, &clientlen)) >= 0) {
 		char host[INET6_ADDRSTRLEN];
 #ifdef	USE_LIBWRAP
-		if (hosts_ctl("p910nd", STRING_UNKNOWN, get_ip_str((struct sockaddr *)&client, host, sizeof(host)), STRING_UNKNOWN) == 0) {
+		if (hosts_ctl("p910nd", STRING_UNKNOWN, get_ip_str((struct sockaddr *)&client,
+			host, sizeof(host)), STRING_UNKNOWN) == 0) {
 			dolog(LOGOPTS,
-			       "Connection from %s port %hu rejected\n", get_ip_str((struct sockaddr *)&client, host, sizeof(host)), get_port((struct sockaddr *)&client));
+			       "Connection from %s port %hu rejected\n",
+				get_ip_str((struct sockaddr *)&client, host, sizeof(host)),
+				get_port((struct sockaddr *)&client));
 			close(fd);
 			continue;
 		}
 #endif
-		dolog(LOG_NOTICE, "Connection from %s port %hu accepted\n", get_ip_str((struct sockaddr *)&client, host, sizeof(host)), get_port((struct sockaddr *)&client));
+		dolog(LOG_NOTICE, "Connection from %s port %hu accepted\n",
+			get_ip_str((struct sockaddr *)&client, host, sizeof(host)),
+			get_port((struct sockaddr *)&client));
 		/*write(fd, "Printing", 8); */
 
 		/* Make sure lp device is open... */
