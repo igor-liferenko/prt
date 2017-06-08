@@ -25,17 +25,12 @@ start_service() {
 	args=""
 
 	append_bool "$section" bidirectional "-b"
-	append_string "$section" device "-f "
 	append_string "$section" bind "-i "
-	append_string "$section" port ""
 	config_get_bool "enabled" "$section" "enabled" '1'
 	[ "$enabled" -gt 0 ] && /usr/sbin/prt $args
 }
 
 stop_service() {
-	local section="$1"
-	config_get port "$section" port
-
 	PID_F=/var/run/prt.pid
 	[ -f $PID_F ] && kill $(cat $PID_F)
 }

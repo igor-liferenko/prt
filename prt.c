@@ -675,7 +675,7 @@ int main(int argc, char *argv[])
 			progname = p + 1;
 	}
 	lpnumber = '0';
-	while ((c = getopt(argc, argv, "bdi:f:v")) != EOF) {
+	while ((c = getopt(argc, argv, "bdi:v")) != EOF) {
 		switch (c) {
 		case 'b':
 			bidir = 1;
@@ -693,12 +693,6 @@ int main(int argc, char *argv[])
 			usage();
 			break;
 		}
-	}
-	argc -= optind;
-	argv += optind;
-	if (argc > 0) {
-		if (isdigit(argv[0][0]))
-			lpnumber = argv[0][0];
 	}
 
 	/* We used to pass (LOG_PERROR|LOG_PID|LOG_LPR|LOG_ERR) to syslog, but
