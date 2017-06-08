@@ -503,9 +503,6 @@ void one_job(int lpnumber)
 void server(int lpnumber)
 {
 	struct rlimit resourcelimit;
-#ifdef	USE_GETPROTOBYNAME
-	struct protoent *proto;
-#endif
 	int netfd = -1, fd, lp, one = 1;
 	socklen_t clientlen;
 	struct sockaddr_storage client;
@@ -564,17 +561,7 @@ void server(int lpnumber)
 	}
 	ressave = res;
 	while (res) {
-#ifdef	USE_GETPROTOBYNAME
-		if ((proto = getprotobyname("tcp6")) == NULL) {
-			if ((proto = getprotobyname("tcp")) == NULL) {
-				dolog(LOGOPTS, "Cannot find protocol for TCP!\n");
-				exit(1);
-			}
-		}
-		if ((netfd = socket(res->ai_family, res->ai_socktype, proto->p_proto)) < 0)
-#else
 		if ((netfd = socket(res->ai_family, res->ai_socktype, IPPROTO_IP)) < 0)
-#endif
 		{
 			dolog(LOGOPTS, "socket: %m\n");
 			close(netfd);
