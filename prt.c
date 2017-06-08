@@ -133,7 +133,7 @@ extern int hosts_ctl(char *daemon, char *client_name, char *client_addr, char *c
 #endif
 
 #define		BASEPORT	9100
-#define		PIDFILE		"/var/run/p910%cd.pid"
+#define		PIDFILE		"/var/run/prt.pid"
 #ifdef		LOCKFILE_DIR
 #define		LOCKFILE	LOCKFILE_DIR "/p910%cd"
 #else
@@ -524,7 +524,6 @@ void server(int lpnumber)
 	socklen_t clientlen;
 	struct sockaddr_storage client;
 	struct addrinfo hints, *res, *ressave;
-	char pidfilename[sizeof(PIDFILE)];
 	char service[sizeof(BASEPORT+lpnumber-'0')+1];
 	FILE *f;
 	const int bufsiz = 65536;
@@ -558,9 +557,8 @@ void server(int lpnumber)
 		fd = open("/dev/null", O_RDWR);	/* stdin */
 		(void)dup(fd);		/* stdout */
 		(void)dup(fd);		/* stderr */
-		(void)snprintf(pidfilename, sizeof(pidfilename), PIDFILE, lpnumber);
-		if ((f = fopen(pidfilename, "w")) == NULL) {
-			dolog(LOGOPTS, "%s: %m\n", pidfilename);
+		if ((f = fopen(PIDFILE, "w")) == NULL) {
+			dolog(LOGOPTS, "%s: %m\n", PIDFILE);
 			exit(1);
 		}
 		(void)fprintf(f, "%d\n", getpid());
@@ -681,7 +679,7 @@ int main(int argc, char *argv[])
 	char *p;
 
 	if (argc <= 0)		/* in case not provided in (x)inetd config */
-		progname = "p910nd";
+		progname = "prt";
 	else {
 		progname = argv[0];
 		if ((p = strrchr(progname, '/')) != 0)
