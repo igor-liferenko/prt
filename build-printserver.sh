@@ -21,13 +21,16 @@ uci set network.lan.ipaddr=192.168.1.2
 uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
-uci set p910nd.@p910nd[0].enabled=1
-uci commit p910nd
+uci set prt.@prt[0].enabled=1
+uci commit prt
 EOF
-ct prt.w
-make
-#cp prt files/bin/
-#...
+( cd /usr/local/prt/ && ct prt.w )
+make -C /usr/local/prt/
+mkdir -p files/usr/sbin/
+cp /usr/local/prt/prt files/usr/sbin/
+mkdir -p files/etc/config/
+cp /usr/local/prt/prt.config files/etc/config/prt
+mkdir -p files/etc/init.d/
+cp /usr/local/prt/prt.init files/etc/init.d/prt
 make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer" FILES=files/
 mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin bin/ar71xx/firmware.bin
-# TODO: do "opkg files" on current gl-inet and see all files that it has and recreate them here
