@@ -135,9 +135,9 @@ extern int hosts_ctl(char *daemon, char *client_name, char *client_addr, char *c
 #define		BASEPORT	9100
 #define		PIDFILE		"/var/run/prt.pid"
 #ifdef		LOCKFILE_DIR
-#define		LOCKFILE	LOCKFILE_DIR "/p910%cd"
+#define		LOCKFILE	LOCKFILE_DIR "/prt"
 #else
-#define		LOCKFILE	"/var/lock/subsys/p910%cd"
+#define		LOCKFILE	"/var/lock/subsys/prt"
 #endif
 #ifndef		PRINTERFILE
 #define         PRINTERFILE     "/dev/lp%c"
@@ -250,19 +250,17 @@ int open_printer(int lpnumber)
 
 int get_lock(int lpnumber)
 {
-	char lockname[sizeof(LOCKFILE)];
 	struct flock lplock;
 
-	(void)snprintf(lockname, sizeof(lockname), LOCKFILE, lpnumber);
-	if ((lockfd = open(lockname, O_CREAT | O_RDWR, 0666)) < 0) {
-		dolog(LOGOPTS, "%s: %m\n", lockname);
+	if ((lockfd = open(LOCKFILE, O_CREAT | O_RDWR, 0666)) < 0) {
+		dolog(LOGOPTS, "%s: %m\n", LOCKFILE);
 		return (0);
 	}
 	memset(&lplock, 0, sizeof(lplock));
 	lplock.l_type = F_WRLCK;
 	lplock.l_pid = getpid();
 	if (fcntl(lockfd, F_SETLKW, &lplock) < 0) {
-		dolog(LOGOPTS, "%s: %m\n", lockname);
+		dolog(LOGOPTS, "%s: %m\n", LOCKFILE);
 		return (0);
 	}
 	return (1);
@@ -714,9 +712,6 @@ int main(int argc, char *argv[])
 		if (isdigit(argv[0][0]))
 			lpnumber = argv[0][0];
 	}
-	/* change the n in argv[0] to match the port so ps will show that */
-	if ((p = strstr(progname, "p910n")) != NULL)
-		p[4] = lpnumber;
 
 	/* We used to pass (LOG_PERROR|LOG_PID|LOG_LPR|LOG_ERR) to syslog, but
 	 * syslog ignored the LOG_PID and LOG_PERROR option.  I.e. the intention
