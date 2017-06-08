@@ -24,9 +24,9 @@ uci commit dhcp
 uci set p910nd.@p910nd[0].enabled=1
 uci commit p910nd
 EOF
-( cd /usr/local/prt/ && ct prt.w )
-make -C /usr/local/prt/ SDK=~/openwrt/printserver/$SDK
-#cp /usr/local/prt/prt files/bin/
+ct prt.w
+make
+#cp prt files/bin/
 #...
 make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer" FILES=files/
 mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin bin/ar71xx/firmware.bin
