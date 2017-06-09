@@ -21,18 +21,16 @@ uci set network.lan.ipaddr=192.168.1.2
 uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
-uci set p910nd.@p910nd[0].enabled=1
-uci commit p910nd
 EOF
-rm -f /usr/local/prt/p910nd
+( cd /usr/local/prt/ && ct prt.w )
 make -C /usr/local/prt/
 mkdir -p files/usr/sbin/
-cp /usr/local/prt/p910nd files/usr/sbin/
+cp /usr/local/prt/prt files/usr/sbin/
 mkdir -p files/etc/config/
-cp /usr/local/prt/p910nd.config files/etc/config/p910nd
+cp /usr/local/prt/prt.config files/etc/config/prt
 mkdir -p files/etc/init.d/
-cp /usr/local/prt/p910nd.init files/etc/init.d/p910nd
+cp /usr/local/prt/prt.init files/etc/init.d/prt
 mkdir -p files/etc/rc.d/
-ln -s ../init.d/p910nd files/etc/rc.d/S50p910nd
-make image PROFILE=GLINET PACKAGES="kmod-usb-printer" FILES=files/
-mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-gl-inet-6416A-v1-squashfs-factory.bin bin/ar71xx/firmware.bin
+ln -s ../init.d/prt files/etc/rc.d/S50prt
+make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer" FILES=files/
+mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin bin/ar71xx/firmware.bin

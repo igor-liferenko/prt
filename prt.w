@@ -128,7 +128,9 @@
 
 #define		BASEPORT	9100
 #define		PIDFILE		"/var/run/prt.pid"
-#define		LOCKFILE	"/var/lock/prt"
+#define		LOCKFILE	"/tmp/prt"
+  /* FIXME: do not use locking */
+@^FIXME@>
 #define         PRINTERFILE     "/dev/usb/lp0"
 #define		LOGOPTS		LOG_ERR
 
