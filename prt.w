@@ -1,3 +1,6 @@
+\let\lheader\rheader
+\datethis
+
 @ 
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
