@@ -28,8 +28,6 @@ mkdir -p files/etc/config/
 cp /usr/local/prt/prt.config files/etc/config/prt
 mkdir -p files/etc/init.d/
 cp /usr/local/prt/prt.init files/etc/init.d/prt
-mkdir -p files/etc/rc.d/
-ln -s ../init.d/prt files/etc/rc.d/S50prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 while ! mount|grep -q ^192.168.1.3; do
