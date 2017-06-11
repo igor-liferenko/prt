@@ -35,5 +35,5 @@ while ! mount|grep -q ^192.168.1.3; do
 done
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs" FILES=files/
+make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs netcat" FILES=files/
 mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin bin/ar71xx/firmware.bin
