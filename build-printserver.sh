@@ -22,15 +22,20 @@ uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
 EOF
-( cd /usr/local/prt/ && ct prt.w )
-make -C /usr/local/prt/
 mkdir -p files/usr/sbin/
-cp /usr/local/prt/prt files/usr/sbin/
+ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/config/
 cp /usr/local/prt/prt.config files/etc/config/prt
 mkdir -p files/etc/init.d/
 cp /usr/local/prt/prt.init files/etc/init.d/prt
 mkdir -p files/etc/rc.d/
 ln -s ../init.d/prt files/etc/rc.d/S50prt
-make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer" FILES=files/
+mkdir -p files/etc/
+cat << EOF > files/etc/rc.local
+while ! mount|grep -q ^192.168.1.3; do
+  mount.nfs 192.168.1.3:/usr/local/prt/ /mnt/ -o nolock,vers=3
+done
+exit 0
+EOF
+make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs" FILES=files/
 mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin bin/ar71xx/firmware.bin
