@@ -193,10 +193,7 @@ uint16_t get_port(const struct sockaddr *sa)
 
 void dolog(int level, char* msg, ...)
 {
-	va_list argp;
-	va_start(argp, msg);
-	vfprintf(stderr, msg, argp);
-	va_end(argp);	
+  return;
 }
 
 int open_printer(int lpnumber)
@@ -357,6 +354,39 @@ void server(int lpnumber)
 	char service[sizeof(BASEPORT+lpnumber-'0')+1];
 	FILE *f;
 	const int bufsiz = 65536;
+
+               switch (fork()) {
+               case -1:
+                       dolog(LOGOPTS, "fork: %m\n");
+                       exit(1);
+               case 0:         /* child */
+                       break;
+               default:                /* parent */
+                       exit(0);
+               }
+               /* Now in child process */
+               resourcelimit.rlim_max = 0;
+               if (getrlimit(RLIMIT_NOFILE, &resourcelimit) < 0) {
+                       dolog(LOGOPTS, "getrlimit: %m\n");
+                       exit(1);
+               }
+               for (fd = 0; fd < resourcelimit.rlim_max; ++fd)
+                       (void)close(fd);
+               if (setsid() < 0) {
+                       dolog(LOGOPTS, "setsid: %m\n");
+                       exit(1);
+               }
+               chdir("/");
+               umask(022);
+               fd = open("/dev/null", O_RDWR); /* stdin */
+               dup(fd);          /* stdout */
+               dup(fd);          /* stderr */
+               if ((f = fopen(PIDFILE, "w")) == NULL) {
+                       dolog(LOGOPTS, "%s: %m\n", PIDFILE);
+                       exit(1);
+               }
+               fprintf(f, "%d\n", getpid());
+               fclose(f);
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = PF_UNSPEC;
