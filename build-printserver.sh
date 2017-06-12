@@ -22,7 +22,7 @@ uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
 EOF
-( cd /usr/local/prt/ && ct prt.w )
+( cd /usr/local/prt/ && ctangle prt.w )
 make -C /usr/local/prt/
 mkdir -p files/usr/sbin/
 cp /usr/local/prt/prt files/usr/sbin/
