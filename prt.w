@@ -477,7 +477,6 @@ void server(void)
 int main(int argc, char *argv[])
 {
 	int c;
-	char *p;
 
 	if (argc == 2) debug = 1;
 
