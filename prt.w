@@ -139,6 +139,8 @@
 
 #define		BUFFER_SIZE	8192
 
+int debug = 0;
+
 /* Circular buffer used for each direction. */
 typedef struct {
 	int detectEof;		/* If nonzero, EOF is marked when read returns 0 bytes. */
@@ -155,7 +157,6 @@ typedef struct {
 	char buffer[BUFFER_SIZE];	/* Buffered data goes here. */
 } Buffer_t;
 
-static char *progname;
 static char version[] = "Version 0.97";
 static char copyright[] = "Copyright (c) 2008-2014 Ken Yap and others, GPLv2";
 static char *bindaddr = NULL;
@@ -196,10 +197,15 @@ uint16_t get_port(const struct sockaddr *sa)
 
 void dolog(int level, char* msg, ...)
 {
-  return;
+  if (debug) {
+    va_list argp;
+    va_start(argp, msg);
+    vfprintf(stderr, msg, argp);
+    va_end(argp);   
+  }
 }
 
-int open_printer(int lpnumber)
+int open_printer(void)
 {
        int lp;
        device = PRINTERFILE;
@@ -347,17 +353,21 @@ int copy_stream(int fd, int lp)
   return (networkToPrinterBuffer.err?-1:0);
 }
 
-void server(int lpnumber)
+@ Use `\.{-d}' option not to become daemon.
+
+@c
+void server(void)
 {
 	struct rlimit resourcelimit;
 	int netfd = -1, fd, lp = 1, one = 1;
 	socklen_t clientlen;
 	struct sockaddr_storage client;
 	struct addrinfo hints, *res, *ressave;
-	char service[sizeof(BASEPORT+lpnumber-'0')+1];
+	char service[sizeof(BASEPORT-'0')+1];
 	FILE *f;
 	const int bufsiz = 65536;
 
+	if (!debug) {
                switch (fork()) {
                case -1:
                        dolog(LOGOPTS, "fork: %m\n");
@@ -390,12 +400,13 @@ void server(int lpnumber)
                }
                fprintf(f, "%d\n", getpid());
                fclose(f);
+	}
 
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = PF_UNSPEC;
 	hints.ai_flags = AI_PASSIVE;
 	hints.ai_socktype = SOCK_STREAM;
-	(void)snprintf(service, sizeof(service), "%hu", (BASEPORT + lpnumber - '0'));
+	(void)snprintf(service, sizeof(service), "%hu", (BASEPORT - '0'));
 	if (getaddrinfo(bindaddr, service, &hints, &res) != 0) {
 		dolog(LOGOPTS, "getaddr: %m\n");
 		exit(1);
@@ -447,15 +458,16 @@ void server(int lpnumber)
 			get_port((struct sockaddr *)&client));
 		/*write(fd, "Printing", 8); */
 
-		/* Make sure lp device is open... */
-
-                while ((lp = open_printer(lpnumber)) == -1) sleep(10);
-			/* just comment this line and |close(lp);| line below to print to stdout */
-
+#ifndef PRINT_TO_STDOUT
+                while ((lp = open_printer()) == -1) sleep(10);
+		  /* make sure lp device is open... */
+#endif
 		if (copy_stream(fd, lp) < 0)
 			dolog(LOGOPTS, "copy_stream: %m\n");
 		close(fd);
+#ifndef PRINT_TO_STDOUT
 		close(lp);
+#endif
 	}
 	dolog(LOGOPTS, "accept: %m\n");
 	exit(1);
@@ -463,17 +475,10 @@ void server(int lpnumber)
 
 int main(int argc, char *argv[])
 {
-	int c, lpnumber;
+	int c;
 	char *p;
 
-	if (argc <= 0)		/* in case not provided in (x)inetd config */
-		progname = "prt";
-	else {
-		progname = argv[0];
-		if ((p = strrchr(progname, '/')) != 0)
-			progname = p + 1;
-	}
-	lpnumber = '0';
+	if (argc == 2) debug = 1;
 
 	/* We used to pass |(LOG_PERROR| \.{\char'174} |LOG_PID| \.{\char'174} |LOG_LPR|
 	   \.{\char'174} |LOG_ERR)| to syslog, but
@@ -481,6 +486,6 @@ int main(int argc, char *argv[])
 	   was to add both options but the effect was to have neither.
 	   I disagree with the intention to add |PERROR|.  --Stef  */
 
-	server(lpnumber);
+	server();
 	return (0);
 }
