@@ -195,14 +195,15 @@ uint16_t get_port(const struct sockaddr *sa)
 	return port;
 }
 
-void dolog(int level, char* msg, ...)
+void dolog(char* msg, ...)
 {
-  if (debug) {
-    va_list argp;
-    va_start(argp, msg);
+  va_list argp;
+  va_start(argp, msg);
+  if (debug)
     vfprintf(stderr, msg, argp);
-    va_end(argp);   
-  }
+  else
+    vsyslog(LOG_INFO, msg, argp);
+  va_end(argp);   
 }
 
 int open_printer(void)
@@ -211,8 +212,8 @@ int open_printer(void)
        device = PRINTERFILE;
        if ((lp = open(device, O_WRONLY)) == -1) {
                if (errno != EBUSY)
-                       dolog(LOGOPTS, "%s: %m\n", device);
-               dolog(LOGOPTS, "%s: %m, will try opening later\n", device);
+                       dolog("%s: %m\n", device);
+               dolog("%s: %m, will try opening later\n", device);
        }
        return (lp);
 }
@@ -276,11 +277,11 @@ ssize_t readBuffer(Buffer_t * b)
 				b->endidx = 0;
 			}
 		} else if (result < 0) {
-			dolog(LOGOPTS, "read: %m\n");
+			dolog("read: %m\n");
 			b->err = 1;
 		}
 		else if (b->detectEof) {
-			dolog(LOG_DEBUG, "read: eof\n");
+			dolog("read: eof\n");
 			b->eof_read = 1;
 		} else
 			result = 0; // in case there is still data in the buffer, ignore the error by now
@@ -311,7 +312,7 @@ ssize_t writeBuffer(Buffer_t * b)
 			result = avail;
 		if (result < 0) {
 			/* Mark the output file in an error condition. */
-			dolog(LOGOPTS, "write: %m\n");
+			dolog("write: %m\n");
 			b->err = 1;
 		} else {
 			/* Zero or more bytes were written. */
@@ -343,12 +344,12 @@ int copy_stream(int fd, int lp)
 		while (!networkToPrinterBuffer.eof_sent && !networkToPrinterBuffer.err) {
 			result = readBuffer(&networkToPrinterBuffer);
 			if (result > 0)
-				dolog(LOG_DEBUG,"read %d bytes from network\n",result);
+				dolog("read %d bytes from network\n",result);
 			result = writeBuffer(&networkToPrinterBuffer);
 			if (result > 0)
-				dolog(LOG_DEBUG,"wrote %d bytes to printer\n",result);
+				dolog("wrote %d bytes to printer\n",result);
 		}
-		dolog(LOG_NOTICE, "Finished job: %d/%d bytes sent to printer\n",
+		dolog("Finished job: %d/%d bytes sent to printer\n",
 		networkToPrinterBuffer.totalout, networkToPrinterBuffer.totalin);
   return (networkToPrinterBuffer.err?-1:0);
 }
@@ -370,7 +371,7 @@ void server(void)
 	if (!debug) {
                switch (fork()) {
                case -1:
-                       dolog(LOGOPTS, "fork: %m\n");
+                       dolog("fork: %m\n");
                        exit(1);
                case 0:         /* child */
                        break;
@@ -380,13 +381,13 @@ void server(void)
                /* Now in child process */
                resourcelimit.rlim_max = 0;
                if (getrlimit(RLIMIT_NOFILE, &resourcelimit) < 0) {
-                       dolog(LOGOPTS, "getrlimit: %m\n");
+                       dolog("getrlimit: %m\n");
                        exit(1);
                }
                for (fd = 0; fd < resourcelimit.rlim_max; ++fd)
                        (void)close(fd);
                if (setsid() < 0) {
-                       dolog(LOGOPTS, "setsid: %m\n");
+                       dolog("setsid: %m\n");
                        exit(1);
                }
                chdir("/");
@@ -395,7 +396,7 @@ void server(void)
                dup(fd);          /* stdout */
                dup(fd);          /* stderr */
                if ((f = fopen(PIDFILE, "w")) == NULL) {
-                       dolog(LOGOPTS, "%s: %m\n", PIDFILE);
+                       dolog("%s: %m\n", PIDFILE);
                        exit(1);
                }
                fprintf(f, "%d\n", getpid());
@@ -408,40 +409,40 @@ void server(void)
 	hints.ai_socktype = SOCK_STREAM;
 	(void)snprintf(service, sizeof(service), "%hu", (BASEPORT - '0'));
 	if (getaddrinfo(bindaddr, service, &hints, &res) != 0) {
-		dolog(LOGOPTS, "getaddr: %m\n");
+		dolog("getaddr: %m\n");
 		exit(1);
 	}
 	ressave = res;
 	while (res) {
 		if ((netfd = socket(res->ai_family, res->ai_socktype, IPPROTO_IP)) < 0)
 		{
-			dolog(LOGOPTS, "socket: %m\n");
+			dolog("socket: %m\n");
 			close(netfd);
 			res = res->ai_next;
 			continue;
 		}
 		if (setsockopt(netfd, SOL_SOCKET, SO_RCVBUF, &bufsiz, sizeof(bufsiz)) < 0) {
-			dolog(LOGOPTS, "setsocketopt: SO_RCVBUF: %m\n");
+			dolog("setsocketopt: SO_RCVBUF: %m\n");
 			/* not fatal if it fails */
 		}
 		if (setsockopt(netfd, SOL_SOCKET, SO_SNDBUF, &bufsiz, sizeof(bufsiz)) < 0) {
-			dolog(LOGOPTS, "setsocketopt: SO_SNDBUF: %m\n");
+			dolog("setsocketopt: SO_SNDBUF: %m\n");
 			/* not fatal if it fails */
 		}
 		if (setsockopt(netfd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) < 0) {
-			dolog(LOGOPTS, "setsocketopt: SO_REUSEADDR: %m\n");
+			dolog("setsocketopt: SO_REUSEADDR: %m\n");
 			close(netfd);
 			res = res->ai_next;
 			continue;
 		}
 		if (bind(netfd, res->ai_addr, res->ai_addrlen) < 0) {
-			dolog(LOGOPTS, "bind: %m\n");
+			dolog("bind: %m\n");
 			close(netfd);
 			res = res->ai_next;
 			continue;
 		}
 		if (listen(netfd, 5) < 0) {
-			dolog(LOGOPTS, "listen: %m\n");
+			dolog("listen: %m\n");
 			close(netfd);
 			res = res->ai_next;
 			continue;
@@ -453,7 +454,7 @@ void server(void)
 	memset(&client, 0, sizeof(client));
 	while ((fd = accept(netfd, (struct sockaddr *)&client, &clientlen)) >= 0) {
 		char host[INET6_ADDRSTRLEN];
-		dolog(LOG_NOTICE, "Connection from %s port %hu accepted\n",
+		dolog("Connection from %s port %hu accepted\n",
 			get_ip_str((struct sockaddr *)&client, host, sizeof(host)),
 			get_port((struct sockaddr *)&client));
 		/*write(fd, "Printing", 8); */
@@ -463,13 +464,13 @@ void server(void)
 		  /* make sure lp device is open... */
 #endif
 		if (copy_stream(fd, lp) < 0)
-			dolog(LOGOPTS, "copy_stream: %m\n");
+			dolog("copy_stream: %m\n");
 		close(fd);
 #ifndef PRINT_TO_STDOUT
 		close(lp);
 #endif
 	}
-	dolog(LOGOPTS, "accept: %m\n");
+	dolog("accept: %m\n");
 	exit(1);
 }
 
@@ -485,6 +486,9 @@ int main(int argc, char *argv[])
 	   syslog ignored the |LOG_PID| and |LOG_PERROR| option.  I.e. the intention
 	   was to add both options but the effect was to have neither.
 	   I disagree with the intention to add |PERROR|.  --Stef  */
+
+	if (!debug)
+	  openlog("prt", LOG_PID, LOG_LPR);
 
 	server();
 	return (0);
