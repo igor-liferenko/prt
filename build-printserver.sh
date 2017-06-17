@@ -1,8 +1,6 @@
 #!/bin/bash -x
 # https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
 
-# FIXME: recall what was the problem about building firmware image on new year
-
 IMG=OpenWrt-ImageBuilder-15.05.1-ar71xx-generic.Linux-x86_64
 SDK=OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
 mkdir -p ~/openwrt
