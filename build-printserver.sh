@@ -32,3 +32,13 @@ exit 0
 EOF
 make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs netcat" FILES=files/
 mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin bin/ar71xx/firmware.bin
+
+# Flashing instructions:
+# Quickly type "tpl" when it says autobooting in 1 second.
+# setenv ipaddr 192.168.40.177
+# setenv serverip 192.168.40.190
+# erase 0xbf020000 +7c0000 # 7c0000: size of the firmware *
+# tftpboot 0x81000000 loader-1043nd/bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin
+# cp.b 0x81000000 0xbf020000 0x7c0000 # 7c0000: size of the firmware *
+# bootm 0xbf020000
+# * be aware that you may have a different size thus bricking your router (to find out actual value, run this: perl -e 'printf"%x\n",(stat$ARGV[0])[7]' path/to/firmware)
