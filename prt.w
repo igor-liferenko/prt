@@ -139,7 +139,7 @@
 
 #define		BUFFER_SIZE	8192
 
-int debug = 0;
+int boomerang = 0;
 
 /* Circular buffer used for each direction. */
 typedef struct {
@@ -199,7 +199,7 @@ void dolog(char* msg, ...)
 {
   va_list argp;
   va_start(argp, msg);
-  if (debug)
+  if (boomerang)
     vfprintf(stderr, msg, argp);
   else
     vsyslog(LOG_INFO, msg, argp);
@@ -354,7 +354,7 @@ int copy_stream(int fd, int lp)
   return (networkToPrinterBuffer.err?-1:0);
 }
 
-@ Use `\.{-d}' option not to become daemon.
+@ Use `\.{-b}' option not to become daemon and print received data to stdout.
 
 @c
 void server(void)
@@ -368,7 +368,7 @@ void server(void)
 	FILE *f;
 	const int bufsiz = 65536;
 
-	if (!debug) {
+	if (!boomerang) {
                switch (fork()) {
                case -1:
                        dolog("fork: %m\n");
@@ -459,16 +459,15 @@ void server(void)
 			get_port((struct sockaddr *)&client));
 		/*write(fd, "Printing", 8); */
 
-#ifndef PRINT_TO_STDOUT
-                while ((lp = open_printer()) == -1) sleep(10);
-		  /* make sure lp device is open... */
-#endif
+		if (!boomerang)
+                	while ((lp = open_printer()) == -1) sleep(10);
+		  	/* make sure lp device is open... */
+
 		if (copy_stream(fd, lp) < 0)
 			dolog("copy_stream: %m\n");
 		close(fd);
-#ifndef PRINT_TO_STDOUT
-		close(lp);
-#endif
+		if (!boomerang)
+			close(lp);
 	}
 	dolog("accept: %m\n");
 	exit(1);
@@ -478,7 +477,7 @@ int main(int argc, char *argv[])
 {
 	int c;
 
-	if (argc == 2) debug = 1;
+	if (argc == 2) boomerang = 1;
 
 	/* We used to pass |(LOG_PERROR| \.{\char'174} |LOG_PID| \.{\char'174} |LOG_LPR|
 	   \.{\char'174} |LOG_ERR)| to syslog, but
@@ -486,7 +485,7 @@ int main(int argc, char *argv[])
 	   was to add both options but the effect was to have neither.
 	   I disagree with the intention to add |PERROR|.  --Stef  */
 
-	if (!debug)
+	if (!boomerang)
 	  openlog("prt", LOG_PID, LOG_LPR);
 
 	server();
