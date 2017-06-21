@@ -34,7 +34,7 @@ done
 prt
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs netcat" FILES=files/
+make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs netcat strace" FILES=files/
 mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /srv/tftp/fw.bin
 
 # Flashing instructions:
