@@ -16,9 +16,13 @@ cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
 uci set network.lan.ipaddr=192.168.1.2
+uci set network.lan.gateway=192.168.1.1
+uci set network.lan.dns=192.168.1.1
 uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
+uci set system.@system[0].timezone=GMT-7
+uci commit system
 EOF
 mkdir -p files/usr/sbin/
 ln -s /mnt/prt files/usr/sbin/prt
