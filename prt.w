@@ -129,7 +129,7 @@
 #include	<netinet/in.h>
 #include	<arpa/inet.h>
 
-#define		BASEPORT	9100
+#define		PORT	9100
 #define		PIDFILE		"/var/run/prt.pid"
 #define		LOCKFILE	"/tmp/prt"
   /* FIXME: do not use locking */
@@ -240,7 +240,7 @@ void prepBuffer(Buffer_t * b, fd_set * readfds, fd_set * writefds)
 	if (b->outfd>=0 && !b->err && (b->bytes != 0 || b->eof_read)) {
 		FD_SET(b->outfd, writefds);
 	}
-	if (b->infd>=0 && !b->eof_read && b->bytes < sizeof(b->buffer)) {
+	if (b->infd>=0 && !b->eof_read && b->bytes < sizeof b->buffer) {
 		FD_SET(b->infd, readfds);
 	}
 }
@@ -254,13 +254,13 @@ ssize_t readBuffer(Buffer_t * b)
 	if (b->bytes == 0 || b->err) {
 		/* The buffer is empty. */
 		b->startidx = b->endidx = 0;
-		avail = sizeof(b->buffer);
-	} else if (b->bytes == sizeof(b->buffer)) {
+		avail = sizeof b->buffer;
+	} else if (b->bytes == sizeof b->buffer) {
 		/* The buffer is full. */
 		avail = 0;
 	} else if (b->endidx > b->startidx) {
 		/* The buffer is not wrapped: from endidx to end of buffer is free. */
-		avail = sizeof(b->buffer) - b->endidx;
+		avail = sizeof b->buffer - b->endidx;
 	} else {
 		/* The buffer is wrapped: gap between endidx and startidx is free. */
 		avail = b->startidx - b->endidx;
@@ -272,7 +272,7 @@ ssize_t readBuffer(Buffer_t * b)
 			b->endidx += result;
 			b->totalin += result;
 			b->bytes += result;
-			if (b->endidx == sizeof(b->buffer)) {
+			if (b->endidx == sizeof b->buffer) {
 				/* Time to wrap the buffer. */
 				b->endidx = 0;
 			}
@@ -303,7 +303,7 @@ ssize_t writeBuffer(Buffer_t * b)
 		avail = b->endidx - b->startidx;
 	} else {
 		/* Buffer is wrapped. Can only write the top (first) part. */
-		avail = sizeof(b->buffer) - b->startidx;
+		avail = sizeof b->buffer - b->startidx;
 	}
 	if (avail) {
 		if (b->outfd>=0)
@@ -320,7 +320,7 @@ ssize_t writeBuffer(Buffer_t * b)
 			if (b->outfd>=0)
 				b->totalout += result;
 			b->bytes -= result;
-			if (b->startidx == sizeof(b->buffer)) {
+			if (b->startidx == sizeof b->buffer) {
 				/* Unwrap the buffer. */
 				b->startidx = 0;
 			}
@@ -364,7 +364,7 @@ void server(void)
 	socklen_t clientlen;
 	struct sockaddr_storage client;
 	struct addrinfo hints, *res, *ressave;
-	char service[sizeof(BASEPORT-'0')+1];
+
 	FILE *f;
 	const int bufsiz = 65536;
 
@@ -403,13 +403,13 @@ void server(void)
                fclose(f);
 	}
 
-	memset(&hints, 0, sizeof(hints));
+	memset(&hints, 0, sizeof hints);
 	hints.ai_family = PF_UNSPEC;
 	hints.ai_flags = AI_PASSIVE;
 	hints.ai_socktype = SOCK_STREAM;
-	(void)snprintf(service, sizeof(service), "%hu", (BASEPORT - '0'));
-	if (getaddrinfo(bindaddr, service, &hints, &res) != 0) {
+	if (getaddrinfo(bindaddr, PORT, &hints, &res) != 0) {
 		dolog("getaddr: %m\n");
+		unlink(PIDFILE);
 		exit(1);
 	}
 	ressave = res;
@@ -421,15 +421,15 @@ void server(void)
 			res = res->ai_next;
 			continue;
 		}
-		if (setsockopt(netfd, SOL_SOCKET, SO_RCVBUF, &bufsiz, sizeof(bufsiz)) < 0) {
+		if (setsockopt(netfd, SOL_SOCKET, SO_RCVBUF, &bufsiz, sizeof bufsiz) < 0) {
 			dolog("setsocketopt: SO_RCVBUF: %m\n");
 			/* not fatal if it fails */
 		}
-		if (setsockopt(netfd, SOL_SOCKET, SO_SNDBUF, &bufsiz, sizeof(bufsiz)) < 0) {
+		if (setsockopt(netfd, SOL_SOCKET, SO_SNDBUF, &bufsiz, sizeof bufsiz) < 0) {
 			dolog("setsocketopt: SO_SNDBUF: %m\n");
 			/* not fatal if it fails */
 		}
-		if (setsockopt(netfd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof(one)) < 0) {
+		if (setsockopt(netfd, SOL_SOCKET, SO_REUSEADDR, &one, sizeof one) < 0) {
 			dolog("setsocketopt: SO_REUSEADDR: %m\n");
 			close(netfd);
 			res = res->ai_next;
@@ -450,12 +450,12 @@ void server(void)
 		break;
 	}
 	freeaddrinfo(ressave);
-	clientlen = sizeof(client);
-	memset(&client, 0, sizeof(client));
+	clientlen = sizeof client;
+	memset(&client, 0, sizeof client);
 	while ((fd = accept(netfd, (struct sockaddr *)&client, &clientlen)) >= 0) {
 		char host[INET6_ADDRSTRLEN];
 		dolog("Connection from %s port %hu accepted\n",
-			get_ip_str((struct sockaddr *)&client, host, sizeof(host)),
+			get_ip_str((struct sockaddr *)&client, host, sizeof host),
 			get_port((struct sockaddr *)&client));
 		/*write(fd, "Printing", 8); */
 
@@ -470,6 +470,7 @@ void server(void)
 			close(lp);
 	}
 	dolog("accept: %m\n");
+        unlink(PIDFILE);
 	exit(1);
 }
 
@@ -485,9 +486,12 @@ int main(int argc, char *argv[])
 	   was to add both options but the effect was to have neither.
 	   I disagree with the intention to add |PERROR|.  --Stef  */
 
-	if (!boomerang)
+	if (!boomerang) {
 	  openlog("prt", LOG_PID, LOG_LPR);
-
+	  time_t now;
+	  time(&now);
+          dolog("prt started %.*s\n", 8,asctime(gmtime(&now))+11);
+        }
 	server();
 	return (0);
 }
