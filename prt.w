@@ -260,7 +260,7 @@ ssize_t readBuffer(Buffer_t * b)
 		avail = 0;
 	} else if (b->endidx > b->startidx) {
 		/* The buffer is not wrapped: from endidx to end of buffer is free. */
-		avail = sizeof b->buffer - b->endidx;
+		avail = sizeof(b->buffer) - b->endidx; /* check precedence if parens are needed */
 	} else {
 		/* The buffer is wrapped: gap between endidx and startidx is free. */
 		avail = b->startidx - b->endidx;
@@ -303,7 +303,7 @@ ssize_t writeBuffer(Buffer_t * b)
 		avail = b->endidx - b->startidx;
 	} else {
 		/* Buffer is wrapped. Can only write the top (first) part. */
-		avail = sizeof b->buffer - b->startidx;
+		avail = sizeof(b->buffer) - b->startidx; /* FIXME: check precedence if parens are needed */
 	}
 	if (avail) {
 		if (b->outfd>=0)
