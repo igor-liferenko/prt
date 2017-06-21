@@ -129,7 +129,7 @@
 #include	<netinet/in.h>
 #include	<arpa/inet.h>
 
-#define		PORT	9100
+#define		PORT	"9100"
 #define		PIDFILE		"/var/run/prt.pid"
 #define		LOCKFILE	"/tmp/prt"
   /* FIXME: do not use locking */
