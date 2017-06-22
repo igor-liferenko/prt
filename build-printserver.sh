@@ -3,15 +3,23 @@
 
 IMG=OpenWrt-ImageBuilder-15.05.1-ar71xx-generic.Linux-x86_64
 SDK=OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
+
+if ! [ -d /var/local/printserver/$SDK/ ]; then
+  rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
+  wget -O /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2 https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/$SDK.tar.bz2 || exit
+  rm -fr /var/local/printserver/
+  mkdir /var/local/printserver/
+  tar -C /var/local/printserver -jxf /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
+  rm -f /var/local/printserver-sdk
+  ln -s /var/local/printserver/*/staging_dir/toolchain* /var/local/printserver-sdk
+fi
 mkdir -p ~/openwrt
 cd ~/openwrt
 [ -e $IMG.tar.bz2 ] || wget https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/$IMG.tar.bz2 || exit
-[ -e $SDK.tar.bz2 ] || wget https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/$SDK.tar.bz2 || exit
 rm -fr printserver/
 mkdir printserver/
 cd printserver/
 tar -jxf ../$IMG.tar.bz2
-tar -jxf ../$SDK.tar.bz2
 cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
