@@ -4,7 +4,10 @@
 IMG=OpenWrt-ImageBuilder-15.05.1-ar71xx-generic.Linux-x86_64
 SDK=OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
 
-[ ! -d /var/local/printserver/$SDK/ ] && echo replace old sdk with new in /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2, run superbuild and reinstall
+if [ ! -d /var/local/printserver/$SDK/ ]; then
+  echo replace old sdk with new in /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2, run superbuild and reinstall
+  exit
+fi
 
 mkdir -p ~/openwrt
 cd ~/openwrt
