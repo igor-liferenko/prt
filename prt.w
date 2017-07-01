@@ -488,6 +488,7 @@ void server(void)
                }
                fprintf(f, "%d\n", getpid());
                fclose(f);
+dolog("get lock\x0a");
 	}
 
 	memset(&hints, 0, sizeof hints);
@@ -557,6 +558,7 @@ void server(void)
 			close(lp);
 	}
 	dolog("accept: %m\n");
+        dolog("free lock\x0a");
         unlink(PIDFILE);
 	exit(1);
 }
