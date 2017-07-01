@@ -377,13 +377,13 @@ int copy_stream(int fd, int lp)
                                /* Read network data. */
                                result = readBuffer(&networkToPrinterBuffer);
                                if (result > 0)
-                                       dolog(LOG_DEBUG,"read %d bytes from network\n",result);
+                                       dolog("read %d bytes from network\n",result);
                        }
                        if (FD_ISSET(lp, &readfds)) {
                                /* Read printer data, but pace it more slowly. */
                                result = readBuffer(&printerToNetworkBuffer);
                                if (result > 0) {
-                                       dolog(LOG_DEBUG,"read %d bytes from printer\n",result);
+                                       dolog("read %d bytes from printer\n",result);
                                        gettimeofday(&then, 0);
                                        // wait 100 msec before reading again.
                                        then.tv_usec += 100000;
@@ -398,29 +398,43 @@ int copy_stream(int fd, int lp)
                                /* Write data to printer. */
                                result = writeBuffer(&networkToPrinterBuffer);
                                if (result > 0)
-                                       dolog(LOG_DEBUG,"wrote %d bytes to printer\n",result);
+                                       dolog("wrote %d bytes to printer\n",result);
                        }
-                       if (FD_ISSET(fd, &writefds) || printerToNetworkBuffer.outfd == -1) {
-                               /* Write data to network. */
-                               result = writeBuffer(&printerToNetworkBuffer);
-                               /* If socket write error, discard further data from printer */
-                               if (result < 0) {
-                                       printerToNetworkBuffer.outfd = -1;
-                                       printerToNetworkBuffer.err = 0;
-                                       result = 0;
-                                   dolog(LOG_DEBUG,"network write error, discarding further"
-                                     "printer data\n",result);
-                               }
-                               else if (result > 0) {
-                                       if (printerToNetworkBuffer.outfd == -1)
-                                       dolog(LOG_DEBUG,"discarded %d bytes from printer\n",result);
-                                       else
-                                             dolog(LOG_DEBUG,"wrote %d bytes to network\n",result);
-                               }
+                       if (FD_ISSET(fd, &writefds)) {
+/* write data received from printer to syslog */
+
+        int avail;
+        if (printerToNetworkBuffer.bytes == 0 || printerToNetworkBuffer.err) {
+                /* Buffer is empty. */
+                avail = 0;
+        }
+        else if (printerToNetworkBuffer.endidx > printerToNetworkBuffer.startidx) {
+                /* Buffer is not wrapped. Can write all the data. */
+                avail = printerToNetworkBuffer.endidx - printerToNetworkBuffer.startidx;
+        }
+        else {
+                /* Buffer is wrapped. Can only write the top (first) part. */
+                avail = sizeof printerToNetworkBuffer.buffer - printerToNetworkBuffer.startidx;
+        }
+        if (avail) {
+                dolog("printer sent us this: %.*s\x0a",avail,
+                  printerToNetworkBuffer.buffer + printerToNetworkBuffer.startidx);
+            
+                       
+                        printerToNetworkBuffer.startidx += avail;
+                        printerToNetworkBuffer.totalout += avail;
+                        printerToNetworkBuffer.bytes -= avail;
+                        if (printerToNetworkBuffer.startidx ==
+                          sizeof printerToNetworkBuffer.buffer)
+                                /* Unwrap the buffer. */
+                                printerToNetworkBuffer.startidx = 0;
+        }
+        else if (printerToNetworkBuffer.eof_read)
+                printerToNetworkBuffer.eof_sent = 1;
+                               
                        }
                }
-               dolog(LOG_NOTICE,
-                      "Finished job: %d/%d bytes sent to printer, %d/%d bytes sent to network\n",
+               dolog("Finished job: %d/%d bytes sent to printer, %d/%d bytes sent to network\n",
                       networkToPrinterBuffer.totalout,networkToPrinterBuffer.totalin,
                       printerToNetworkBuffer.totalout, printerToNetworkBuffer.totalin);
 
