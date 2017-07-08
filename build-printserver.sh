@@ -66,11 +66,6 @@ make defconfig
 make || exit
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
-rm -fr /var/local/printserver/
-mkdir /var/local/printserver/
-tar -C /var/local/printserver -jxf bin/ar71xx/OpenWrt-SDK-*.tar.bz2
-rm -f /var/local/printserver-sdk
-ln -s /var/local/printserver/*/staging_dir/toolchain* /var/local/printserver-sdk
 rm -f /usr/local/SUPER_DEBIAN/printserver.img
 mv bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver.img
 
