@@ -1,22 +1,17 @@
 #!/bin/bash -x
-# https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
 
-IMG=OpenWrt-ImageBuilder-15.05.1-ar71xx-generic.Linux-x86_64
-SDK=OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64
+# https://wiki.openwrt.org/doc/howto/build
 
-if [ ! -d /var/local/printserver/$SDK/ ]; then
-  echo replace old sdk with new in /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2, run superbuild and reinstall
-  exit
-fi
+export PATH=$PATH:~/openwrt/printserver/staging_dir/host/bin
 
-mkdir -p ~/openwrt
-cd ~/openwrt
-[ -e $IMG.tar.bz2 ] || wget https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/$IMG.tar.bz2 || exit
-rm -fr printserver/
-mkdir printserver/
+mkdir -p ~/openwrt/
+cd ~/openwrt/
+[ -d printserver ] && exit
+git clone git://github.com/openwrt/openwrt.git printserver
 cd printserver/
-tar -jxf ../$IMG.tar.bz2
-cd $IMG/
+./scripts/feeds update packages
+./scripts/feeds install nfs-utils netcat strace
+exit
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
 uci set network.lan.ipaddr=192.168.1.2
@@ -38,8 +33,43 @@ done
 prt
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="kmod-usb-printer nfs-utils kmod-fs-nfs netcat strace" FILES=files/
-mv bin/ar71xx/openwrt-15.05.1-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /srv/tftp/fw.bin
+cat << EOF > .config
+CONFIG_TARGET_ar71xx=y
+CONFIG_TARGET_ar71xx_generic=y
+CONFIG_TARGET_ar71xx_generic_GLINET=y
+CONFIG_DEVEL=y
+CONFIG_BUILD_NLS=y
+CONFIG_SDK=y
+CONFIG_PACKAGE_iconv=y
+CONFIG_PACKAGE_libcharset=y
+CONFIG_PACKAGE_libiconv-full=y
+CONFIG_PACKAGE_libintl-full=y
+CONFIG_BUSYBOX_CUSTOM=y
+CONFIG_BUSYBOX_CONFIG_LAST_SUPPORTED_WCHAR=0
+CONFIG_BUSYBOX_CONFIG_LOCALE_SUPPORT=y
+CONFIG_BUSYBOX_CONFIG_SUBST_WCHAR=65533
+CONFIG_BUSYBOX_CONFIG_UNICODE_PRESERVE_BROKEN=y
+CONFIG_BUSYBOX_CONFIG_UNICODE_SUPPORT=y
+CONFIG_BUSYBOX_CONFIG_UNICODE_USING_LOCALE=y
+CONFIG_PACKAGE_kmod-nls-utf8=y
+CONFIG_PACKAGE_kmod-fs-nfs=y
+CONFIG_PACKAGE_nfs-utils=y
+CONFIG_PACKAGE_strace=y
+CONFIG_PACKAGE_netcat=y
+CONFIG_PACKAGE_kmod-usb-printer=y
+EOF
+make defconfig
+make
+rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
+cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
+rm -fr /var/local/printserver/
+mkdir /var/local/printserver/
+tar -C /var/local/printserver -jxf bin/ar71xx/OpenWrt-SDK-*.tar.bz2
+rm -f /var/local/printserver-sdk
+ln -s /var/local/printserver/*/staging_dir/toolchain* /var/local/printserver-sdk
+rm -f /srv/tftp/fw.bin
+mv bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /srv/tftp/fw.bin
+
 
 # Flashing instructions:
 # Quickly type "tpl" when it says autobooting in 1 second.
