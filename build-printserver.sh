@@ -2,6 +2,11 @@
 
 # https://wiki.openwrt.org/doc/howto/build
 
+if [ `whereami` = notebook ]; then
+  echo superbuild is done not on notebook, so this script must not be run on notebook
+  exit
+fi
+
 export PATH=$PATH:~/openwrt/printserver/staging_dir/host/bin
 
 mkdir -p ~/openwrt/
@@ -67,11 +72,13 @@ mkdir /var/local/printserver/
 tar -C /var/local/printserver -jxf bin/ar71xx/OpenWrt-SDK-*.tar.bz2
 rm -f /var/local/printserver-sdk
 ln -s /var/local/printserver/*/staging_dir/toolchain* /var/local/printserver-sdk
-rm -f /srv/tftp/fw.bin
-mv bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /srv/tftp/fw.bin
+rm -f /usr/local/SUPER_DEBIAN/printserver.img
+mv bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver.img
 
 
 # Flashing instructions:
+# rm -f /srv/tftp/fw.bin
+# cp /usr/local/SUPER_DEBIAN/printserver.img /srv/tftp/fw.bin
 # Quickly type "tpl" when it says autobooting in 1 second.
 # setenv ipaddr 192.168.1.2
 # setenv serverip 192.168.1.3
