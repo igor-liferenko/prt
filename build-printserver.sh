@@ -65,7 +65,7 @@ CONFIG_PACKAGE_kmod-usb-printer=y
 CONFIG_PACKAGE_kmod-usb-ohci=y
 EOF
 make defconfig
-make
+make || exit
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -fr /var/local/printserver/
