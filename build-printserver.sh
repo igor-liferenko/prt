@@ -16,7 +16,6 @@ git clone git://github.com/openwrt/openwrt.git printserver
 cd printserver/
 ./scripts/feeds update packages
 ./scripts/feeds install nfs-utils netcat strace
-exit
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
 uci set network.lan.ipaddr=192.168.1.2
@@ -41,7 +40,7 @@ EOF
 cat << EOF > .config
 CONFIG_TARGET_ar71xx=y
 CONFIG_TARGET_ar71xx_generic=y
-CONFIG_TARGET_ar71xx_generic_GLINET=y
+CONFIG_TARGET_ar71xx_generic_TLWR1043=y
 CONFIG_DEVEL=y
 CONFIG_BUILD_NLS=y
 CONFIG_SDK=y
@@ -62,6 +61,8 @@ CONFIG_PACKAGE_nfs-utils=y
 CONFIG_PACKAGE_strace=y
 CONFIG_PACKAGE_netcat=y
 CONFIG_PACKAGE_kmod-usb-printer=y
+# FIXME: not sure if this package is needed:
+CONFIG_PACKAGE_kmod-usb-ohci=y
 EOF
 make defconfig
 make
