@@ -28,7 +28,7 @@ ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 while ! mount|grep -q ^192.168.1.3; do
-  mount.nfs 192.168.1.3:/usr/local/prt/ /mnt/ -o nolock,vers=3
+  mount.nfs 192.168.1.3:/home/user/prt/ /mnt/ -o nolock,vers=3
 done
 prt
 exit 0
