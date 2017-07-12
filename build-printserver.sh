@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+# TODO: add copying sysupgrade image to /usr/local/SUPER_DEBIAN/ also so that it will be possible
+# to reflash via mtd and run this script again.
+
 # https://wiki.openwrt.org/doc/howto/build
 
 if [ `whereami` = notebook ]; then
