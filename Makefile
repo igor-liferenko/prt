@@ -1,7 +1,7 @@
 ifeq ($(MAKECMDGOALS),)
 CC=prt-gcc
 else
-CC=clang -Weverything
+CC=clang
 endif
 
 prt: prt.c
