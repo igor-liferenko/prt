@@ -419,7 +419,7 @@ int copy_stream(int fd, int lp)
                 avail = sizeof printerToNetworkBuffer.buffer - printerToNetworkBuffer.startidx;
         }
         if (avail) {
-                dolog("printer sent us this: %.*s\x0a",avail,
+                dolog("printer sent us this: %.*s\n",avail,
                   printerToNetworkBuffer.buffer + printerToNetworkBuffer.startidx);
             
                        
@@ -490,7 +490,7 @@ void server(void)
                }
                fprintf(f, "%d\n", getpid());
                fclose(f);
-dolog("get lock\x0a");
+dolog("get lock\n");
 	}
 
 	memset(&hints, 0, sizeof hints);
@@ -560,7 +560,7 @@ dolog("get lock\x0a");
 			close(lp);
 	}
 	dolog("accept: %m\n");
-        dolog("free lock\x0a");
+        dolog("free lock\n");
         unlink(PIDFILE);
 	exit(1);
 }
