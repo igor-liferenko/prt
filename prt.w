@@ -1,7 +1,9 @@
 \let\lheader\rheader
 \datethis
 
-@ 
+@ TODO: use wide-character API
+
+
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
 	/dev/lpn, where n = 0,1,2.
