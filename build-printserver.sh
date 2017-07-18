@@ -70,7 +70,7 @@ make || exit
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -f /usr/local/SUPER_DEBIAN/printserver.img
-mv bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver.img
+cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver.img
 
 
 # Flashing instructions:
