@@ -14,3 +14,6 @@ ifeq ($(CC),)
 else
 	$(CC) -o $@ $<
 endif
+
+forkpty: forkpty.c
+	clang -o $@ $< -lutil
