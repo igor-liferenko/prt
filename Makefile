@@ -15,5 +15,5 @@ else
 	$(CC) -o $@ $<
 endif
 
-forkpty: forkpty.c
+select: select.c
 	clang -o $@ $< -lutil
