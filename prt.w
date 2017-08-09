@@ -444,6 +444,8 @@ int copy_stream(int fd, int lp)
 }
 
 @ Use `\.{-b}' option not to become daemon and print received data to stdout.
+Use this as `\.{prt -b {\char'174} nc 192.168.1.3 5000}', after running
+`\.{nc -l -p 5000}' on notebook.
 
 @c
 void server(void)
