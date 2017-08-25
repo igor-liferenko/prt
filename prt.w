@@ -581,9 +581,8 @@ int main(int argc, char *argv[])
 
 	if (!boomerang) {
 	  openlog("prt", LOG_PID, LOG_LPR);
-	  time_t now;
-	  time(&now);
-          dolog("prt started %.*s\n", 8,asctime(gmtime(&now))+11);
+	  time_t now = time(NULL);
+          dolog("prt started %.*s\n", 8, ctime(&now) + 11);
         }
 	server();
 	return (0);
