@@ -64,6 +64,8 @@ CONFIG_PACKAGE_nfs-utils=y
 CONFIG_PACKAGE_strace=y
 CONFIG_PACKAGE_netcat=y
 CONFIG_PACKAGE_kmod-usb-printer=y
+CONFIG_PACKAGE_kmod-usb-serial=y
+CONFIG_PACKAGE_kmod-usb-serial-ftdi=y
 EOF
 make defconfig
 make || exit
