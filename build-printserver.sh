@@ -18,7 +18,7 @@ cd printserver/
 ./scripts/feeds install nfs-utils netcat strace mpc
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
-uci set network.lan.ipaddr=192.168.1.2
+uci set network.lan.ipaddr=192.168.1.3
 uci set network.lan.gateway=192.168.1.1
 uci set network.lan.dns=192.168.1.1
 uci commit network
@@ -31,8 +31,8 @@ mkdir -p files/usr/sbin/
 ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
-while ! mount|grep -q ^192.168.1.3; do
-  mount.nfs 192.168.1.3:/home/user/prt/ /mnt/ -o nolock,vers=3
+while ! mount|grep -q ^192.168.1.2; do
+  mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
 done
 prt
 exit 0
@@ -79,8 +79,8 @@ cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin /usr
 # rm -f /srv/tftp/fw.bin
 # cp /usr/local/SUPER_DEBIAN/printserver.img /srv/tftp/fw.bin
 # Quickly type "tpl" when it says autobooting in 1 second.
-# setenv ipaddr 192.168.1.2
-# setenv serverip 192.168.1.3
+# setenv ipaddr 192.168.1.3
+# setenv serverip 192.168.1.2
 # erase 0xbf020000 +7c0000 # 7c0000: size of the firmware *
 # tftpboot 0x81000000 fw.bin
 # cp.b 0x81000000 0xbf020000 0x7c0000 # 7c0000: size of the firmware *
