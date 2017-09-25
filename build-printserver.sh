@@ -1,8 +1,5 @@
 #!/bin/bash -x
 
-# TODO: add copying sysupgrade image to /usr/local/SUPER_DEBIAN/ also so that it will be possible
-# to reflash via mtd and run this script again.
-
 # https://wiki.openwrt.org/doc/howto/build
 
 if [ `whereami` = notebook ]; then
@@ -18,7 +15,7 @@ cd ~/openwrt/
 git clone git://github.com/openwrt/openwrt.git printserver
 cd printserver/
 ./scripts/feeds update packages
-./scripts/feeds install nfs-utils netcat strace
+./scripts/feeds install nfs-utils netcat strace mpc
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
 uci set network.lan.ipaddr=192.168.1.2
@@ -66,13 +63,16 @@ CONFIG_PACKAGE_netcat=y
 CONFIG_PACKAGE_kmod-usb-printer=y
 CONFIG_PACKAGE_kmod-usb-serial=y
 CONFIG_PACKAGE_kmod-usb-serial-ftdi=y
+CONFIG_PACKAGE_mpc=y
 EOF
 make defconfig
 make || exit
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
-rm -f /usr/local/SUPER_DEBIAN/printserver.img
-cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver.img
+rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
+cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver-factory.img
+rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
+cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
 
 
 # Flashing instructions:
