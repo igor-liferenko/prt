@@ -1,5 +1,13 @@
 #!/bin/bash -x
 
+# TODO: make telnet login work by default
+# For this, examine start_service() in /etc/init.d/telnet and compare with `h'
+# (i.e., is it necessary to remove if-then-fi from start_service(), considering that we do
+# not use `passwd'?); also, check /bin/login.sh and decide if the following
+# must be added there in this build script:
+#   #!/bin/sh
+#   exec /bin/ash --login
+
 # https://wiki.openwrt.org/doc/howto/build
 
 if [ `whereami` = notebook ]; then
