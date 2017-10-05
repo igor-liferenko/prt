@@ -33,16 +33,15 @@ uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
 uci set system.@system[0].timezone=GMT-7
+uci set system.@system[0].log_ip=192.168.1.2
 uci commit system
 EOF
 mkdir -p files/usr/sbin/
 ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
-while ! mount|grep -q ^192.168.1.2; do
-  mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
-done
-prt
+tel | logger -t tel &
+#mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
 exit 0
 EOF
 cat << EOF > .config
