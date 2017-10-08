@@ -16,7 +16,7 @@ fi
 
 # https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
 
-# FIXME: is vsyscall=emulate necessary for 1043nd?
+# FIXME: is vsyscall=emulate necessary here?
 
 IMG=OpenWrt-ImageBuilder-ar71xx-generic.Linux-x86_64
 SDK=OpenWrt-SDK-ar71xx-generic_gcc-5.3.0_musl-1.1.16.Linux-x86_64
@@ -50,7 +50,7 @@ exit 0
 EOF
 make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
-cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
+cp ../../$SDK.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
 cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver-factory.img
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
