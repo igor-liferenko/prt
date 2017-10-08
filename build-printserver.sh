@@ -9,22 +9,26 @@
 #   exec /bin/ash --login
 # Also, see https://github.com/openwrt/openwrt/commit/a35a7afc9f15b4c084c996ab0dbcd833b45f30d5
 
-# https://wiki.openwrt.org/doc/howto/build
-
 if [ `whereami` = notebook ]; then
   echo superbuild is done not on notebook, so this script must not be run on notebook
   exit
 fi
 
-export PATH=$PATH:~/openwrt/printserver/staging_dir/host/bin
+# https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
 
-mkdir -p ~/openwrt/
-cd ~/openwrt/
-[ -d printserver ] && exit
-git clone git://github.com/openwrt/openwrt.git printserver
+# FIXME: is vsyscall=emulate necessary for 1043nd?
+
+IMG=OpenWrt-ImageBuilder-ar71xx-generic.Linux-x86_64
+SDK=OpenWrt-SDK-ar71xx-generic_gcc-5.3.0_musl-1.1.16.Linux-x86_64
+mkdir -p ~/openwrt
+cd ~/openwrt
+[ -e $IMG.tar.bz2 ] || wget https://downloads.openwrt.org/snapshots/trunk/ar71xx/generic/$IMG.tar.bz2 || exit
+[ -e $SDK.tar.bz2 ] || wget https://downloads.openwrt.org/snapshots/trunk/ar71xx/generic/$SDK.tar.bz2 || exit
+rm -fr printserver/
+mkdir printserver/
 cd printserver/
-./scripts/feeds update packages
-./scripts/feeds install nfs-utils netcat strace mpc
+tar -jxf ../$IMG.tar.bz2
+cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
 uci set network.lan.ipaddr=192.168.1.3
@@ -44,36 +48,7 @@ cat << EOF > files/etc/rc.local
 tel | logger -t tel &
 exit 0
 EOF
-cat << EOF > .config
-CONFIG_TARGET_ar71xx=y
-CONFIG_TARGET_ar71xx_generic=y
-CONFIG_TARGET_ar71xx_generic_TLWR1043=y
-CONFIG_DEVEL=y
-CONFIG_BUILD_NLS=y
-CONFIG_SDK=y
-CONFIG_PACKAGE_iconv=y
-CONFIG_PACKAGE_libcharset=y
-CONFIG_PACKAGE_libiconv-full=y
-CONFIG_PACKAGE_libintl-full=y
-CONFIG_BUSYBOX_CUSTOM=y
-CONFIG_BUSYBOX_CONFIG_LAST_SUPPORTED_WCHAR=0
-CONFIG_BUSYBOX_CONFIG_LOCALE_SUPPORT=y
-CONFIG_BUSYBOX_CONFIG_SUBST_WCHAR=65533
-CONFIG_BUSYBOX_CONFIG_UNICODE_PRESERVE_BROKEN=y
-CONFIG_BUSYBOX_CONFIG_UNICODE_SUPPORT=y
-CONFIG_BUSYBOX_CONFIG_UNICODE_USING_LOCALE=y
-CONFIG_PACKAGE_kmod-nls-utf8=y
-CONFIG_PACKAGE_kmod-fs-nfs=y
-CONFIG_PACKAGE_nfs-utils=y
-CONFIG_PACKAGE_strace=y
-CONFIG_PACKAGE_netcat=y
-CONFIG_PACKAGE_kmod-usb-printer=y
-CONFIG_PACKAGE_kmod-usb-serial=y
-CONFIG_PACKAGE_kmod-usb-serial-ftdi=y
-CONFIG_PACKAGE_mpc=y
-EOF
-make defconfig
-make || exit
+make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp bin/ar71xx/OpenWrt-SDK-*.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
