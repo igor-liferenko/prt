@@ -1,14 +1,5 @@
 #!/bin/bash -x
 
-# TODO: make telnet login work by default
-# For this, examine start_service() in /etc/init.d/telnet and compare with `h'
-# (i.e., is it necessary to remove if-then-fi from start_service(), considering that we do
-# not use `passwd'?); also, check /bin/login.sh and decide if the following
-# must be added there in this build script:
-#   #!/bin/sh
-#   exec /bin/ash --login
-# Also, see https://github.com/openwrt/openwrt/commit/a35a7afc9f15b4c084c996ab0dbcd833b45f30d5
-
 if [ `whereami` = notebook ]; then
   echo superbuild is done not on notebook, so this script must not be run on notebook
   exit
