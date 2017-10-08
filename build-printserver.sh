@@ -42,7 +42,6 @@ ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 tel | logger -t tel &
-#mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
 exit 0
 EOF
 cat << EOF > .config
