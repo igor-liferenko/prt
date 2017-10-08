@@ -7,6 +7,7 @@
 # must be added there in this build script:
 #   #!/bin/sh
 #   exec /bin/ash --login
+# Also, see https://github.com/openwrt/openwrt/commit/a35a7afc9f15b4c084c996ab0dbcd833b45f30d5
 
 # https://wiki.openwrt.org/doc/howto/build
 
