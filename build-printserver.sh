@@ -29,17 +29,16 @@ uci commit network
 uci set dhcp.lan.ignore=1
 uci commit dhcp
 uci set system.@system[0].timezone=GMT-7
-uci set system.@system[0].log_ip=192.168.1.2
 uci commit system
 EOF
 mkdir -p files/usr/sbin/
 ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
-tel | logger -t tel &
+tel | socat -u - TCP-LISTEN:5000,fork 2>/dev/null &
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
+make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace socat" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp ../../$SDK.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
