@@ -35,13 +35,7 @@ mkdir -p files/usr/sbin/
 ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
-cat<<'EOF'|sh &
-mkfifo /tmp/myfifo
-socat -u - tcp-listen:5000,reuseaddr,fork </tmp/myfifo 2>/dev/null &
-socat_pid=$!
-tel >/tmp/myfifo
-kill $socat_pid
-rm /tmp/myfifo
+tel &
 EOF
 exit 0
 EOF
