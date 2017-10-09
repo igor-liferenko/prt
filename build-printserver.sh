@@ -36,7 +36,6 @@ ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 tel &
-EOF
 exit 0
 EOF
 make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace socat" FILES=files/
