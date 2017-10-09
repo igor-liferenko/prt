@@ -1,2 +1,4 @@
 Use this command to mount notebook (it is not mounted automatically because it is powered on sporadically):
     mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
+
+or just add scp ~/prt/tel p:/tmp to Makefile
