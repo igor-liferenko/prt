@@ -38,7 +38,7 @@ cat << EOF > files/etc/rc.local
 tel &
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace socat" FILES=files/
+make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi strace socat" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp ../../$SDK.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
