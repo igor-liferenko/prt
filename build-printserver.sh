@@ -31,8 +31,6 @@ uci commit dhcp
 uci set system.@system[0].timezone=GMT-7
 uci commit system
 EOF
-mkdir -p files/usr/sbin/
-ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 tel &
