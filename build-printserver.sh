@@ -34,6 +34,12 @@ EOF
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 tel &
+cat <<FOE | sh &
+while ! mount|grep -q ^192.168.1.2; do
+  mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
+done
+prt
+FOE
 exit 0
 EOF
 make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi strace socat" FILES=files/
