@@ -34,6 +34,8 @@ uci commit dhcp
 uci set system.@system[0].timezone=GMT-7
 uci commit system
 EOF
+mkdir -p files/usr/sbin/
+ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 tel &
@@ -45,7 +47,7 @@ prt
 FOE
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi strace socat" FILES=files/
+make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace socat" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 cp ../../$SDK.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
