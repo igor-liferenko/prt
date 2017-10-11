@@ -1,13 +1,16 @@
 #!/bin/bash -x
 
+# https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
+
 if [ `whereami` = notebook ]; then
   echo superbuild is done not on notebook, so this script must not be run on notebook
   exit
 fi
 
-# https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
-
-# NOTE: add vsyscall=emulate to grub because of this script terminates with segfault (revert afterwards)
+if ! grep -q vsyscall=emulate /etc/default/grub; then
+  echo add vsyscall=emulate to grub
+  exit
+fi
 
 IMG=OpenWrt-ImageBuilder-ar71xx-generic.Linux-x86_64
 SDK=OpenWrt-SDK-ar71xx-generic_gcc-5.3.0_musl-1.1.16.Linux-x86_64
@@ -50,6 +53,7 @@ cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/lo
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
 cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
 
+echo -e '\n********** remove vsyscall=emulate from grub ************'
 
 # Flashing instructions:
 # rm -f /srv/tftp/fw.bin
