@@ -3,7 +3,7 @@
 # https://wiki.openwrt.org/doc/howto/obtain.firmware.generate
 
 if [ `whereami` = notebook ]; then
-  echo superbuild is done not on notebook, so this script must not be run on notebook
+  echo superbuild is not done on notebook, so this script must not be run on notebook
   exit
 fi
 
