@@ -7,21 +7,16 @@ if [ `whereami` = notebook ]; then
   exit
 fi
 
-if ! grep -q vsyscall=emulate /etc/default/grub; then
-  echo add vsyscall=emulate to grub
-  exit
-fi
-
-IMG=OpenWrt-ImageBuilder-ar71xx-generic.Linux-x86_64
-SDK=OpenWrt-SDK-ar71xx-generic_gcc-5.3.0_musl-1.1.16.Linux-x86_64
+IMG=lede-imagebuilder-ar71xx-generic.Linux-x86_64
+SDK=lede-sdk-ar71xx-generic_gcc-5.5.0_musl.Linux-x86_64
 mkdir -p ~/openwrt
 cd ~/openwrt
-[ -e $IMG.tar.bz2 ] || wget https://downloads.openwrt.org/snapshots/trunk/ar71xx/generic/$IMG.tar.bz2 || exit
-[ -e $SDK.tar.bz2 ] || wget https://downloads.openwrt.org/snapshots/trunk/ar71xx/generic/$SDK.tar.bz2 || exit
+[ -e $IMG.tar.xz ] || wget https://downloads.lede-project.org/snapshots/targets/ar71xx/generic/$IMG.tar.xz || exit
+[ -e $SDK.tar.xz ] || wget https://downloads.lede-project.org/snapshots/targets/ar71xx/generic/$SDK.tar.xz || exit
 rm -fr printserver/
 mkdir printserver/
 cd printserver/
-tar -jxf ../$IMG.tar.bz2
+tar -Jxf ../$IMG.tar.xz
 cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
@@ -47,15 +42,15 @@ prt
 FOE
 exit 0
 EOF
-make image PROFILE=TLWR1043 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
-rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
-cp ../../$SDK.tar.bz2 /usr/local/SUPER_DEBIAN/printserver-sdk.tar.bz2
+make info
+exit
+make image PROFILE=tl-wr1043nd-v1 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
+rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
+cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
-cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver-factory.img
+cp bin/targets/ar71xx/generic/lede-ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver-factory.img
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
-cp bin/ar71xx/openwrt-ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
-
-echo -e '\n********** remove vsyscall=emulate from grub ************'
+cp bin/targets/ar71xx/generic/lede-ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
 
 # Flashing instructions:
 # rm -f /srv/tftp/fw.bin
