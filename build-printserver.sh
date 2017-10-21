@@ -42,8 +42,6 @@ prt
 FOE
 exit 0
 EOF
-make info
-exit
 make image PROFILE=tl-wr1043nd-v1 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
