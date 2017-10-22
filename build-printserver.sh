@@ -52,7 +52,7 @@ cp bin/targets/ar71xx/generic/lede-17.01.4-ar71xx-generic-tl-wr1043nd-v1-squashf
 
 # Flashing instructions:
 # rm -f /srv/tftp/fw.bin
-# cp /usr/local/SUPER_DEBIAN/printserver.img /srv/tftp/fw.bin
+# cp /usr/local/SUPER_DEBIAN/printserver-factory.img /srv/tftp/fw.bin
 # Quickly type "tpl" when it says autobooting in 1 second.
 # setenv ipaddr 192.168.1.3
 # setenv serverip 192.168.1.2
