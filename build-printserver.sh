@@ -6,6 +6,10 @@ if [ `whereami` = notebook ]; then
   echo superbuild is not done on notebook, so this script must not be run on notebook
   exit
 fi
+if [ `whereami` != home ]; then
+  echo this is used only on notebook, and superbuild for notebook is done at home
+  exit
+fi
 
 IMG=lede-imagebuilder-17.01.4-ar71xx-generic.Linux-x86_64
 SDK=lede-sdk-17.01.4-ar71xx-generic_gcc-5.4.0_musl-1.1.16.Linux-x86_64
