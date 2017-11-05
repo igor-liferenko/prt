@@ -24,6 +24,9 @@ tar -Jxf ../$IMG.tar.xz
 cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
+#TODO: comment last line in /etc/inittab and check that login will not work at first boot
+#      (failing that, copy file from a ready system and create it via files/)
+
 uci set network.lan.ipaddr=192.168.1.3
 uci set network.lan.gateway=192.168.1.1
 uci set network.lan.dns=192.168.1.1
@@ -46,7 +49,7 @@ prt
 FOE
 exit 0
 EOF
-make image PROFILE=tl-wr1043nd-v1 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace" FILES=files/
+make image PROFILE=tl-wr1043nd-v1 PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace procps-ng-pkill" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
