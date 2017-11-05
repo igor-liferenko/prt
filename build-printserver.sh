@@ -24,6 +24,13 @@ tar -Jxf ../$IMG.tar.xz
 cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
+uci set wireless.radio0.disabled=0
+uci set wireless.radio0.txpower=2
+uci set wireless.default_radio0.mode=sta
+uci set wireless.default_radio0.ssid=MY_LINK2
+uci set wireless.default_radio0.encryption=psk2
+uci set wireless.default_radio0.key=mirumirmirumirmir
+uci commit wireless
 uci set network.lan.ipaddr=192.168.1.3
 uci set network.lan.gateway=192.168.1.1
 uci set network.lan.dns=192.168.1.1
