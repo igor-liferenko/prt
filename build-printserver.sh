@@ -31,6 +31,8 @@ uci set wireless.default_radio0.ssid=MY_LINK2
 uci set wireless.default_radio0.encryption=psk2
 uci set wireless.default_radio0.key=mirumirmirumirmir
 uci commit wireless
+uci del network.lan.ifname
+uci del network.lan.type
 uci set network.lan.ipaddr=192.168.1.3
 uci set network.lan.gateway=192.168.1.1
 uci set network.lan.dns=192.168.1.1
