@@ -24,9 +24,6 @@ tar -Jxf ../$IMG.tar.xz
 cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
-#TODO: comment last line in /etc/inittab and check that login will not work at first boot
-#      (failing that, copy file from a ready system and create it via files/)
-
 uci set network.lan.ipaddr=192.168.1.3
 uci set network.lan.gateway=192.168.1.1
 uci set network.lan.dns=192.168.1.1
@@ -48,6 +45,11 @@ done
 prt
 FOE
 exit 0
+EOF
+cat <<'EOF' >files/etc/inittab
+::sysinit:/etc/init.d/rcS S boot
+::shutdown:/etc/init.d/rcS K shutdown
+#::askconsole:/usr/libexec/login.sh
 EOF
 make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace procps-ng-pkill" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
