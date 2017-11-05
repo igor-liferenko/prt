@@ -42,17 +42,10 @@ uci commit dhcp
 uci set system.@system[0].timezone=GMT-7
 uci commit system
 EOF
-mkdir -p files/usr/sbin/
-ln -s /mnt/prt files/usr/sbin/prt
 mkdir -p files/etc/
 cat << EOF > files/etc/rc.local
 tel &
-cat <<FOE | sh &
-while ! mount|grep -q ^192.168.1.2; do
-  mount.nfs 192.168.1.2:/home/user/prt/ /mnt/ -o nolock,vers=3
-done
 prt
-FOE
 exit 0
 EOF
 cat <<'EOF' >files/etc/inittab
@@ -60,7 +53,7 @@ cat <<'EOF' >files/etc/inittab
 ::shutdown:/etc/init.d/rcS K shutdown
 #::askconsole:/usr/libexec/login.sh
 EOF
-make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer kmod-usb-serial kmod-usb-serial-ftdi nfs-utils kmod-fs-nfs strace procps-ng-pkill" FILES=files/
+make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer strace procps-ng-pkill" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
