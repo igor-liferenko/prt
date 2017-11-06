@@ -56,19 +56,5 @@ EOF
 make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer strace procps-ng-pkill" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
-rm -f /usr/local/SUPER_DEBIAN/printserver-factory.img
-cp bin/targets/ramips/rt305x/lede-17.01.4-ramips-rt305x-wt1520-8M-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver-factory.img
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
 cp bin/targets/ramips/rt305x/lede-17.01.4-ramips-rt305x-wt1520-8M-squashfs-sysupgrade.bin /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
-
-# Flashing instructions (this is for previous router - 1043nd, not current):
-# rm -f /srv/tftp/fw.bin
-# cp /usr/local/SUPER_DEBIAN/printserver-factory.img /srv/tftp/fw.bin
-# Quickly type "tpl" when it says autobooting in 1 second.
-# setenv ipaddr 192.168.1.3
-# setenv serverip 192.168.1.2
-# erase 0xbf020000 +7c0000 # 7c0000: size of the firmware *
-# tftpboot 0x81000000 fw.bin
-# cp.b 0x81000000 0xbf020000 0x7c0000 # 7c0000: size of the firmware *
-# bootm 0xbf020000
-# * be aware that you may have a different size thus bricking your router (to find out actual value, run this: perl -e 'printf"%x\n",(stat$ARGV[0])[7]' path/to/firmware)
