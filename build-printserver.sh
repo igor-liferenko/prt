@@ -48,11 +48,6 @@ tel &
 prt
 exit 0
 EOF
-cat <<'EOF' >files/etc/inittab
-::sysinit:/etc/init.d/rcS S boot
-::shutdown:/etc/init.d/rcS K shutdown
-#::askconsole:/usr/libexec/login.sh
-EOF
 make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer strace procps-ng-pkill" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
