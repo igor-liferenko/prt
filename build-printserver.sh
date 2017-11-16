@@ -48,7 +48,7 @@ tel &
 prt
 exit 0
 EOF
-make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer strace procps-ng-pkill" FILES=files/
+make image PROFILE=wt1520-8M PACKAGES="mpc netcat kmod-usb-printer strace procps-ng-pkill" FILES=files/ # NOTE: kmod-usb2 may be required if you switch to WT1520
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
