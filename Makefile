@@ -14,8 +14,9 @@ ifeq ($(CC),)
 else
 	$(CC) -o $@ $<
 ifeq ($(CC),prt-gcc)
-	scp $@ p:/tmp/
-	@echo TODO: use pkill pgrep like in bin/hcp.fn
+	@ssh p pkill $@
+	@if ssh p pgrep $@; then echo SOMETHING IS WRONG; false; else true; fi
+	scp $@ f:/mnt/
 endif
 endif
 
