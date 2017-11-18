@@ -61,4 +61,4 @@ make image PROFILE=tl-wr842n-v3 PACKAGES="mpc kmod-fs-nfs nfs-utils" FILES=files
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
-#cp bin/targets/ramips/rt305x/lede-17.01.4-ramips-rt305x-wt1520-8M-squashfs-sysupgrade.bin /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
+cp bin/targets/ar71xx/generic/lede-17.01.4-ar71xx-generic-tl-wr842n-v3-squashfs-factory.bin /usr/local/SUPER_DEBIAN/printserver-factory.img
