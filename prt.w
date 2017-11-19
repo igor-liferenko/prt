@@ -1,3 +1,5 @@
+% TODO: start via & like tel.w and add & in rc.local in build-printserver.sh
+
 \let\lheader\rheader
 \datethis
 
