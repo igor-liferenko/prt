@@ -1,5 +1,3 @@
-% TODO: start via & like tel.w and add & in rc.local in build-printserver.sh
-
 \let\lheader\rheader
 \datethis
 
@@ -143,8 +141,6 @@
 
 #define		BUFFER_SIZE	8192
 
-int boomerang = 0;
-
 /* Circular buffer used for each direction. */
 typedef struct {
 	int detectEof;		/* If nonzero, EOF is marked when read returns 0 bytes. */
@@ -199,27 +195,14 @@ uint16_t get_port(const struct sockaddr *sa)
 	return port;
 }
 
+/*TODO: replace this with |print_log| from tel.w but print to stderr because to stdout will go
+  postscript content*/
 void dolog(char* msg, ...)
 {
   va_list argp;
   va_start(argp, msg);
-  if (boomerang)
-    vfprintf(stderr, msg, argp);
-  else
-    vsyslog(LOG_INFO, msg, argp);
+  vfprintf(stderr, msg, argp);
   va_end(argp);   
-}
-
-int open_printer(void)
-{
-       int lp;
-       device = PRINTERFILE;
-       if ((lp = open(device, O_RDWR|O_NONBLOCK)) == -1) {
-               if (errno != EBUSY)
-                       dolog("%s: %m\n", device);
-               dolog("%s: %m, will try opening later\n", device);
-       }
-       return (lp);
 }
 
 /* Initializes the buffer, at the start. */
@@ -445,11 +428,7 @@ int copy_stream(int fd, int lp)
   return (networkToPrinterBuffer.err?-1:0);
 }
 
-@ Use `\.{-b}' option not to become daemon and print received data to stdout.
-Use this as `\.{prt -b {\char'174} nc 192.168.1.2 5000}', after running
-`\.{nc -l -p 5000}' on notebook.
-
-@c
+@ @c
 void server(void)
 {
 	struct rlimit resourcelimit;
@@ -460,42 +439,6 @@ void server(void)
 
 	FILE *f;
 	const int bufsiz = 65536;
-
-	if (!boomerang) {
-               switch (fork()) {
-               case -1:
-                       dolog("fork: %m\n");
-                       exit(1);
-               case 0:         /* child */
-                       break;
-               default:                /* parent */
-                       exit(0);
-               }
-               /* Now in child process */
-               resourcelimit.rlim_max = 0;
-               if (getrlimit(RLIMIT_NOFILE, &resourcelimit) < 0) {
-                       dolog("getrlimit: %m\n");
-                       exit(1);
-               }
-               for (fd = 0; fd < resourcelimit.rlim_max; ++fd)
-                       (void)close(fd);
-               if (setsid() < 0) {
-                       dolog("setsid: %m\n");
-                       exit(1);
-               }
-               chdir("/");
-               umask(022);
-               fd = open("/dev/null", O_RDWR); /* stdin */
-               dup(fd);          /* stdout */
-               dup(fd);          /* stderr */
-               if ((f = fopen(PIDFILE, "w")) == NULL) {
-                       dolog("%s: %m\n", PIDFILE);
-                       exit(1);
-               }
-               fprintf(f, "%d\n", getpid());
-               fclose(f);
-dolog("get lock\n");
-	}
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = PF_UNSPEC;
@@ -546,46 +489,34 @@ dolog("get lock\n");
 	freeaddrinfo(ressave);
 	clientlen = sizeof client;
 	memset(&client, 0, sizeof client);
-	while ((fd = accept(netfd, (struct sockaddr *)&client, &clientlen)) >= 0) {
+	while (1) {
+                fd = accept(netfd, (struct sockaddr *)&client, &clientlen);
 		char host[INET6_ADDRSTRLEN];
 		dolog("Connection from %s port %hu accepted\n",
 			get_ip_str((struct sockaddr *)&client, host, sizeof host),
 			get_port((struct sockaddr *)&client));
 		/*write(fd, "Printing", 8); */
 
-		if (!boomerang)
-                	while ((lp = open_printer()) == -1) sleep(10);
-		  	/* make sure lp device is open... */
-
 		if (copy_stream(fd, lp) < 0)
 			dolog("copy_stream: %m\n");
 		close(fd);
-		if (!boomerang)
-			close(lp);
 	}
-	dolog("accept: %m\n");
-        dolog("free lock\n");
-        unlink(PIDFILE);
-	exit(1);
 }
 
+@ Use `\.{-b}' option to print received data to stdout instead of printer.
+Use this as `\.{prt -b {\char'174} busybox nc 192.168.1.2 5000}', after running
+`\.{nc -l -p 5000 >file.ps}' on notebook. Then compare \.{orig.ps} with \.{new.ps}---%
+there must be no difference.
+
+@c
 int main(int argc, char *argv[])
 {
-	int c;
-
-	if (argc == 2) boomerang = 1;
-
-	/* We used to pass |(LOG_PERROR| \.{\char'174} |LOG_PID| \.{\char'174} |LOG_LPR|
-	   \.{\char'174} |LOG_ERR)| to syslog, but
-	   syslog ignored the |LOG_PID| and |LOG_PERROR| option.  I.e. the intention
-	   was to add both options but the effect was to have neither.
-	   I disagree with the intention to add |PERROR|.  --Stef  */
-
-	if (!boomerang) {
-	  openlog("prt", LOG_PID, LOG_LPR);
-	  time_t now = time(NULL);
-          dolog("prt started %.*s\n", 8, ctime(&now) + 11);
-        }
-	server();
-	return (0);
+  int lp = 1;
+  if (argc == 1)
+    if ((lp = open(PRINTERFILE, O_RDWR|O_NONBLOCK)) == -1) {
+      dolog("open: %m\n");
+      exit(1);
+    }
+  dolog("prt started\n");
+  server();
 }

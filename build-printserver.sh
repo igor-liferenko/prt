@@ -48,7 +48,7 @@ cat <<'FOE' | sh &
 while ! mount|grep -q ^192.168.1.8; do
   mount -t nfs -o nolock 192.168.1.8:/mnt/ /mnt/
 done
-prt
+prt &
 FOE
 exit 0
 EOF
