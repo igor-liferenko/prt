@@ -1,5 +1,7 @@
 #!/bin/bash -x
 
+TODO: merge this to build-flash.sh
+
 if [ `whereami` = notebook ]; then
   echo superbuild is not done on notebook, so this script must not be run on notebook
   exit
@@ -22,15 +24,6 @@ tar -Jxf ../$IMG.tar.xz
 cd $IMG/
 mkdir -p files/etc/uci-defaults/
 cat << EOF > files/etc/uci-defaults/my
-uci set wireless.radio0.disabled=0
-uci set wireless.radio0.txpower=2
-uci set wireless.default_radio0.mode=sta
-uci set wireless.default_radio0.ssid=MY_LINK2
-uci set wireless.default_radio0.encryption=psk2
-uci set wireless.default_radio0.key=mirumirmirumirmir
-uci commit wireless
-uci del network.lan.ifname
-uci del network.lan.type
 uci set network.lan.ipaddr=192.168.1.3
 uci set network.lan.gateway=192.168.1.1
 uci set network.lan.dns=192.168.1.1
@@ -57,7 +50,7 @@ cat <<'EOF' >files/bin/pkill
 kill `pgrep "$@"`
 EOF
 chmod +x files/bin/pkill
-make image PROFILE=wt1520-8M PACKAGES="lsof netcat strace kmod-usb-printer kmod-fs-nfs nfs-utils" FILES=files/ # NOTE: if printer will not work, install kmod-usb2 (see via git lg if it was used for 1043nd and if not - mark here that it is required specifically for this device)
+make image PROFILE=wt1520-8M PACKAGES="lsof netcat strace kmod-usb-printer kmod-fs-nfs nfs-utils" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
