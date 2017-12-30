@@ -11,6 +11,8 @@ EFBIG would seem to indicate that you are trying to write using a buffer (or rat
 If the internal buffer is filled up, because you are writing to fast, try to (nano)sleep a little between the writes. There are several clever ways of doing this (like tcp does), but if the rate is known, just write at a fixed rate.
 
 If you think the receiver is actually reading, but not much happens, have a look at the serial ports flow-control options and if the cable is wired for DTS/RTS.
+The transmit buffer is one page (took a look at Linux 2.6.18 sources) - which is 4K in most (if not all) cases.
+
 
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
