@@ -6,6 +6,12 @@
 HINT: You should update the current position it your buffer from the write(), and continue the next write from there. (Applies to all writes(), regardless if the fd is a serial port, tcp socket or a file.)
 If you get an error back for subsequent writes. Judging by the manpage, its safe to retry the writes for the following errnos: EAGAIN, EINTR, and probably ENOSPC.
 
+EFBIG would seem to indicate that you are trying to write using a buffer (or rather count) that is too large, but that is probably much larger than 64k.
+
+If the internal buffer is filled up, because you are writing to fast, try to (nano)sleep a little between the writes. There are several clever ways of doing this (like tcp does), but if the rate is known, just write at a fixed rate.
+
+If you think the receiver is actually reading, but not much happens, have a look at the serial ports flow-control options and if the cable is wired for DTS/RTS.
+
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
 	/dev/lpn, where n = 0,1,2.
