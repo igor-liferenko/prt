@@ -14,6 +14,15 @@ If you think the receiver is actually reading, but not much happens, have a look
 The transmit buffer is one page (took a look at Linux 2.6.18 sources) - which is 4K in most (if not all) cases.
 
 
+Concerning RS232: the usual C commands for reading
+and writing from a serial port (and by extension, user programs like cat or
+echo) do not carry the concept of a data rate - they simply try to transfer
+data as fast as possible; and even for 2 Mbps communication, these commands
+push data faster than the USB chip can handle, which results with kernel
+warnings. Therefore, it is up to the program author to implement some sort
+of bufering, that would provide an efective throughput rate.
+
+
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
 	/dev/lpn, where n = 0,1,2.
