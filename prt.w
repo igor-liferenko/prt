@@ -4,6 +4,7 @@
 @ TODO: use wide-character API
 
 HINT: You should update the current position it your buffer from the write(), and continue the next write from there. (Applies to all writes(), regardless if the fd is a serial port, tcp socket or a file.)
+If you get an error back for subsequent writes. Judging by the manpage, its safe to retry the writes for the following errnos: EAGAIN, EINTR, and probably ENOSPC.
 
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
