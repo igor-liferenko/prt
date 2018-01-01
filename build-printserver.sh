@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-TODO: merge this to build-flash.sh
+echo 'TODO: merge this to build-flash.sh, and merge prt-gcc to flash-gcc in system_installation/, and then change flash-gcc to prt-gcc'; exit
 
 if [ `whereami` = notebook ]; then
   echo superbuild is not done on notebook, so this script must not be run on notebook
