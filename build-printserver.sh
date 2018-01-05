@@ -1,13 +1,13 @@
 #!/bin/bash -x
 
-echo 'TODO: merge this to build-flash.sh, and merge prt-gcc to flash-gcc in system_installation/, and then change flash-gcc to prt-gcc'; exit
+{ echo 'TODO: merge this to build-flash.sh, and merge prt-gcc to flash-gcc in system_installation/, and then change flash-gcc to prt-gcc'; } 2>/dev/null; exit
 
 if [ `whereami` = notebook ]; then
-  echo superbuild is not done on notebook, so this script must not be run on notebook
+  { echo superbuild is not done on notebook, so this script must not be run on notebook; } 2>/dev/null
   exit
 fi
 if [ `whereami` != home ]; then
-  echo this is used only on notebook, and superbuild for notebook is done at home
+  { echo this is used only on notebook, and superbuild for notebook is done at home; } 2>/dev/null
   exit
 fi
 
