@@ -3,26 +3,6 @@
 
 @ TODO: use wide-character API
 
-HINT: You should update the current position it your buffer from the write(), and continue the next write from there. (Applies to all writes(), regardless if the fd is a serial port, tcp socket or a file.)
-If you get an error back for subsequent writes. Judging by the manpage, its safe to retry the writes for the following errnos: EAGAIN, EINTR, and probably ENOSPC.
-
-EFBIG would seem to indicate that you are trying to write using a buffer (or rather count) that is too large, but that is probably much larger than 64k.
-
-If the internal buffer is filled up, because you are writing to fast, try to (nano)sleep a little between the writes. There are several clever ways of doing this (like tcp does), but if the rate is known, just write at a fixed rate.
-
-If you think the receiver is actually reading, but not much happens, have a look at the serial ports flow-control options and if the cable is wired for DTS/RTS.
-The transmit buffer is one page (took a look at Linux 2.6.18 sources) - which is 4K in most (if not all) cases.
-
-
-Concerning RS232: the usual C commands for reading
-and writing from a serial port (and by extension, user programs like cat or
-echo) do not carry the concept of a data rate - they simply try to transfer
-data as fast as possible; and even for 2 Mbps communication, these commands
-push data faster than the USB chip can handle, which results with kernel
-warnings. Therefore, it is up to the program author to implement some sort
-of bufering, that would provide an efective throughput rate.
-
-
 	Port 9100+n daemon
 	Accepts a connection from port 9100+n and copy stream to
 	/dev/lpn, where n = 0,1,2.
