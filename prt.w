@@ -1,6 +1,8 @@
 \let\lheader\rheader
 \datethis
 
+@s ssize_t int
+
 @ TODO: use wide-character API
 
 	Port 9100+n daemon
