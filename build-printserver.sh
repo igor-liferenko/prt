@@ -48,7 +48,7 @@ cat <<'EOF' >files/bin/pkill
 kill `pgrep "$@"`
 EOF
 chmod +x files/bin/pkill
-make image PROFILE=tl-wr1043nd-v1 PACKAGES="uhttpd kmod-usb-storage kmod-fs-ext4 kmod-lib-crc32c kmod-usb-printer lsof netcat strace" FILES=files/
+make image PROFILE=tl-wr1043nd-v1 PACKAGES="uhttpd kmod-usb-storage kmod-fs-ext4 kmod-lib-crc32c kmod-usb-printer lsof netcat strace asterisk13 asterisk13-chan-iax2" FILES=files/
 rm -f /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 cp ../../$SDK.tar.xz /usr/local/SUPER_DEBIAN/printserver-sdk.tar.xz
 rm -f /usr/local/SUPER_DEBIAN/printserver-sysupgrade.img
