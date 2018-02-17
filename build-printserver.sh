@@ -32,6 +32,7 @@ uci set system.@system[0].timezone=GMT-7
 uci commit system
 rm -r /www
 ln -s /mnt /www
+rm -fr /etc/asterisk/*
 EOF
 mkdir -p files/bin/
 ln -s /mnt/lfk/lfk files/bin/lfk
