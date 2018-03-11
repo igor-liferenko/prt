@@ -16,7 +16,7 @@ else
 ifeq ($(CC),prt-gcc)
 	@ssh p pkill $@
 	@if ssh p pgrep $@; then echo SOMETHING IS WRONG; false; else true; fi
-	scp $@ f:/mnt/
+	scp $@ p:/mnt/
 endif
 endif
 
