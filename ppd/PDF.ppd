@@ -7,5 +7,3 @@
 *Duplex DuplexNoTumble/Long-Edge binding: "@PJL SET DUPLEX=ON<0A>@PJL SET BINDING=LONGEDGE<0A>"
 *Duplex DuplexTumble/Short-Edge binding: "@PJL SET DUPLEX=ON<0A>@PJL SET BINDING=SHORTEDGE<0A>"
 *JCLCloseUI: *Duplex
-
-check if option is correct via `lpoptions -p TEX -l'

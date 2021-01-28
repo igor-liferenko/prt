@@ -5,31 +5,8 @@ is the minimal PPD file:
 *PPD-Adobe: "4.3"
 *cupsFilter: "application/pdf 0 -"
 
-For dublex printing widget activation add this:
-*JCLOpenUI *Duplex/Double-Sided Printing: PickOne
-*Duplex None/Off: "@PJL SET DUPLEX=OFF<0A>"
-*Duplex DuplexNoTumble/Long-Edge binding: "@PJL SET DUPLEX=ON<0A>@PJL SET BINDING=LONGEDGE<0A>"
-*Duplex DuplexTumble/Short-Edge binding: "@PJL SET DUPLEX=ON<0A>@PJL SET BINDING=SHORTEDGE<0A>"
-*JCLCloseUI: *Duplex
-(FIXME: are all of them necessary? values of these parameters can be anything? grep duplex in pdftopdf source)
+Also, modify "script" that if $# = 7, do what is now in "script", else send stdin to printer.
 
------------------------
-
-pdf_document_print_print_page
-
-+FILE *my=fopen("/tmp/evince","a");
-+fprintf(my,"page: %d\n", poppler_page_get_index(POPPLER_PAGE (page->backend_page)));
-+fclose(my);
-
------------------------
-
-pdf_document_annotations_add_annotation
-
-void
-poppler_page_add_annot (PopplerPage *page,
-                        PopplerAnnot *annot);
-
-void
-poppler_page_remove_annot (PopplerPage *page,
-                           PopplerAnnot *annot);
-
+For pdftopdf filter, add
+duplex option from /usr/share/ppd/cupsfilters/Generic-PDF_Printer-PDF.ppd
+(see PDF.ppd)
