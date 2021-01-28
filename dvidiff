@@ -30,9 +30,10 @@ fi
 old_hash=`dvihash $old`
 new_hash=`dvihash $new`
 pages=`diff $old_hash/hash $new_hash/hash | grep \< | cut -d' ' -f2`
-[ "$pages" = "" ] && exit
-leave_only_specified_pages $old $old_hash $pages
-leave_only_specified_pages $new $new_hash $pages
+pages=`printf '%d,' $pages | sed 's/,$//'`
+[ "$pages" = 0 ] && exit
+qpdf --pages . $pages -- $old.pdf --replace-input
+qpdf --pages . $pages -- $new.pdf --replace-input
 if [ $1 = -n ]; then
   echo $pages
 else
@@ -41,3 +42,4 @@ else
 fi
 rm -r $old_hash $new_hash
 exit 1
+#TODO: remove 'rm ???' from dvihash
