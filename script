@@ -1,0 +1,8 @@
+#!/bin/sh -x
+# chmod o+rx ./.config/evince/
+while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
+  sleep 1
+done
+#pdftopdf
+#cat `grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings` | ssh user@192.168.88.3 'netcat -q 0 192.168.40.132 9100'
+

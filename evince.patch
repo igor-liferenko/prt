@@ -1,0 +1,32 @@
+diff --git a/shell/ev-window.c b/shell/ev-window.c
+index c5a1911..81b671b 100644
+--- a/shell/ev-window.c
++++ b/shell/ev-window.c
+@@ -294,11 +294,8 @@ typedef struct {
+ 
+ static const gchar *document_print_settings[] = {
+ 	GTK_PRINT_SETTINGS_COLLATE,
+-	GTK_PRINT_SETTINGS_REVERSE,
+ 	GTK_PRINT_SETTINGS_NUMBER_UP,
+ 	GTK_PRINT_SETTINGS_SCALE,
+-	GTK_PRINT_SETTINGS_PRINT_PAGES,
+-	GTK_PRINT_SETTINGS_PAGE_RANGES,
+ 	GTK_PRINT_SETTINGS_PAGE_SET,
+ 	GTK_PRINT_SETTINGS_OUTPUT_URI
+ };
+@@ -3773,6 +3770,15 @@ ev_window_print_range (EvWindow *ev_window,
+ 	current_page = ev_document_model_get_page (priv->model);
+ 	document_last_page = ev_document_get_n_pages (priv->document);
+ 
++	g_assert(chmod("/home/user/.config/evince/",
++		S_IRUSR | S_IWUSR | S_IXUSR | S_IROTH | S_IXOTH) == 0);
++	FILE *f = fopen("/home/user/.config/evince/print-settings", "w");
++	g_assert (f != NULL);
++	fprintf(f, "[Print Settings]\n");
++	fprintf(f, "file-name=%s\n", ev_document_get_uri (priv->document) + 7);
++	fprintf(f, "current-page=%d\n", current_page);
++	fclose(f);
++
+ 	print_settings_file = get_print_settings_file ();
+ 
+ 	print_settings = get_print_settings (print_settings_file);
