@@ -1,0 +1,13 @@
+#!/bin/sh
+eval last=\${$#}
+if [ -e $last.mf ]; then
+  if [ -e /home/user/tex/TeXfonts/$last.tfm ]; then
+    echo Do not name local font as system font >&2
+    exit 1
+  fi
+  echo ARGS: "$@" >&2
+  echo PUT CORRESPONDING mag VALUE TO .mf FILE >&2
+  exit 1
+else
+  exec /bin/mktexpk "$@"
+fi
