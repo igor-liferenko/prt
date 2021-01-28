@@ -4,13 +4,14 @@ while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
 done
 file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
 x=`grep -oP '(?<=print-pages=).*' /home/user/.config/evince/print-settings`
-echo $x >>/tmp/x
-if [ $x = current ]; then
+(
+if [ $x = all ]; then
+  cat $file
+elif [ $x = current ]; then
   pages=`grep -oP '(?<=current-page=).*' /home/user/.config/evince/print-settings`
-  echo qpdf --pages . $pages -- $file --replace-input >>/tmp/x
+  qpdf --pages . $pages -- $file -
 elif [ $x = ranges ]; then
   pages=`grep -oP '(?<=page-ranges=).*' /home/user/.config/evince/print-settings`
-  echo qpdf --pages . $pages -- $file --replace-input >>/tmp/x
+  qpdf --pages . $pages -- $file -
 fi
-echo $file >>/tmp/x
-echo ----------------- >>/tmp/x
+) >/tmp/out.pdf

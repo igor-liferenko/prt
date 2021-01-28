@@ -1,0 +1,3 @@
+if -e /home/user/tex/TeXfonts/$file.tfm
+echo do not name local font as system font >&2 # tex does not use current directory, kpathsea does, so misinterpretations between tex and dvipdfmx are possible (tex uses system font and dvipdfmx uses local font)
+exit 1
