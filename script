@@ -3,13 +3,14 @@ while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
   sleep 1
 done
 file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
+pdffonts $file | grep Type | grep -qv Type3 && exit 1
 x=`grep -oP '(?<=print-pages=).*' /home/user/.config/evince/print-settings`
 (
 if [ $x = current ]; then
   pages=`grep -oP '(?<=current-page=).*' /home/user/.config/evince/print-settings`
 elif [ $x = ranges ]; then
   pages=`grep -oP '(?<=page-ranges=).*' /home/user/.config/evince/print-settings`
-  # fix $pages
+  pages=`echo $pages | perl -pe 's/(\d+)/$1+1/ge'`
 fi
 if [ $x = all ]; then
   cat $file
