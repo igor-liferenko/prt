@@ -1,7 +1,0 @@
-fix all gcc warnings
-see select.w for an example how to use "select" ("select" must be used
-when we analyze a protocol (i.e., when next transmitted command depends on
-previously received responce); but when we just pass data back and forth,
-a simple "fork" is enough, including when we must the end of transmission
-signal from received data. BTW, select.w must have been better written
-via "fork". Decide what is more appropriate in prt.w - fork or select)
