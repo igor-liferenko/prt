@@ -1,0 +1,11 @@
+*PPD-Adobe: "4.3"
+*cupsFilter: "application/pdf 0 -"
+*JCLOpenUI *Duplex/Double-Sided Printing: PickOne
+*OrderDependency: 100 JCLSetup *Duplex
+*DefaultDuplex: None
+*Duplex None/Off: "@PJL SET DUPLEX=OFF<0A>"
+*Duplex DuplexNoTumble/Long-Edge binding: "@PJL SET DUPLEX=ON<0A>@PJL SET BINDING=LONGEDGE<0A>"
+*Duplex DuplexTumble/Short-Edge binding: "@PJL SET DUPLEX=ON<0A>@PJL SET BINDING=SHORTEDGE<0A>"
+*JCLCloseUI: *Duplex
+
+check if option is correct via `lpoptions -p TEX -l'
