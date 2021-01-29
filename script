@@ -4,15 +4,14 @@ while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
 done
 file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
 pdffonts $file | grep -q 'Type 1C' && exit 1
-(
+
 printf '\e%%-12345X@PJL\n'
 printf '@PJL JOB\n'
 if grep -q reverse=true /home/user/.config/evince/print-settings; then
-  echo @PJL SET DUPLEX=ON
-  echo @PJL SET BINDING=LONGEDGE
+  printf '@PJL SET DUPLEX=ON\n'
+  printf '@PJL SET BINDING=LONGEDGE\n'
 fi
-echo @PJL SET RET=OFF # TURN OFF RESOLUTION ENHANCEMENT (???) - see http://h10032.www1.hp.com/ctg/Manual/bpl13208.pdf, page "Kernel Commands 4-7"
-echo @PJL ENTER LANGUAGE=PDF
+printf '@PJL ENTER LANGUAGE=PDF\n'
 if grep -q print-pages=current /home/user/.config/evince/print-settings; then
   pages=`grep -oP '(?<=current-page=).*' /home/user/.config/evince/print-settings`
   pages=$((pages+1))
@@ -28,4 +27,3 @@ fi
 printf '\e%%-12345X@PJL\n'
 printf '@PJL EOJ\n'
 printf '\e%%-12345X'
-) >/tmp/out.pdf
