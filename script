@@ -4,17 +4,27 @@ while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
 done
 file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
 pdffonts $file | grep -q 'Type 1C' && exit 1
-print_pages=`grep -oP '(?<=print-pages=).*' /home/user/.config/evince/print-settings`
 (
-if [ $print_pages = current ]; then
+echo 12345X@PJL
+if grep -q reverse=true /home/user/.config/evince/print-settings; then
+  echo @PJL SET DUPLEX=ON
+  echo @PJL SET BINDING=LONGEDGE
+else
+  echo @PJL SET DUPLEX=OFF
+fi
+if grep -q print-pages=current /home/user/.config/evince/print-settings; then
   pages=`grep -oP '(?<=current-page=).*' /home/user/.config/evince/print-settings`
-elif [ $print_pages = ranges ]; then
+  pages=$((pages+1))
+elif grep -q print-pages=ranges /home/user/.config/evince/print-settings; then
   pages=`grep -oP '(?<=page-ranges=).*' /home/user/.config/evince/print-settings`
   pages=`echo $pages | perl -pe 's/(\d+)/$1+1/ge'`
 fi
-if [ $print_pages = all ]; then
+if grep -q print-pages=all /home/user/.config/evince/print-settings; then
   cat $file
 else
   qpdf --pages . $pages -- $file -
 fi
+echo 12345X@PJL
+echo @PJL EOJ 
+echo 12345X
 ) >/tmp/out.pdf
