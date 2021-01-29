@@ -1,0 +1,18 @@
+-:
+
+PPD=/home/user/cweb/my.ppd FINAL_CONTENT_TYPE=printer/TEX ../prt/pdftopdf/pdftopdf 135 user utf8.pdf 1 PageSize=A4 cweave.pdf
+PPD=/home/user/prt/ppd/PDF.ppd FINAL_CONTENT_TYPE=printer/TEX ../prt/pdftopdf/pdftopdf 135 user utf8.pdf 1 PageSize=A4 cweave.pdf
+
+pdftopdf:
+
+PPD=/usr/share/ppd/cupsfilters/Generic-PDF_Printer-PDF.ppd FINAL_CONTENT_TYPE=printer/TEX ../prt/pdftopdf/pdftopdf 135 user utf8.pdf 1 PageSize=A4 cweave.pdf
+
+
+diff /usr/share/ppd/cupsfilters/Generic-PDF_Printer-PDF.ppd ../cweb/my.ppd
+42,43c42,43
+< *cupsFilter: "application/vnd.cups-pdf 0 -"
+< *cupsFilter2: "application/pdf application/vnd.cups-pdf 0 pdftopdf"
+---
+> *cupsFilter: "application/pdf 0 -"
+> *%cupsFilter2: "application/pdf application/vnd.cups-pdf 0 pdftopdf"
+
