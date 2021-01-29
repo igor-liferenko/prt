@@ -1,7 +1,7 @@
 #!/bin/sh
 eval last=\${$#}
 if [ -e $last.mf ]; then
-  echo NO PK FILE FOR $last >&2 # you forgot to run 'mf $last' or appropriate mag was not set
+  echo NO PK FOR $last # you forgot to run 'mf $last' or appropriate mag was not set
   exit 1
 else
   exec /bin/mktexpk "$@"
