@@ -11,24 +11,23 @@ if grep -q print-pages=current /home/user/.config/evince/print-settings; then
   end=$start
 elif grep -q print-pages=ranges /home/user/.config/evince/print-settings; then
   grep -q '^page-ranges=[0-9]\+\(-[0-9]\+\)\?$' /home/user/.config/evince/print-settings || exit 1
-  eval `sed -n 's/^page-ranges=\([0-9]\+\)$/start=\1/p' /home/user/.config/evince/print-settings`
-  eval `sed -n 's/^page-ranges=\([0-9]\+\)-\([0-9]\+\)$/start=\1 end=\2/p' /home/user/.config/evince/print-settings`
+  eval `perl -ne 'print if s/^page-ranges=([0-9]+)(?:-([0-9]+))?$/"start=$1".($2?" end=$2":" end=$1")/e' /home/user/.config/evince/print-settings`
   start=$((start+1))
   end=$((end+1))
 fi
 
 printf '\e%%-12345X@PJL\n'
 if grep -q print-pages=all /home/user/.config/evince/print-settings; then
-  printf '@PJL JOB\n'
+  echo @PJL JOB
 else
-  printf '@PJL JOB START=%d END=%d\n' $start $end
+  echo @PJL JOB START=$start END=$end
 fi
 if grep -q reverse=true /home/user/.config/evince/print-settings; then
-  printf '@PJL SET DUPLEX=ON\n'
-  printf '@PJL SET BINDING=LONGEDGE\n'
+  echo @PJL SET DUPLEX=ON
+  echo @PJL SET BINDING=LONGEDGE
 fi
-printf '@PJL ENTER LANGUAGE=PDF\n'
+echo @PJL ENTER LANGUAGE=PDF
 cat $file
 printf '\e%%-12345X@PJL\n'
-printf '@PJL EOJ\n'
+echo @PJL EOJ
 printf '\e%%-12345X'
