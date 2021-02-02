@@ -1,0 +1,9 @@
+#!/bin/sh
+( printf '\e%%-12345X'
+  echo @PJL JOB
+  echo @PJL ENTER LANGUAGE=POSTSCRIPT
+  cat /home/user/prt/test.pdf
+  printf '\e%%-12345X'
+  echo @PJL EOJ
+  printf '\e%%-12345X'
+) | send-to-printer

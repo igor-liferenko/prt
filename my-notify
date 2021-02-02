@@ -1,3 +1,0 @@
-#!/bin/sh
-DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' notify-send "$@"
-#lp ALL = (user) NOPASSWD: /bin/my-notify
