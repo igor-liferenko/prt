@@ -1,10 +1,16 @@
 #!/bin/sh
 [ "$engine" = metapost ] && exit
+eval last=\${$#}
+npages=`qpdf --show-npages ${last%.dvi}.pdf`
 if printenv lastpagenumber >/dev/null; then
-  /bin/dvipdfmx -s $((lastpagenumber+1))-,-$lastpagenumber "$@"
+  pages=`seq -s, $((lastpagenumber+1)) $npages`','`seq -s, 1 $lastpagenumber`
 else
-  /bin/dvipdfmx "$@"
+  pages=`seq -s, 1 $npages`
 fi
+if printenv p >/dev/null; then
+  true # TODO: reorder $pages according to $p
+fi
+/bin/dvipdfmx -s $pages "$@"
 ret=$?
-eval rm \${$#}
+rm $last
 exit $ret
