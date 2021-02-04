@@ -1,0 +1,10 @@
+#!/bin/sh
+[ "$engine" = metapost ] && exit
+if printenv lastpagenumber >/dev/null; then
+  /bin/dvipdfmx -s $((lastpagenumber+1))-,-$lastpagenumber "$@"
+else
+  /bin/dvipdfmx "$@"
+fi
+ret=$?
+eval rm \${$#}
+exit $ret
