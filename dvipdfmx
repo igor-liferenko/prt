@@ -10,6 +10,7 @@ fi
 if printenv p >/dev/null; then
   true # TODO: reorder $pages according to $p
 fi
+# TODO: compress to ranges
 /bin/dvipdfmx -s $pages "$@"
 ret=$?
 rm $last
