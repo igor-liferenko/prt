@@ -1,1 +1,1 @@
-# name of local font must not be as any font in TeXfonts/
+# NOTE: be careful not to name local font file as any file in TeXfonts/

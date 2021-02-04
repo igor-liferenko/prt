@@ -1,15 +1,16 @@
 #!/bin/sh
 [ "$engine" = metapost ] && exit
 eval last=\${$#}
-npages=`qpdf --show-npages ${last%.dvi}.pdf`
+npages=`dvitype $last | sed -n '/.*totalpages=\([0-9]\+\)$/{s//\1/p;q}'` # FIXME: grep number of pages in log file (first find out if it is already closed)
 if printenv lastpagenumber >/dev/null; then
   pages=`seq -s, $((lastpagenumber+1)) $npages`','`seq -s, 1 $lastpagenumber`
 else
   pages=`seq -s, 1 $npages`
 fi
 if printenv p >/dev/null; then
-  true # TODO: reorder $pages according to $p
+  pages=`printf '%s\n%s\n' $pages $p | dvipdfmx-selectpages.pl`
 fi
+echo $pages >&2
 # TODO: compress to ranges
 /bin/dvipdfmx -s $pages "$@"
 ret=$?
