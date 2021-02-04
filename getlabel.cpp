@@ -33,3 +33,8 @@ int main(int argc, char* argv[]){
 ./addpagelabels.py --delete file.pdf
 ./addpagelabels.py --startpage 1 --type 'roman lowercase' file.pdf
 ./addpagelabels.py --startpage 7 --type arabic file.pdf
+/*   /Type /Catalog
+  /PageLabels << /Nums [ 0 << /S /D >> ] >>
+qpdf -qdf ../utf8.pdf utf8.qdf
+fix-qdf foo.qdf >bar.qdf
+qpdf bar.qdf bar.pdf
