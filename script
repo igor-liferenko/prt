@@ -3,7 +3,7 @@ while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
   sleep 1
 done
 file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
-pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | my-notify; exit 1; } # FIXME: does it matter to use `exit 0' or `exit 1'?
+pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; exit 1; } # FIXME: does it matter to use `exit 0' or `exit 1'?
 
 ( printf '\e%%-12345X'
   echo @PJL JOB
@@ -15,4 +15,4 @@ pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | my-notify; exit 1; } # F
   printf '\e%%-12345X'
   echo @PJL EOJ
   printf '\e%%-12345X'
-) | send-to-printer | my-notify
+) | send-to-printer | sudo -u user my-notify
