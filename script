@@ -3,32 +3,16 @@ while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
   sleep 1
 done
 file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
-pdffonts $file | grep -q 'Type 1C' && exit 1
+pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | my-notify; exit 1; } # FIXME: does it matter to use `exit 0' or `exit 1'?
 
-if grep -q print-pages=current /home/user/.config/evince/print-settings; then
-  start=`grep -oP '(?<=current-page=).*' /home/user/.config/evince/print-settings`
-  start=$((start+1))
-  end=$start
-elif grep -q print-pages=ranges /home/user/.config/evince/print-settings; then
-  eval `perl -ne 'print if s/^page-ranges=([0-9]+)(?:-([0-9]+))?$/"start=$1".($2?" end=$2":" end=$1")/e' /home/user/.config/evince/print-settings`
-  [ $start ] || exit 1
-  start=$((start+1))
-  end=$((end+1))
-fi
-
-( printf '\e%%-12345X@PJL\n'
-  if grep -q print-pages=all /home/user/.config/evince/print-settings; then
-    echo @PJL JOB
-  else
-    echo @PJL JOB START=$start END=$end
-  fi
+( printf '\e%%-12345X'
+  echo @PJL JOB
   if grep -q reverse=true /home/user/.config/evince/print-settings; then
     echo @PJL SET DUPLEX=ON
-    echo @PJL SET BINDING=LONGEDGE
   fi
-  echo @PJL ENTER LANGUAGE=PDF
+  echo @PJL ENTER LANGUAGE=POSTSCRIPT
   cat $file
-  printf '\e%%-12345X@PJL\n'
+  printf '\e%%-12345X'
   echo @PJL EOJ
   printf '\e%%-12345X'
-) | send-to-printer
+) | send-to-printer | my-notify
