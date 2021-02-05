@@ -1,11 +1,13 @@
 #!/bin/sh
 [ "$engine" = metapost ] && exit
 if printenv lastpagenumber >/dev/null; then
-  pages=`seq -s, $((lastpagenumber+1)) $total`','`seq -s, 1 $lastpagenumber`
   if printenv p >/dev/null; then
-    pages=`printf '%s\n%s\n' $pages $p | dvipdfmx-select.pl`
+    pages=`seq -s, $((lastpagenumber+1)) $total`','`seq -s, 1 $lastpagenumber`
+    pages=`echo $pages | dvipdfmx-select.pl $p`
+    pages=`echo $pages | dvipdfmx-compress.pl`
+  else
+    pages=$((lastpagenumber+1))-,-$lastpagenumber
   fi
-  pages=`echo $pages | dvipdfmx-compress.pl`
 else
   if printenv p >/dev/null; then
     pages=$p 
