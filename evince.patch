@@ -1,20 +1,16 @@
 diff --git a/shell/ev-window.c b/shell/ev-window.c
-index c5a1911..81b671b 100644
+index c5a1911..7f009ac 100644
 --- a/shell/ev-window.c
 +++ b/shell/ev-window.c
-@@ -294,11 +294,8 @@ typedef struct {
+@@ -294,7 +294,6 @@ typedef struct {
  
  static const gchar *document_print_settings[] = {
  	GTK_PRINT_SETTINGS_COLLATE,
 -	GTK_PRINT_SETTINGS_REVERSE,
  	GTK_PRINT_SETTINGS_NUMBER_UP,
  	GTK_PRINT_SETTINGS_SCALE,
--	GTK_PRINT_SETTINGS_PRINT_PAGES,
--	GTK_PRINT_SETTINGS_PAGE_RANGES,
- 	GTK_PRINT_SETTINGS_PAGE_SET,
- 	GTK_PRINT_SETTINGS_OUTPUT_URI
- };
-@@ -3773,6 +3770,15 @@ ev_window_print_range (EvWindow *ev_window,
+ 	GTK_PRINT_SETTINGS_PRINT_PAGES,
+@@ -3773,6 +3772,15 @@ ev_window_print_range (EvWindow *ev_window,
  	current_page = ev_document_model_get_page (priv->model);
  	document_last_page = ev_document_get_n_pages (priv->document);
  
