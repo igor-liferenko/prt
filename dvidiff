@@ -1,1 +1,2 @@
 qpdf --show-npages
+use only stdout of dvihash (it seems temporary directory is no longer needed in dvidiff)
