@@ -1,18 +1,19 @@
 #!/bin/sh
 [ "$engine" = metapost ] && exit
-eval last=\${$#}
-npages=`dvitype $last | sed -n '/.*totalpages=\([0-9]\+\)$/{s//\1/p;q}'` # FIXME: grep number of pages in log file (first find out if it is already closed)
 if printenv lastpagenumber >/dev/null; then
-  pages=`seq -s, $((lastpagenumber+1)) $npages`','`seq -s, 1 $lastpagenumber`
+  pages=`seq -s, $((lastpagenumber+1)) $total`','`seq -s, 1 $lastpagenumber`
+  if printenv p >/dev/null; then
+    pages=`printf '%s\n%s\n' $pages $p | dvipdfmx-select.pl`
+  fi
+  pages=`echo $pages | dvipdfmx-compress.pl`
 else
-  pages=`seq -s, 1 $npages`
+  if printenv p >/dev/null; then
+    pages=$p 
+  else
+    pages=-
+  fi
 fi
-if printenv p >/dev/null; then
-  pages=`printf '%s\n%s\n' $pages $p | dvipdfmx-selectpages.pl`
-fi
-echo $pages >&2
-# TODO: compress to ranges
 /bin/dvipdfmx -s $pages "$@"
 ret=$?
-rm $last
+eval rm \${$#}
 exit $ret
