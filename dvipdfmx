@@ -2,9 +2,7 @@
 [ "$engine" = metapost ] && exit
 if printenv lastpagenumber >/dev/null; then
   if printenv p >/dev/null; then
-    pages=`seq -s, $((lastpagenumber+1)) $total`','`seq -s, 1 $lastpagenumber`
-    pages=`echo $pages | dvipdfmx-select.pl $p`
-    pages=`echo $pages | dvipdfmx-compress.pl`
+    pages=`( seq $((lastpagenumber+1)) $total; seq 1 $lastpagenumber ) | paste -sd, | dvipdfmx-select.pl $p | dvipdfmx-compress.pl`
   else
     pages=$((lastpagenumber+1))-,-$lastpagenumber
   fi
