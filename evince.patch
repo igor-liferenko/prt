@@ -1,5 +1,5 @@
 diff --git a/shell/ev-window.c b/shell/ev-window.c
-index c5a1911..7f009ac 100644
+index c5a1911..502f960 100644
 --- a/shell/ev-window.c
 +++ b/shell/ev-window.c
 @@ -294,7 +294,6 @@ typedef struct {
@@ -10,7 +10,7 @@ index c5a1911..7f009ac 100644
  	GTK_PRINT_SETTINGS_NUMBER_UP,
  	GTK_PRINT_SETTINGS_SCALE,
  	GTK_PRINT_SETTINGS_PRINT_PAGES,
-@@ -3773,6 +3772,15 @@ ev_window_print_range (EvWindow *ev_window,
+@@ -3773,6 +3772,14 @@ ev_window_print_range (EvWindow *ev_window,
  	current_page = ev_document_model_get_page (priv->model);
  	document_last_page = ev_document_get_n_pages (priv->document);
  
@@ -20,7 +20,6 @@ index c5a1911..7f009ac 100644
 +	g_assert (f != NULL);
 +	fprintf(f, "[Print Settings]\n");
 +	fprintf(f, "file-name=%s\n", ev_document_get_uri (priv->document) + 7);
-+	fprintf(f, "current-page=%d\n", current_page);
 +	fclose(f);
 +
  	print_settings_file = get_print_settings_file ();
