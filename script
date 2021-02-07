@@ -9,8 +9,8 @@ pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; 
   echo @PJL JOB
   if grep -q reverse=true /home/user/.config/evince/print-settings; then
     echo @PJL SET DUPLEX=ON
-    echo @PJL ENTER LANGUAGE=POSTSCRIPT
   fi
+  echo @PJL ENTER LANGUAGE=POSTSCRIPT
   cat $file
   printf '\e%%-12345X'
   echo @PJL EOJ

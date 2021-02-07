@@ -1,7 +1,8 @@
 #!/bin/sh
 ( printf '\e%%-12345X'
   echo @PJL JOB
-  cat /home/user/prt/test.pdf
+  echo @PJL ENTER LANGUAGE=POSTSCRIPT
+  cat test.pdf
   printf '\e%%-12345X'
   echo @PJL EOJ
   printf '\e%%-12345X' # FIXME: see links in wikipedia PJL - is this line necessary? (test on USB printer)
