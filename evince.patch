@@ -1,3 +1,5 @@
+TODO: maybe do fprintf <value which disables "enabled" from collate>
+
 diff --git a/shell/ev-window.c b/shell/ev-window.c
 index c5a1911..502f960 100644
 --- a/shell/ev-window.c
