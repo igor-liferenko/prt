@@ -1,4 +1,5 @@
 TODO: maybe do fprintf <value which disables "enabled" from collate>
+try to remove GTK_PRINT_SETTINGS_OUTPUT_URI
 
 diff --git a/shell/ev-window.c b/shell/ev-window.c
 index c5a1911..502f960 100644
