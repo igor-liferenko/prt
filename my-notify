@@ -1,5 +1,0 @@
-#!/bin/sh
-read var
-[ "$var" ] || exit 0 # empty input is after send-to-printer if all OK
-DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' notify-send 'Printer error' "$var"
-#lp ALL = (user) NOPASSWD: /bin/my-notify
