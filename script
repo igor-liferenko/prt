@@ -1,5 +1,8 @@
 #!/bin/sh
-pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; exit 1; } # FIXME: does it matter to use `exit 0' or `exit 1'?
+[ -r $3 ] || { echo 'File is not readable by lp user.' | sudo -u user my-notify; exit 1; }
+pdffonts $3 | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; exit 1; }
+# FIXME: does it matter to use `exit 0' or `exit 1'?
+
 ( printf '\e%%-12345X'
   echo @PJL JOB
   if ! echo $5 | grep -q Duplex=None; then
