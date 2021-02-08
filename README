@@ -1,10 +1,10 @@
 If CUPS is not used, we cannot print via evince.
 Evince does not pass original file to CUPS (as it should be, by the design of CUPS).
-Therefore, we need to get original file name in CUPS backend.
-Pass filename via CUPS - use "cups-" prefix in option and describe it in .ppd file.
+Evince transforms the file via cairo.
+Therefore, we have to get original file in CUPS backend.
+Pass filename via jobname (patch evince).
 
---------------------------
-@PJL JOB START=x does not work (but END=y works), so we have to generate original .pdf with
+@PJL JOB START=x does not work, so we have to generate original .pdf with
 only those pages which we want to print. Therefore, "current page" or "range" in print
 dialog are useless.
 Use p=<range spec as -s option in dvipdfmx> tex ...
