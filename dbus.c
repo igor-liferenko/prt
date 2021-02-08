@@ -6,3 +6,5 @@ main(void)
 }
 /* TODO: after checking that this works for disabling the popup, try
    to link this to /bin/false instead */
+/* NOTE: if some other notifications will appear, modify cups-exec.c
+   to show the arguments */
