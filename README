@@ -1,15 +1,8 @@
 If CUPS is not used, we cannot print via evince.
 Evince does not pass original file to CUPS (as it should be, by the design of CUPS).
 Therefore, we need to get original file name in CUPS backend.
-We can't pass filename via CUPS.
-Read "Description" in https://developer.gnome.org/gtk3/stable/gtk3-High-level-Printing-API.html
-Therefore, approach with file was chosen.
-Evince saves its own file with settings.
-Before opening print dialog, remove the file with settings or empty it. This is needed for
-CUPS backend to determine if the settings have been written. We also write dummy parameter
-with file name, which will be read to "print settings" memory structure and then re-saved.
-Also we make "reverse" setting be saved. We use it for duplex printing for convenience - to
-avoid switching to another tab.
+Pass filename via CUPS - use "cups-" prefix in option and describe it in .ppd file.
+
 --------------------------
 @PJL JOB START=x does not work (but END=y works), so we have to generate original .pdf with
 only those pages which we want to print. Therefore, "current page" or "range" in print
