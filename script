@@ -1,18 +1,12 @@
 #!/bin/sh
-while ! grep -q 'Page Setup' /home/user/.config/evince/print-settings; do
-  sleep 1 # in case evince has not yet written the data
-done
-file=`grep -oP '(?<=file-name=).*' /home/user/.config/evince/print-settings`
-pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; exit 1; } # FIXME: does it matter to use `exit 0' or `exit 1'?
-
 ( printf '\e%%-12345X'
   echo @PJL JOB
-  if grep -q reverse=true /home/user/.config/evince/print-settings; then
+  if ! echo $5 | grep -q Duplex=None; then
     echo @PJL SET DUPLEX=ON
   fi
   echo @PJL ENTER LANGUAGE=POSTSCRIPT
-  cat $file
+  cat $3
   printf '\e%%-12345X'
   echo @PJL EOJ
   printf '\e%%-12345X'
-) | send-to-printer | sudo -u user my-notify
+) | send-to-printer
