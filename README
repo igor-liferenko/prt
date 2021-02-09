@@ -1,0 +1,8 @@
+/etc/cups/cups-files.conf:
+-#User lp
+-#Group lp
++User user
++Group user
+------
+print.w:
+exit 10,11,12,... and don't output anything - instead use notify-send in cups-backend-my according to exit codes

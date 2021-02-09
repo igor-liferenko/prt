@@ -1,6 +1,6 @@
 /* Compile this and replace /usr/lib/cups/notifier/dbus */
 /* NOTE: notifications from cups are disabled because they are useless and
-   they hide notifications from my-notify */
+   they hide notifications from notify-send */
 int
 main(void)
 {
