@@ -1,4 +1,6 @@
 /* Compile this and replace /usr/lib/cups/notifier/dbus */
+/* NOTE: notifications from cups are disabled because they are useless and
+   they hide notifications from my-notify */
 int
 main(void)
 {
@@ -7,4 +9,4 @@ main(void)
 /* TODO: after checking that this works for disabling the popup, try
    to link this to /bin/false instead */
 /* NOTE: if some other notifications will appear, modify cups-exec.c
-   to show the arguments */
+   to show the arguments to understand how to block */
