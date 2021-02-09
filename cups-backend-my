@@ -1,7 +1,6 @@
 #!/bin/sh
 file=`python3 -c "$(printf 'import sys, urllib.parse\nprint(urllib.parse.unquote(sys.argv[1]))')" $3`
-
-pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; exit; }
+pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | my-notify; exit; }
 
 ( printf '\e%%-12345X'
   echo @PJL JOB
@@ -13,4 +12,4 @@ pdffonts $file | grep -q 'Type 1C' && { echo 'Type 1' | sudo -u user my-notify; 
   printf '\e%%-12345X'
   echo @PJL EOJ
   printf '\e%%-12345X'
-) | send-to-printer | sudo -u user my-notify
+) | send-to-printer | my-notify
