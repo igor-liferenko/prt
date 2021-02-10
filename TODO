@@ -6,3 +6,10 @@
 ------
 print.w:
 exit 10,11,12,... and don't output anything - instead use notify-send in cups-backend-my according to exit codes
+-------
+# Disable 'begin print' and 'end print' notifications.
+rm /usr/lib/cups/notifier/dbus
+ln -s /bin/false /usr/lib/cups/notifier/dbus
+--------
+send-to-printer:
+use just 'ssh p print' w/o root@
