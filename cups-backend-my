@@ -2,7 +2,7 @@
 export DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' # for notify-send
 
 file=`python3 -c "$(printf 'import sys, urllib.parse\nprint(urllib.parse.unquote(sys.argv[1]))')" $3`
-# pdffonts $file | grep -q 'Type 1C' && { notify-send 'Printing failed' 'Type 1'; exit; }
+pdffonts $file | grep -q 'Type 1C' && { notify-send 'Printing failed' 'Type 1'; exit; }
 
 ( printf '\e%%-12345X'
   echo @PJL JOB
