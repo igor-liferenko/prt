@@ -1,8 +1,16 @@
 diff --git a/shell/ev-window.c b/shell/ev-window.c
-index c5a1911..d2c1fc6 100644
+index c5a1911..4acc7de 100644
 --- a/shell/ev-window.c
 +++ b/shell/ev-window.c
-@@ -3805,7 +3805,7 @@ ev_window_print_range (EvWindow *ev_window,
+@@ -3773,6 +3773,7 @@ ev_window_print_range (EvWindow *ev_window,
+ 	current_page = ev_document_model_get_page (priv->model);
+ 	document_last_page = ev_document_get_n_pages (priv->document);
+ 
++	unlink("/home/user/.config/evince/print-settings");
+ 	print_settings_file = get_print_settings_file ();
+ 
+ 	print_settings = get_print_settings (print_settings_file);
+@@ -3805,7 +3806,7 @@ ev_window_print_range (EvWindow *ev_window,
  			        output_basename);
  	g_free (output_basename);
  
