@@ -1,0 +1,4 @@
+dvipdfmx patches (don't forget about CFLAGS):
+-q
+.pfb (then remove TEXFONTMAPS from bin/tex bin/gftodvi and bin/mktexpk)
+./
