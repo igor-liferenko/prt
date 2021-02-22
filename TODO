@@ -1,0 +1,3 @@
+add to installer:
+# Disable 'begin print' and 'end print' notifications.
+...
