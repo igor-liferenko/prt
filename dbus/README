@@ -1,0 +1,2 @@
+config.h is from cups source after building it
+dbus.patch is how this dbus.c was obtained from dbus.c from cups source (just remove the part which communicates with DBUS)
