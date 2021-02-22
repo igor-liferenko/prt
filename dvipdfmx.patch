@@ -1,4 +1,4 @@
-dvipdfmx patches (don't forget about CFLAGS):
+dvipdfmx patches (rm CC from .bashrc or change CFLAGS):
 -q
 .pfb (then remove TEXFONTMAPS from bin/tex bin/gftodvi and bin/mktexpk)
 ./
