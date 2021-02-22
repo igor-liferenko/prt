@@ -3,3 +3,4 @@ add to installer:
 rm /usr/lib/cups/notifier/dbus
 <build dbus>
 cp dbus /usr/lib/cups/notifier/dbus
+check if it works by `tail -f /var/log/cups/error_log' - nothing must be printed
