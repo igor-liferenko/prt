@@ -5,7 +5,7 @@ is the minimal PPD file:
 *PPD-Adobe: "4.3"
 *cupsFilter: "application/pdf 0 -"
 
-Also, modify "script" that if $# = 7, do what is now in "script", else send stdin to printer.
+Also, modify cups-backend-my that if $# = 7, do what is now in it, else send stdin to printer.
 
 For pdftopdf filter, add
 duplex option from /usr/share/ppd/cupsfilters/Generic-PDF_Printer-PDF.ppd
