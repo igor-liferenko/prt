@@ -1,4 +1,5 @@
 dvipdfmx patches (rm CC from .bashrc or change CFLAGS):
+fail on missing image
 -q
 .pfb (then remove TEXFONTMAPS from bin/tex bin/gftodvi and bin/mktexpk)
 ./
