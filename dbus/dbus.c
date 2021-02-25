@@ -1,18 +1,3 @@
-/*
- * D-Bus notifier for CUPS.
- *
- * Copyright 2008-2014 by Apple Inc.
- * Copyright (C) 2011, 2013 Red Hat, Inc.
- * Copyright (C) 2007 Tim Waugh <twaugh@redhat.com>
- * Copyright 1997-2005 by Easy Software Products.
- *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
- */
-
 #include <cups/cups.h>
 #include <cups/string-private.h>
 #include <fcntl.h>
@@ -20,119 +5,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#ifdef HAVE_DBUS
-#  include <dbus/dbus.h>
-#  ifdef HAVE_DBUS_MESSAGE_ITER_INIT_APPEND
-#    define dbus_message_append_iter_init dbus_message_iter_init_append
-#    define dbus_message_iter_append_string(i,v) dbus_message_iter_append_basic(i, DBUS_TYPE_STRING, v)
-#    define dbus_message_iter_append_uint32(i,v) dbus_message_iter_append_basic(i, DBUS_TYPE_UINT32, v)
-#    define dbus_message_iter_append_boolean(i,v) dbus_message_iter_append_basic(i, DBUS_TYPE_BOOLEAN, v)
-#  endif /* HAVE_DBUS_MESSAGE_ITER_INIT_APPEND */
-
-
-/*
- * D-Bus object: org.cups.cupsd.Notifier
- * D-Bus object path: /org/cups/cupsd/Notifier
- *
- * D-Bus interface name: org.cups.cupsd.Notifier
- *
- * Signals:
- *
- * ServerRestarted(STRING text)
- * Server has restarted.
- *
- * ServerStarted(STRING text)
- * Server has started.
- *
- * ServerStopped(STRING text)
- * Server has stopped.
- *
- * ServerAudit(STRING text)
- * Security-related event.
- *
- * PrinterRestarted(STRING text,
- *                  STRING printer-uri,
- *                  STRING printer-name,
- *                  UINT32 printer-state,
- *                  STRING printer-state-reasons,
- *                  BOOLEAN printer-is-accepting-jobs)
- * Printer has restarted.
- *
- * PrinterShutdown(STRING text,
- *                 STRING printer-uri,
- *                 STRING printer-name,
- *                 UINT32 printer-state,
- *                 STRING printer-state-reasons,
- *                 BOOLEAN printer-is-accepting-jobs)
- * Printer has shutdown.
- *
- * PrinterStopped(STRING text,
- *                STRING printer-uri,
- *                STRING printer-name,
- *                UINT32 printer-state,
- *                STRING printer-state-reasons,
- *                BOOLEAN printer-is-accepting-jobs)
- * Printer has stopped.
- *
- * PrinterStateChanged(STRING text,
- *                     STRING printer-uri,
- *                     STRING printer-name,
- *                     UINT32 printer-state,
- *                     STRING printer-state-reasons,
- *                     BOOLEAN printer-is-accepting-jobs)
- * Printer state has changed.
- *
- * PrinterFinishingsChanged(STRING text,
- *                          STRING printer-uri,
- *                          STRING printer-name,
- *                          UINT32 printer-state,
- *                          STRING printer-state-reasons,
- *                          BOOLEAN printer-is-accepting-jobs)
- * Printer's finishings-supported attribute has changed.
- *
- * PrinterMediaChanged(STRING text,
- *                     STRING printer-uri,
- *                     STRING printer-name,
- *                     UINT32 printer-state,
- *                     STRING printer-state-reasons,
- *                     BOOLEAN printer-is-accepting-jobs)
- * Printer's media-supported attribute has changed.
- *
- * PrinterAdded(STRING text,
- *              STRING printer-uri,
- *              STRING printer-name,
- *              UINT32 printer-state,
- *              STRING printer-state-reasons,
- *              BOOLEAN printer-is-accepting-jobs)
- * Printer has been added.
- *
- * PrinterDeleted(STRING text,
- *                STRING printer-uri,
- *                STRING printer-name,
- *                UINT32 printer-state,
- *                STRING printer-state-reasons,
- *                BOOLEAN printer-is-accepting-jobs)
- * Printer has been deleted.
- *
- * PrinterModified(STRING text,
- *                 STRING printer-uri,
- *                 STRING printer-name,
- *                 UINT32 printer-state,
- *                 STRING printer-state-reasons,
- *                 BOOLEAN printer-is-accepting-jobs)
- * Printer has been modified.
- *
- * text describes the event.
- * printer-state-reasons is a comma-separated list.
- * If printer-uri is "" in a Job* signal, the other printer-* parameters
- * must be ignored.
- * If the job name is not know, job-name will be "".
- */
-
-/*
- * Constants...
- */
 
 enum
 {
@@ -638,10 +510,3 @@ acquire_lock(int    *fd,		/* O - Lock file descriptor */
 
   return (0);
 }
-#else /* !HAVE_DBUS */
-int
-main(void)
-{
-  return (1);
-}
-#endif /* HAVE_DBUS */
