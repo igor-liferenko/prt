@@ -1,7 +1,7 @@
 *PPD-Adobe: "4.3"
 *%=============================================================================
 *%
-*%  PPD file for Kyocera ECOSYS P2035d (English)
+*%  PPD file for Kyocera ECOSYS M2535dn (English)
 *%  Linux Version
 *%
 *%  (C) 2013 KYOCERA Document Solutions Inc.
@@ -35,19 +35,19 @@
 *%
 *%=============================================================================
 
-*FileVersion: "8.1308"
+*FileVersion: "8.1309"
 *FormatVersion: "4.3"
 *LanguageEncoding: ISOLatin1
 *LanguageVersion: English
-*Product: "(ECOSYS P2035d)"
+*Product: "(ECOSYS M2535dn)"
 *PSVersion: "(3011.103) 1"
 *Manufacturer: "Kyocera"
-*ModelName: "Kyocera ECOSYS P2035d KPDL"
-*ShortNickName: "Kyocera ECOSYS P2035d (KPDL)"
-*NickName: "Kyocera ECOSYS P2035d (KPDL)"
-*PCFileName: "KC1120EE.PPD"
+*ModelName: "Kyocera ECOSYS M2535dn KPDL"
+*ShortNickName: "Kyocera ECOSYS M2535dn (KPDL)"
+*NickName: "Kyocera ECOSYS M2535dn (KPDL)"
+*PCFileName: "EM2535DN.PPD"
 
-*1284DeviceID: "MDL:ECOSYS P2035d;MFG:Kyocera"
+*1284DeviceID: "MDL:ECOSYS M2535dn;MFG:Kyocera"
 
 
 *% Basic Device Capabilities
@@ -97,7 +97,7 @@
 *Protocols: PJL TBCP
 
 *1284Modes Parallel: Compat Nibble ECP
-*1284DeviceID: "MFG:Kyocera;MODEL:Kyocera ECOSYS P2035d;COMMAND SET: POSTSCRIPT,PJL,PCL"
+*1284DeviceID: "MFG:Kyocera;MODEL:Kyocera ECOSYS M2535dn;COMMAND SET: POSTSCRIPT,PJL,PCL"
 
 *% JCL Information 
 *JCLBegin: "<1B>%-12345X@PJL JOB<0A>"
@@ -108,15 +108,17 @@
 *OpenGroup: InstallableOptions/Installed Options
 
 *% Paper Feeders
-*OpenUI *Option8/Paper Feeder: Boolean
-*DefaultOption8: False
-*Option8 False/Not Installed: ""
-*Option8 True/Installed: ""
+*OpenUI *Option8/Paper Feeders: PickOne
+*DefaultOption8: None
+*Option8 None/Not installed: ""
+*Option8 One/One: ""
+*Option8 Two/Two: ""
 *?Option8: "
   save
-  (False) currentpagedevice dup /InputAttributes known {
+  (None) currentpagedevice dup /InputAttributes known {
     /InputAttributes get
-    dup 1 known {dup 1 get null ne {exch pop (True) exch} if} if
+    dup 1 known {dup 1 get null ne {exch pop (One) exch} if} if
+    dup 4 known {dup 4 get null ne {exch pop (Two) exch} if} if
   } if pop
   = flush restore"
 *End
@@ -124,7 +126,7 @@
 
 *% Disk Drive
 *OpenUI *Option18/Optional Disk: PickOne
-*DefaultOption18: None
+*DefaultOption18: RAMDisk
 *Option18 None/Not installed: ""
 *Option18 RAMDisk/RAM disk: ""
 *?Option18: "
@@ -151,11 +153,8 @@
 *FreeVM: "32000000"
 
 *% Constraints
-*UIConstraints: *Option18 None *KCCollate Temp
-*UIConstraints: *KCCollate Temp *Option18 None
-
-*UIConstraints: *Option8 False *InputSlot PF100A
-*UIConstraints: *InputSlot PF100A *Option8 False
+*UIConstraints: *Option8 None *InputSlot PF100A
+*UIConstraints: *InputSlot PF100A *Option8 None
 *UIConstraints: *Option8 None *InputSlot PF100B
 *UIConstraints: *InputSlot PF100B *Option8 None
 *UIConstraints: *Option8 One *InputSlot PF100B
@@ -175,15 +174,12 @@
 *UIConstraints: *Duplex *MediaType Cardstock
 *UIConstraints: *MediaType Cardstock *Duplex DuplexTumble
 *UIConstraints: *MediaType Cardstock *Duplex DuplexNoTumble
+*UIConstraints: *Duplex *MediaType Letterhead
+*UIConstraints: *MediaType Letterhead *Duplex DuplexTumble
+*UIConstraints: *MediaType Letterhead *Duplex DuplexNoTumble
 *UIConstraints: *Duplex *MediaType Thick
 *UIConstraints: *MediaType Thick *Duplex DuplexTumble
 *UIConstraints: *MediaType Thick *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *MediaType CoatedPaper
-*UIConstraints: *MediaType CoatedPaper *Duplex DuplexTumble
-*UIConstraints: *MediaType CoatedPaper *Duplex DuplexNoTumble
-*UIConstraints: *Duplex *MediaType Highqlty
-*UIConstraints: *MediaType Highqlty *Duplex DuplexTumble
-*UIConstraints: *MediaType Highqlty *Duplex DuplexNoTumble
 *UIConstraints: *MediaType Transparency *InputSlot Internal
 *UIConstraints: *InputSlot Internal *MediaType Transparency
 *UIConstraints: *MediaType Labels *InputSlot Internal
@@ -228,8 +224,12 @@
 *UIConstraints: *Duplex *PageRegion Statement
 *UIConstraints: *PageRegion Statement *Duplex DuplexTumble
 *UIConstraints: *PageRegion Statement *Duplex DuplexNoTumble
-*UIConstraints: *Option18 None *KCCollate Temp0
-*UIConstraints: *KCCollate Temp0 *Option18 None
+*UIConstraints: *KCUserLogin True *KmManagment MG00000000
+*UIConstraints: *KmManagment MG00000000 *KCUserLogin True
+*UIConstraints: *Option18 None *KCCollate PrivatePrint
+*UIConstraints: *KCCollate PrivatePrint *Option18 None
+*UIConstraints: *Option18 None *KCCollate ProofHold
+*UIConstraints: *KCCollate ProofHold *Option18 None
 *UIConstraints: *Option18 None *KCCollate On
 *UIConstraints: *KCCollate On *Option18 None
 *UIConstraints: *PageSize B6 *InputSlot Internal
@@ -362,8 +362,6 @@
 *UIConstraints: *Duplex *PageRegion EnvDL
 *UIConstraints: *PageRegion EnvDL *Duplex DuplexTumble
 *UIConstraints: *PageRegion EnvDL *Duplex DuplexNoTumble
-*UIConstraints: *Option18 None *KCSuperWatermark
-*UIConstraints: *KCSuperWatermark *Option18 None
 
 *OpenGroup: GraphicsOptions/Graphics
 
@@ -388,12 +386,12 @@
 *% Image Refinement 
 *OpenUI *Smoothing/KIR: PickOne
 *OrderDependency: 50 AnySetup *Smoothing
-*DefaultSmoothing: Medium
-*Smoothing None/Off: "0 statusdict /setdoret get exec"
-*Smoothing Medium/On: "2 statusdict /setdoret get exec"
+*DefaultSmoothing: True
+*Smoothing True/On: "1 statusdict /setdoret get exec"
+*Smoothing False/Off: "0 statusdict /setdoret get exec"
 *?Smoothing: "
   save
-  [(None)(Medium)(Medium)(Medium)]
+  [(False)(True)(True)(True)]
   statusdict /doret get exec {get} stopped
   {pop pop (Unknown)} if
   = flush restore"
@@ -441,6 +439,7 @@
 *PageSize Folio/Folio (210 x 330mm): "<< /Policies << /PageSize 7 >> /PageSize [595 935] /ImagingBBox null >> setpagedevice"
 *PageSize Statement/Statement: "<< /Policies << /PageSize 7 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
 *PageSize P16K/16K: "<< /Policies << /PageSize 7 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
+*PageSize OficioMX/216 x 340 mm: "<< /Policies << /PageSize 7 >> /PageSize [612 964] /ImagingBBox null >> setpagedevice"
 *PageSize Letter/Letter: "<< /Policies << /PageSize 7 >> /PageSize [612 792] /ImagingBBox null >> setpagedevice"
 *PageSize Legal/Legal: "<< /Policies << /PageSize 7 >> /PageSize [612 1008] /ImagingBBox null >> setpagedevice"
 *PageSize Executive/Executive: "<< /Policies << /PageSize 7 >> /PageSize [522 756] /ImagingBBox null >> setpagedevice"
@@ -455,7 +454,7 @@
   currentpagedevice /PageSize get aload pop
   2 copy gt {exch} if
   (Unknown)
-  19 dict
+  20 dict
   dup [595 842] (A4) put
   dup [421 595] (A5) put
   dup [297 421] (A6) put
@@ -466,6 +465,7 @@
   dup [595 935] (Folio) put
   dup [396 612] (Statement) put
   dup [558 774] (P16K) put
+  dup [612 964] (OficioMX) put
   dup [612 792] (Letter) put
   dup [612 1008] (Legal) put
   dup [522 756] (Executive) put
@@ -506,6 +506,7 @@
 *PageRegion Folio/Folio (210 x 330mm): "<< /Policies << /PageSize 7 >> /PageSize [595 935] /ImagingBBox null >> setpagedevice"
 *PageRegion Statement/Statement: "<< /Policies << /PageSize 7 >> /PageSize [396 612] /ImagingBBox null >> setpagedevice"
 *PageRegion P16K/16K: "<< /Policies << /PageSize 7 >> /PageSize [558 774] /ImagingBBox null >> setpagedevice"
+*PageRegion OficioMX/216 x 340 mm: "<< /Policies << /PageSize 7 >> /PageSize [612 964] /ImagingBBox null >> setpagedevice"
 *CloseUI: *PageRegion
 
 *% Imageable Area Definitions
@@ -520,6 +521,7 @@
 *ImageableArea Folio/Folio (210 x 330mm): "12 12 583 923"
 *ImageableArea Statement/Statement: "12 12 384 600"
 *ImageableArea P16K/16K: "12 12 547 763"
+*ImageableArea OficioMX/216 x 340 mm: "12 12 600 952"
 *ImageableArea Letter/Letter: "12 08 600 784"
 *ImageableArea Legal/Legal: "12 08 600 1000"
 *ImageableArea Executive/Executive: "12 08 510 748"
@@ -551,6 +553,7 @@
 *PaperDimension Folio/Folio (210 x 330mm): "595 935"
 *PaperDimension Statement/Statement: "396 612"
 *PaperDimension P16K/16K: "558 774"
+*PaperDimension OficioMX/216 x 340 mm: "612 964"
 *PaperDimension Letter/Letter: "612 792"
 *PaperDimension Legal/Legal: "612 1008"
 *PaperDimension Executive/Executive: "522 756"
@@ -589,6 +592,7 @@
 *DefaultInputSlot: Internal
 *InputSlot Internal/Cassette 1: "<< /ManualFeed false >> setpagedevice statusdict begin 0 setpapertray end"
 *InputSlot PF100A/Cassette 2: "<< /ManualFeed false >> setpagedevice statusdict begin 1 setpapertray end"
+*InputSlot PF100B/Cassette 3: "<< /ManualFeed false >> setpagedevice statusdict begin 4 setpapertray end"
 *InputSlot MF1/MP tray: "<< /ManualFeed false >> setpagedevice statusdict begin 3 setpapertray end"
 *?InputSlot: ""
 *CloseUI: *InputSlot
@@ -642,7 +646,7 @@
 *% Duplex Definitions
 *OpenUI *Duplex/Duplexing: PickOne
 *OrderDependency: 50 AnySetup *Duplex
-*DefaultDuplex: None
+*DefaultDuplex: DuplexNoTumble
 *Duplex None/None: "statusdict begin false setduplexmode false settumble end"
 *Duplex DuplexTumble/Short edge: "statusdict begin true setduplexmode true settumble end"
 *Duplex DuplexNoTumble/Long edge: "statusdict begin true setduplexmode false settumble end"
@@ -664,29 +668,26 @@
 *OpenUI *KCCollate/Job Settings: PickOne
 *OrderDependency: 20 AnySetup *KCCollate
 *DefaultKCCollate: PrnDef
-*KCCollate PrnDef/Printer settings: "<< /Collate true >> setpagedevice"
+*KCCollate PrnDef/Printer settings: ""
+*KCCollate On/Collate: "<< /Collate true >> setpagedevice"
 *KCCollate None/None: "<< /Collate false >> setpagedevice"
-*KCCollate Temp/Temporary: "
+*KCCollate ProofHold/Proof and hold: "
   userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
-  userdict /UICollateDetails get /Mode 0 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put /Hold 3 put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
-*?KCCollate: "
-  save
-  currentpagedevice dup /Collate known {
-    dup /CollateDetails known {
-      /CollateDetails get
-      dup /Mode known {
-        /Mode get
-        1 {
-          dup 0 eq {pop (Temp) exit} if
-          pop (Unknown)
-        } repeat
-      }{pop (Unknown)} ifelse
-    }{pop (Unknown)} ifelse
-  }{pop (Unknown)} ifelse
-  = flush restore"
+*KCCollate PrivatePrint/Private print: "
+  userdict /UICollateDetails known not {userdict /UICollateDetails 10 dict put} if
+  userdict /UICollateDetails get dup /Mode 0 put dup /Type 8 put dup /Hold 1 put dup /HoldType 1 put /HoldKey (0000) put <</Collate true /CollateDetails UICollateDetails>> setpagedevice"
 *End
 *CloseUI: *KCCollate
+
+*% User Login Definitions
+*OpenUI *KCUserLogin/User Login: Boolean
+*OrderDependency: 45 AnySetup *KCUserLogin
+*DefaultKCUserLogin: False
+*KCUserLogin False/Off: ""
+*KCUserLogin True/On: ""
+*CloseUI: *KCUserLogin
 
 *% Job Name Definitions
 *OpenUI *JobName/Overwrite Job Name: PickOne
@@ -700,6 +701,36 @@
 
 *OpenGroup: AccountingOptions/Job Accounting
 
+*% Management Code Definitions
+*OpenUI *KmManagment/Job Accounting: PickOne
+*OrderDependency: 60 AnySetup *KmManagment
+*DefaultKmManagment: Default
+*KmManagment Default/Off: ""
+*KmManagment MG00000000/00000000: "(00000000) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000001/00000001: "(00000001) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000002/00000002: "(00000002) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000003/00000003: "(00000003) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000004/00000004: "(00000004) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000005/00000005: "(00000005) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000006/00000006: "(00000006) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000007/00000007: "(00000007) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000008/00000008: "(00000008) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000009/00000009: "(00000009) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000010/00000010: "(00000010) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000011/00000011: "(00000011) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000012/00000012: "(00000012) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000013/00000013: "(00000013) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000014/00000014: "(00000014) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000015/00000015: "(00000015) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000016/00000016: "(00000016) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000017/00000017: "(00000017) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000018/00000018: "(00000018) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000019/00000019: "(00000019) statusdict /setmanagementnumber get exec"
+*KmManagment MG00000020/00000020: "(00000020) statusdict /setmanagementnumber get exec"
+*?KmManagment: ""
+*End
+*CloseUI: *KmManagment
+
 *CloseGroup: AccountingOptions/Job Accounting
 
 
@@ -712,27 +743,11 @@
 
 
 
-*% KCSuperWatermark
-*OpenUI *KCSuperWatermark/Super Watermark: PickOne
-*OrderDependency: 10 AnySetup *KCSuperWatermark
-*DefaultKCSuperWatermark: None
-*KCSuperWatermark None/None: ""
-*KCSuperWatermark UFA/Use Form-A Print on all pages: "<</BeginPage {pop  mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}>> setpagedevice"
-*KCSuperWatermark UFB/Use Form-B Print on all pages: "<</BeginPage {pop  mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}>> setpagedevice"
-*KCSuperWatermark UFC/Use Form-C Print on all pages: "<</BeginPage {pop  mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}>> setpagedevice"
-*KCSuperWatermark UFAFP/Use Form-A Print on first page only: "<</BeginPage {0 eq {mark {(%disk0%Form-A) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
-*KCSuperWatermark UFBFP/Use Form-B Print on first page only: "<</BeginPage {0 eq {mark {(%disk0%Form-B) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
-*KCSuperWatermark UFCFP/Use Form-C Print on first page only: "<</BeginPage {0 eq {mark {(%disk0%Form-C) kcloadpageimage} stopped cleartomark}if}>> setpagedevice"
-*KCSuperWatermark SFA/Save Form-A: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-A) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
-*KCSuperWatermark SFB/Save Form-B: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-B) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
-*KCSuperWatermark SFC/Save Form-C: "<</EndPage {exch pop 2 ne dup  mark exch {{(%disk0%Form-C) kcsavepageimage} stopped} if cleartomark}>> setpagedevice"
-*CloseUI: *KCSuperWatermark
-
 *% PPD Version Info 
 *OpenUI *KCVersion/PPD Version: PickOne
 *OrderDependency: 25 AnySetup *KCVersion
 *DefaultKCVersion: Default
-*KCVersion Default/8.1308 [08-26-2013]: "
+*KCVersion Default/8.1309 [09-03-2013]: "
 globaldict /ct_AddStdCIDMap known {
 globaldict /ct_AddStdCIDMap get  length 7 eq
 {globaldict /ct_AddStdCIDMap get  0 get type /stringtype eq
@@ -876,5 +891,5 @@ put put setglobal
 *Source: "LocalTalk"
 *Source: "Option"
 
-*%  End of PPD file for Kyocera ECOSYS P2035d (English)
+*%  End of PPD file for Kyocera ECOSYS M2535dn (English)
 *%  Linux Version
