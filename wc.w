@@ -1,13 +1,6 @@
 % TODO: implement here work via wide characters
 
-% TODO: read cwebman - is it normal that "line_count" in index underlined in 2 sections? (note, that this is not
-connected with style of function definition - both old and new syntax have the variable inderlined in index)
-
-% wc: Пример CWEB от Сильвио Леви и Дональда Э. Кнута
-
-\nocon % пропустить содержание
-\nosecs
-\datethis % отображать дату на листинге
+\datethis
 \def\SPARC{SPARC\-\kern.1em station}
 
 @* Пример {\tt CWEB}. В этом примере представлена программа ``подсчёта слов'' из \UNIX/, переписанная на \.{CWEB} для
@@ -232,8 +225,3 @@ long char_count, word_count, line_count; /* данные суммарные зн
     }
   }
 }
-
-@ В нашем случае тест этой программы в сравнении с обычной программы \.{wc} на \SPARC\ показал что ``oфициальный''
-\.{wc} был немного медленнее. Более того, хотя \.{wc} выдал соответствующее сообщение об ошибке для опций `\.{-abc}', он
-никак не пожаловался на опции `\.{-labc}'! Осмелимся предположить что системная команда могла бы быть лучше если бы её
-программист использовал более грамотный подход?
