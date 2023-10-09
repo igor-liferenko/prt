@@ -1,0 +1,100 @@
+Install 6 packages (user linadmin, pass 11): make patch flex bison gv inkscape
+== fly-term ==
+1) Set font 'Liberation Mono 12'
+2) cp ~/.config/rusbitech/fly-term.conf /tmp
+3) Set font 'Liberation Mono 14'
+4) Diff config and in lines, that differ, change 14 to 24
+5) In launcher add --workdir /tmp
+6) Add 'тех' to command menu
+7) Disable scrollbar
+8) Maximize window
+9) Disable tabs
+10) mkdir -p ~/.local/share/konsole
+    cp /usr/share/konsole/default.keytab ~/.local/share/konsole/
+  and change x7f -> b
+11) Set color scheme 'black on white'
+== mytex ==
+Unpack mytex repo
+ln -sf open.okular open
+ln -sf print.okular print
+ln -sf printer.okular printer
+===============================================================
+ln -s ~/mytex/.bash_aliases $HOME
+mkdir ~/bin
+Re-login
+for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- MakeTeXPK dvi+ dvi- ctangle cweave tie ctie; do
+  ln -s ~/mytex/$i ~/bin/
+done
+ln -s ~/lhplain/dvipdf ~/bin/
+== cweb ==
+Unpack cweb repo
+make
+== ncurses (only on astra) ==
+Unpack ncurses
+./configure --enable-widec --with-default-terminfo-dir=/usr/lib/terminfo
+make install.libs DESTDIR=~/mytex
+ln -s . ~/mytex/usr/include/ncursesw
+Delete ~/ncurses-<version>/
+== em ==
+Unpack em repo
+Add before -lncursesw in Makefile (only if ncurses is built from source):
+  -I$(HOME)/mytex/usr/include -L$(HOME)/mytex/usr/lib
+make
+Create ~/bin/em from em/README
+==============================================================
+Calculate the number X (an example used in this setup):
+X = strlen "/home/gk.rosatom.local/ivliferenko" - strlen "/home/user" = 24
+Where 'Y -> Z' occurs below, use Y+X for Z.
+== tex ==
+Unpack tex repo
+Change in path.ch:
+  format_default_length 35 -> 59
+  format_area_length 26 -> 50
+  user -> gk.rosatom.local/ivliferenko (3 times)
+make
+== mf ==
+Unpack mf repo
+Change in path.ch:
+  base_default_length 32 -> 56
+  base_area_length 22 -> 46
+  user -> gk.rosatom.local/ivliferenko (2 times)
+Change in search.ch:
+  user -> gk.rosatom.local/ivliferenko (3 times)
+Change in screen.ch:
+  user -> gk.rosatom.local/ivliferenko
+  mf-wayland -> mf
+make
+Edit ~/mytex/screen-size (an example used in this setup):
+#!/bin/sh
+echo 1908x1003
+== dvitype ==
+Unpack dvitype repo
+Change in path.ch:
+  user -> gk.rosatom.local/ivliferenko
+  default_directory_name_length 24 -> 48
+make
+Create ~/bin/dvitype from dvitype/README and
+  change /path/to -> ~ (2 times)
+== gftodvi ==
+Unpack gftodvi repo
+Change in path.ch:
+  user -> gk.rosatom.local/ivliferenko
+make
+== gftopk ==
+Unpack gftopk repo
+make
+== okular ==
+Disable 'Обновлять файлы при обнаружении их изменения'
+(tex-, тех-, dvi- use different mode and dvipdf uses type1).
+== dvips ==
+Unpack dvips repo
+make
+== interrupt ==
+In Astra bind F3 to launch ~/mytex/interrupt
+== lhplain ==
+Unpack lhplain repo
+Unpack pfb-files as said in lhplain/README
+== ghostscript ==
+Unpack ghostscript
+Follow ghostscript build instructions in lhplain/README
+Delete ~/ghostscript-<version>/
