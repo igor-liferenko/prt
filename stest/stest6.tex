@@ -1,0 +1,5 @@
+\input stest.h
+{\uccode`~=` \uppercase{\def\\{\global\let~= }} \uccode` =`*\uppercase{\\ }}
+\newtoks\t
+{\catcode` =\active \global\t={ }}
+\stest\t \report \bye

@@ -1,0 +1,5 @@
+\input stest.h
+{\uccode` =`*\uppercase{\gdef\fspace{ }}}
+\newtoks\t
+\t=\expandafter{\fspace}
+\stest\t \report \bye
