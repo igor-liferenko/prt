@@ -34,7 +34,7 @@ In the first route
 In the second route (via argument "#1" to macros "\sss" and "\ssss", which leaves each
 space token intact) we detect
 explicit or implicit-active.
-\item{$\bullet$} In line 37 we branch between implicit-active and explicit. There is a subtlety: we use "\uppercase" to turn the active character from implicit space into a macro, to prevent substituting the active character with what is inside of it, during the "\ifcat" test ("~" is a macro by default).
+\item{$\bullet$} In line 37 we branch between implicit-active and explicit. There is a subtlety: we use "\uppercase" to turn the active character from implicit space into a macro, to prevent substituting the active character with what is inside of it, during the "\ifcat" test ("~" is a macro by default; but "~" can also be any implicit character with catcode not equal to 10).
 \item{$\bullet$} For ``implicit-active'' there are two cases (let's assume that active character is `"+"'):
 \itemitem{[a]} "+" $\rightarrow$ normal
 \itemitem{[b]} "+" $\rightarrow$ funny
