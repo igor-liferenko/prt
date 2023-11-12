@@ -1,5 +1,4 @@
 \input stest.h
-{\uccode` =`*\uppercase{\gdef\fspace{ }}}
-\newtoks\t
-\t=\expandafter{\fspace}
+\toksdef\t=0
+{\uccode` =`*\uppercase{\global\t={ }}}
 \stest\t \report \bye
