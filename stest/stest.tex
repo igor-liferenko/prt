@@ -1,3 +1,8 @@
+\pdfhorigin=1cm
+\hsize=\pdfpagewidth \advance\hsize by -2\pdfhorigin
+\dimen0=\pdfvorigin \pdfvorigin=1cm \advance\dimen0 by-\pdfhorigin
+\advance\vsize by 2\dimen0
+
 \catcode`\"=13 \def"{\leavevmode\hbox\bgroup\let"=\egroup\def\do##1{\catcode`##1=12}\dospecials\tt}
 \nopagenumbers
 
@@ -99,16 +104,16 @@ Test in line 55 is true.
 \smallskip
 \listing{stest6.tex}
 \medskip
-\noindent Test in line 10 is true. Test in line 18 is true. Test in line 35 is false.
-Test in line 52 is false.
-Test in line 55 is true.
+\noindent Test in line 10 is true. Test in line 18 is true. Test in line 26 is false.
+Test in line 52 is true.
 \bigbreak
-\noindent\hrulefill\quad 7. Output is {\tt SPACE ACTIVE}\quad \hrulefill\null
+\noindent\hrulefill\quad 7. Output is {\tt SPACE FUNNY ACTIVE}\quad \hrulefill\null
 \smallskip
 \listing{stest7.tex}
 \medskip
-\noindent Test in line 10 is true. Test in line 18 is true. Test in line 26 is false.
-Test in line 52 is true.
+\noindent Test in line 10 is true. Test in line 18 is true. Test in line 35 is false.
+Test in line 52 is false.
+Test in line 55 is true.
 \bigbreak
 \noindent\hrulefill\quad 8. Output is {\tt SPACE FUNNY ACTIVE}\quad \hrulefill\null
 \smallskip
