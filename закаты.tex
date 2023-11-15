@@ -1,13 +1,16 @@
 \input 12pt \font\twelverm=omu10 at 12pt \rm
+\dimen4=5pt % distance of inner border from sides
 \advance\leftskip by3cm
 \advance\pdfvorigin-2cm
 \advance\vsize      4cm
+\advance\vsize by -4\dimen4
 \nopagenumbers
-\def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
+\def\pagebody{\advance\vsize by4\dimen4 \vbox to\vsize{\boxmaxdepth=\maxdepth
   \borderone
   \nointerlineskip
   \bordertwo
   \nointerlineskip
+  \kern2\dimen4
   \pagecontents}}
 \dimen0=1.7pt % width of outer border
 \def\borderone{\vtop to0pt{
@@ -50,7 +53,6 @@
     \moveright2\dimen4 \vbox{\advance\hsize by-4\dimen4 \hrule height\dimen0 width\hsize}
   }\vss}}
 \dimen2=.8pt % width of inner border
-\dimen4=5pt % distance of inner border from sides
 \dimen6=2\dimen4 \advance\dimen6 by\dimen0 % for overlap
 \dimen8=\hsize \advance\dimen8 by-2\dimen4 \advance\dimen8 by-\dimen0
 \def\bordertwo{\vtop to0pt{
