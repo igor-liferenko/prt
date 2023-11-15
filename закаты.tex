@@ -1,11 +1,71 @@
 \input 12pt \font\twelverm=omu10 at 12pt \rm
-\advance\pdfhorigin3truecm
-\advance\pdfvorigin-2truecm
-\advance\vsize      4truecm
+\advance\leftskip by3cm
+\advance\pdfvorigin-2cm
+\advance\vsize      4cm
 \nopagenumbers
+\def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
+  \borderone
+  \nointerlineskip
+  \bordertwo
+  \nointerlineskip
+  \pagecontents}}
+\dimen0=1.7pt % width of outer border
+\def\borderone{\vtop to0pt{
+  \hrule height0pt
+  \vbox{
+    \moveright2\dimen4 \vbox{\advance\hsize by-4\dimen4 \hrule height\dimen0 width\hsize}
+    \nointerlineskip
+    \kern-\dimen0
+    \nointerlineskip
+    \moveright\dimen8 \vbox{\hrule height\dimen6 width\dimen0 }
+    \nointerlineskip
+    \kern-\dimen0
+    \nointerlineskip
+    \moveright\dimen8 \vbox{\hrule height\dimen0 width\dimen6 }
+    \nointerlineskip
+    \kern-\dimen6
+    \nointerlineskip
+    \moveright2\dimen4 \vbox{\hrule height\dimen6 width\dimen0 }
+    \nointerlineskip
+    \kern-\dimen0
+    \hrule height\dimen0 width\dimen6
+    \kern-\dimen0
+    \line{\advance\vsize by-4\dimen4 \vrule height\vsize width\dimen0 \hfil\vrule width\dimen0 }
+    \kern-\dimen0
+    \hrule height\dimen0 width\dimen6
+    \kern-\dimen0
+    \nointerlineskip
+    \moveright2\dimen4 \vbox{\hrule height\dimen6 width\dimen0 }
+    \nointerlineskip
+    \kern-\dimen6
+    \nointerlineskip
+    \moveright\dimen8 \vbox{\hrule height\dimen0 width\dimen6 }
+    \nointerlineskip
+    \kern-\dimen0
+    \nointerlineskip
+    \moveright\dimen8 \vbox{\hrule height\dimen6 width\dimen0 }
+    \nointerlineskip
+    \kern-\dimen0
+    \nointerlineskip
+    \moveright2\dimen4 \vbox{\advance\hsize by-4\dimen4 \hrule height\dimen0 width\hsize}
+  }\vss}}
+\dimen2=.8pt % width of inner border
+\dimen4=5pt % distance of inner border from sides
+\dimen6=2\dimen4 \advance\dimen6 by\dimen0 % for overlap
+\dimen8=\hsize \advance\dimen8 by-2\dimen4 \advance\dimen8 by-\dimen0
+\def\bordertwo{\vtop to0pt{
+  \hrule height0pt
+  \kern\dimen4
+  \moveright\dimen4 \vbox{\advance\hsize by-2\dimen4
+    \hrule height\dimen2
+    \kern-\dimen2
+    \line{\advance\vsize by-2\dimen4 \vrule height\vsize width\dimen2 \hfil\vrule width\dimen2 }
+    \kern-\dimen2
+    \hrule height\dimen2
+  }\vss}}
 {\obeylines
 \gdef\title#1^^M{{\bf#1}\par}
-\gdef\date#1^^M{\hbox to7cm{\hss\it#1}\par}}
+\gdef\date#1^^M{\hbox to10cm{\hss\it#1}\par}}
 \def\endverse{\vfill\eject}
 \def\par{\leavevmode\endgraf}
 \obeylines
@@ -187,6 +247,7 @@
 Отдыхая в праздники,
 Я уху варил.
 
+\endverse
 Хочешь видеть чудо,
 Поднебесный рай?
 Приезжай! Иуда,
@@ -332,6 +393,7 @@
 Люди в нем работящие, знатные,
 Как в труде, так на поле войны.
 
+\endverse
 Добывается уголь в разрезах.
 Созревают хлеба на полях.
 На лугах стада тёлочек резвых,
@@ -721,6 +783,7 @@
 Теперь --- ветераны войны и труда,
 Высоких наград удостоены.
 
+\endverse
 В той группе смеются, а в этой грустят,
 Платками глаза вытирают.
 Друзей и любовь не воротишь назад,
@@ -738,5 +801,47 @@
 ``Для нас вы --- достойная смена''.
 
 \date Март 1985 г.
+
+\endverse
+
+\title ДРУГУ, ВЕТЕРАНУ, УЧИТЕЛЮ
+\title \hskip3em А.Д. МАКАРЕНКО
+
+И до войны ты был учитель,
+Лишь старше стал, да больше стаж.
+Наш воин --- скромный победитель,
+А для Отечества --- солдат.
+
+Ты в праздник надеваешь китель.
+До блеска чистишь ордена.
+И порассказывать любитель
+За стопкой крепкого вина.
+
+Картечь спасала батарею.
+Враги трезвели, шли назад.
+И грозен был в дыму сражений
+Пехоты нашей резкий мат.
+
+Не покидая батарею,
+И при разрывах вражьих мин,
+Освобождал Варшаву, Вену,
+А в мае штурмом брал Берлин.
+
+Судьба тебя не баловала,
+А всё-таки тебе везло.
+Из трёх полученных ранений,
+Два оказалися легко.
+
+Всё время подвергаясь смерти,
+Почти не спал, не часто ел.
+Таких, как ты, не брали черти,
+Ты выжил, ты остался цел.
+
+Учитель, как и был учитель\dots
+Судьбой доволен, жизни рад,
+Наш воин --- скромный победитель,
+А для Отечества --- солдат.
+
+\date 1988 г.
 
 \bye
