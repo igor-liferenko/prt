@@ -63,9 +63,8 @@ Change in screen.ch:
   user -> gk.rosatom.local/ivliferenko
   mf-wayland -> mf
 make
-echo GV.geometry: WIDTHxHEIGHT >~/.gv # see mytex/print how to obtain these values
-gv-update-userconfig
-printf '%s\n%s\n' '#!/bin/sh' 'sed -n s/GV.geometry://p ~/.gv' >~/bin/screen-size
+echo WIDTHxHEIGHT >~/.gv-geometry # see mytex/print how to obtain these values
+printf '#!/bin/sh\n%s\n' 'cat ~/.gv-geometry' >~/bin/screen-size
 chmod +x ~/bin/screen-size
 == dvitype ==
 Unpack dvitype repo
