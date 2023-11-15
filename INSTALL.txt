@@ -16,7 +16,6 @@ Install 6 packages (user linadmin, pass 11): make patch flex bison gv inkscape
 == mytex ==
 Unpack mytex repo
 ln -sf open.okular open
-ln -sf print.okular print
 ln -sf printer.okular printer
 ===============================================================
 ln -s ~/mytex/.bash_aliases $HOME
@@ -64,9 +63,10 @@ Change in screen.ch:
   user -> gk.rosatom.local/ivliferenko
   mf-wayland -> mf
 make
-Edit ~/mytex/screen-size (an example used in this setup):
-#!/bin/sh
-echo 1908x1003
+echo GV.geometry: WIDTHxHEIGHT >~/.gv # see mytex/print how to obtain these values
+gv-update-userconfig
+printf '%s\n%s\n' '#!/bin/sh' 'sed -n s/GV.geometry://p ~/.gv' >~/bin/screen-size
+chmod +x ~/bin/screen-size
 == dvitype ==
 Unpack dvitype repo
 Change in path.ch:
