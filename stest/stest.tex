@@ -40,6 +40,7 @@ In the second route (via argument "#1" to macros "\sss" and "\ssss", which leave
 space token intact) we detect
 explicit or implicit-active.
 \item{$\bullet$} In line 37 we branch between implicit-active and explicit. There is a subtlety: we use "\uppercase" to turn the active character from implicit space into a macro, to prevent substituting the active character with what is inside of it, during the "\ifcat" test ("~" is a macro by default; but "~" can also be any implicit character with catcode not equal to 10).
+\item{$\bullet$} Note, that "\ifnum\catcode=13" can't be used to detect active character, because catcode is taken not from token, but from global charcode-catcode mapping (which may be different from the token's catcode when the check is performed).
 \item{$\bullet$} For ``implicit-active'' there are two cases (let's assume that active character is `"+"'):
 \itemitem{[a]} "+" $\rightarrow$ normal
 \itemitem{[b]} "+" $\rightarrow$ funny
