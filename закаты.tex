@@ -1,17 +1,13 @@
 \input 12pt \font\twelverm=omu10 at 12pt \rm
-\dimen4=5pt % distance of inner border from sides
-\advance\leftskip by3cm
-\advance\pdfvorigin-2cm
-\advance\vsize      4cm
-\advance\vsize by -4\dimen4
-\nopagenumbers
-\def\pagebody{\advance\vsize by4\dimen4 \vbox to\vsize{\boxmaxdepth=\maxdepth
+\advance\pdfvorigin by -2cm
+\advance\vsize by 3cm
+\def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
   \borderone
   \nointerlineskip
   \bordertwo
   \nointerlineskip
-  \kern2\dimen4
-  \pagecontents}}
+  \kern1.3cm
+  \moveright3cm \box255 \vss}}
 \dimen0=1.7pt % width of outer border
 \def\borderone{\vtop to0pt{
   \hrule height0pt
@@ -53,6 +49,7 @@
     \moveright2\dimen4 \vbox{\advance\hsize by-4\dimen4 \hrule height\dimen0 width\hsize}
   }\vss}}
 \dimen2=.8pt % width of inner border
+\dimen4=5pt % distance of inner border from sides
 \dimen6=2\dimen4 \advance\dimen6 by\dimen0 % for overlap
 \dimen8=\hsize \advance\dimen8 by-2\dimen4 \advance\dimen8 by-\dimen0
 \def\bordertwo{\vtop to0pt{
@@ -65,9 +62,9 @@
     \kern-\dimen2
     \hrule height\dimen2
   }\vss}}
-{\obeylines
-\gdef\title#1^^M{{\bf#1}\par}
-\gdef\date#1^^M{\hbox to10cm{\hss\it#1}\par}}
+{\catcode`\^^M=\active
+\gdef\title#1^^M{{\bf#1}\endgraf}
+\gdef\date#1^^M{\hbox to10cm{\hss\it#1}\endgraf}}
 \def\endverse{\vfill\eject}
 \def\par{\leavevmode\endgraf}
 \obeylines
@@ -244,12 +241,12 @@
 Там живые молнии ---
 Рыбы харьюзки.
 
+\vfill\eject
 За деревней Спасовкой,
 На ручье Тырбыл,
 Отдыхая в праздники,
 Я уху варил.
 
-\endverse
 Хочешь видеть чудо,
 Поднебесный рай?
 Приезжай! Иуда,
@@ -303,6 +300,7 @@
 
 \endverse
 
+\kern-1cm
 \title НОЧЁВКА У РЫБАЦКОГО КОСТРА
 
 Хлеба нарезали всем по горбушке,
@@ -390,12 +388,12 @@
 Хорошело село, разрасталось,
 Истощалась, мелела Барга.
 
+\vfill\eject
 Изобильный район и богатый,
 Очень важный для жизни страны.
 Люди в нем работящие, знатные,
 Как в труде, так на поле войны.
 
-\endverse
 Добывается уголь в разрезах.
 Созревают хлеба на полях.
 На лугах стада тёлочек резвых,
@@ -780,12 +778,12 @@
 На парня, что сзади за партой сидел,
 И трогал за длинные косы.
 
+\vfill\eject
 Ребята, что были на фронте тогда,
 Такие, как внуки сегодня,
 Теперь --- ветераны войны и труда,
 Высоких наград удостоены.
 
-\endverse
 В той группе смеются, а в этой грустят,
 Платками глаза вытирают.
 Друзей и любовь не воротишь назад,
@@ -806,8 +804,8 @@
 
 \endverse
 
-\title ДРУГУ, ВЕТЕРАНУ, УЧИТЕЛЮ
-\title \hskip3em А.Д. МАКАРЕНКО
+\title ДРУГУ, ВЕТЕРАНУ, УЧИТЕЛЮ \endgraf %
+\ \ \ \ \ \ \ \ \ А.Д. МАКАРЕНКО
 
 И до войны ты был учитель,
 Лишь старше стал, да больше стаж.
