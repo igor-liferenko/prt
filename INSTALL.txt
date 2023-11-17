@@ -82,9 +82,10 @@ make
 == gftopk ==
 Unpack gftopk repo
 make
-== okular ==
-Disable 'Обновлять файлы при обнаружении их изменения'
-(tex-, тех-, dvi- use different mode and dvipdf uses type1).
+== okular/evince ==
+Disable 'Обновлять файлы при обнаружении их изменения'/
+gsettings set org.gnome.Evince auto-reload false
+(tex-, тех-, dvi- use different mode and dvipdf uses type1)
 == dvips ==
 Unpack dvips repo
 make
