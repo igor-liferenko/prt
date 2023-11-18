@@ -63,9 +63,13 @@ Change in screen.ch:
   user -> gk.rosatom.local/ivliferenko
   mf-wayland -> mf
 make
-echo WIDTHxHEIGHT >~/.gv-geometry # see mytex/print how to obtain these values
-printf '#!/bin/sh\n%s\n' 'cat ~/.gv-geometry' >~/bin/screen-size
-chmod +x ~/bin/screen-size
+printf '#!/bin/sh\n%s\n' 'echo WIDTHxHEIGHT' >~/bin/gv-size # set red desktop backround, run gv, stretch
+  # window borders to sides, create screenshot of it - enable «active window» and «without borders»
+  # options, and save to x.png and see size via «file x.png» and put the size to ~/.gv-geometry and run
+  # «tex- 'story \end'» and decrease each value one by one separately, followed by «tex- 'story \end'»,
+  # until red stripe appears and back up by one
+chmod +x ~/bin/gv-size
+ln -s ~/bin/gv-size ~/bin/screen-size
 == dvitype ==
 Unpack dvitype repo
 Change in path.ch:
