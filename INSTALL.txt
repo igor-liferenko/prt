@@ -65,11 +65,11 @@ Change in screen.ch:
 make
 printf '#!/bin/sh\n%s\n' 'echo WIDTHxHEIGHT' >~/bin/gv-size # set red desktop backround, run gv, stretch
   # window borders to sides, create screenshot of it - enable «active window» and «without borders»
-  # options, and save to x.png and see size via «file x.png» and put the size to ~/.gv-geometry and run
+  # options, and save to x.png and see WIDTHxHEIGHT via «file x.png» and run
   # «tex- 'story \end'» and decrease each value one by one separately, followed by «tex- 'story \end'»,
   # until red stripe appears and back up by one
 chmod +x ~/bin/gv-size
-ln -s ~/bin/gv-size ~/bin/screen-size
+ln -s gv-size ~/bin/screen-size
 == dvitype ==
 Unpack dvitype repo
 Change in path.ch:
@@ -86,9 +86,8 @@ make
 == gftopk ==
 Unpack gftopk repo
 make
-== okular/evince ==
-Disable 'Обновлять файлы при обнаружении их изменения'/
-gsettings set org.gnome.Evince auto-reload false
+== okular ==
+Disable 'Обновлять файлы при обнаружении их изменения'
 (tex-, тех-, dvi- use different mode and dvipdf uses type1)
 == dvips ==
 Unpack dvips repo

@@ -1,0 +1,13 @@
+gsettings set org.gnome.Evince auto-reload false
+
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:`sudo -u user gsettings get org.gnome.Terminal.ProfilesList default|cut -d\' -f2`/ backspace-binding ascii-backspace
+
+echo '[ $(cat /proc/$PPID/comm) = gnome-terminal- ] && stty -ixon erase ^H' >>.bashrc
+
+---------------------------------------------------------------------------------
+
+gsettings set org.gnome.Evince.Default show-sidebar false
+
+mkdir -p /home/user/.local/share/gnome-shell/extensions/
+cd /home/user/.local/share/gnome-shell/extensions/
+git clone https://github.com/bdaase/noannoyance noannoyance@daase.net

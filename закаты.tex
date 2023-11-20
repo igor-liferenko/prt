@@ -1,13 +1,15 @@
+\tracingoutput=1 \showboxdepth=\maxdimen \showboxbreadth=\maxdimen
 \input 12pt \font\twelverm=omu10 at 12pt \rm
 \advance\pdfvorigin by -2cm
-\advance\vsize by 3cm
-\def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
+\newdimen\fullvsize \fullvsize=\vsize \advance\fullvsize by 3cm 
+\vsize=22cm
+\def\pagebody{\vbox to\fullvsize{\boxmaxdepth=\maxdepth
   \borderone
   \nointerlineskip
   \bordertwo
   \nointerlineskip
   \kern1.3cm
-  \moveright3cm \box255 \vss}}
+  \moveright3cm \box255 \vfil}}
 \dimen0=1.7pt % width of outer border
 \def\borderone{\vtop to0pt{
   \hrule height0pt
@@ -29,7 +31,7 @@
     \kern-\dimen0
     \hrule height\dimen0 width\dimen6
     \kern-\dimen0
-    \line{\advance\vsize by-4\dimen4 \vrule height\vsize width\dimen0 \hfil\vrule width\dimen0 }
+    \line{\advance\fullvsize by-4\dimen4 \vrule height\fullvsize width\dimen0 \hfil\vrule width\dimen0 }
     \kern-\dimen0
     \hrule height\dimen0 width\dimen6
     \kern-\dimen0
@@ -58,7 +60,7 @@
   \moveright\dimen4 \vbox{\advance\hsize by-2\dimen4
     \hrule height\dimen2
     \kern-\dimen2
-    \line{\advance\vsize by-2\dimen4 \vrule height\vsize width\dimen2 \hfil\vrule width\dimen2 }
+    \line{\advance\fullvsize by-2\dimen4 \vrule height\fullvsize width\dimen2 \hfil\vrule width\dimen2 }
     \kern-\dimen2
     \hrule height\dimen2
   }\vss}}
@@ -66,8 +68,9 @@
 \gdef\title#1^^M{{\bf#1}\endgraf}
 \gdef\date#1^^M{\hbox to10cm{\hss\it#1}\endgraf}}
 \def\endverse{\vfill\eject}
-\def\par{\leavevmode\endgraf}
-\obeylines
+\def\par{\futurelet\next\s}
+\def\s{\ifx\next\endverse\else\leavevmode\endgraf\fi}
+\obeylines \let\par=\endgraf
 
 \title ЗИМОЙ В ДЕРЕВНЕ
 
@@ -241,7 +244,6 @@
 Там живые молнии ---
 Рыбы харьюзки.
 
-\vfill\eject
 За деревней Спасовкой,
 На ручье Тырбыл,
 Отдыхая в праздники,
@@ -388,7 +390,6 @@
 Хорошело село, разрасталось,
 Истощалась, мелела Барга.
 
-\vfill\eject
 Изобильный район и богатый,
 Очень важный для жизни страны.
 Люди в нем работящие, знатные,
@@ -778,7 +779,6 @@
 На парня, что сзади за партой сидел,
 И трогал за длинные косы.
 
-\vfill\eject
 Ребята, что были на фронте тогда,
 Такие, как внуки сегодня,
 Теперь --- ветераны войны и труда,
