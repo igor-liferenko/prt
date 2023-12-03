@@ -63,13 +63,13 @@ Change in screen.ch:
   user -> gk.rosatom.local/ivliferenko
   mf-wayland -> mf
 make
-printf '#!/bin/sh\n%s\n' 'echo WIDTHxHEIGHT' >~/bin/gv-size # set red desktop backround, run gv, stretch
-  # window borders to sides, create screenshot of it - enable «active window» and «without borders»
-  # options, and save to x.png and see WIDTHxHEIGHT via «file x.png» and run
-  # «tex- 'story \end'» and decrease each value one by one separately, followed by «tex- 'story \end'»,
-  # until red stripe appears and back up by one
-chmod +x ~/bin/gv-size
-ln -s gv-size ~/bin/screen-size
+printf '#!/bin/sh\n%s\n' 'echo WIDTHxHEIGHT' >~/.gv-size # set red desktop backround, run gv,
+  # stretch window borders to sides, create screenshot of it - enable «active window» and
+  # «without borders» options, and save to x.png and see WIDTHxHEIGHT via «file x.png» and run
+  # «tex- 'story \end'» and decrease each value one by one separately, followed by
+  # «tex- 'story \end'», until red stripe appears and back up by one
+chmod +x ~/.gv-size
+ln -s .gv-size ~/.screen-size
 == dvitype ==
 Unpack dvitype repo
 Change in path.ch:
