@@ -1,15 +1,12 @@
-\tracingoutput=1 \showboxdepth=\maxdimen \showboxbreadth=\maxdimen
-\input 12pt \font\twelverm=omu10 at 12pt \rm
+\input 12pt
 \advance\pdfvorigin by -2cm
-\newdimen\fullvsize \fullvsize=\vsize \advance\fullvsize by 3cm 
-\vsize=22cm
-\def\pagebody{\vbox to\fullvsize{\boxmaxdepth=\maxdepth
+\advance\vsize by 3cm 
+\def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
   \borderone
   \nointerlineskip
   \bordertwo
   \nointerlineskip
-  \kern1.3cm
-  \moveright3cm \box255 \vfil}}
+  \moveright3cm \box255 \vss}}
 \dimen0=1.7pt % width of outer border
 \def\borderone{\vtop to0pt{
   \hrule height0pt
@@ -31,7 +28,7 @@
     \kern-\dimen0
     \hrule height\dimen0 width\dimen6
     \kern-\dimen0
-    \line{\advance\fullvsize by-4\dimen4 \vrule height\fullvsize width\dimen0 \hfil\vrule width\dimen0 }
+    \line{\advance\vsize by-4\dimen4 \vrule height\vsize width\dimen0 \hfil\vrule width\dimen0 }
     \kern-\dimen0
     \hrule height\dimen0 width\dimen6
     \kern-\dimen0
@@ -60,17 +57,16 @@
   \moveright\dimen4 \vbox{\advance\hsize by-2\dimen4
     \hrule height\dimen2
     \kern-\dimen2
-    \line{\advance\fullvsize by-2\dimen4 \vrule height\fullvsize width\dimen2 \hfil\vrule width\dimen2 }
+    \line{\advance\vsize by-2\dimen4 \vrule height\vsize width\dimen2 \hfil\vrule width\dimen2 }
     \kern-\dimen2
     \hrule height\dimen2
   }\vss}}
 {\catcode`\^^M=\active
-\gdef\title#1^^M{{\bf#1}\endgraf}
-\gdef\date#1^^M{\hbox to10cm{\hss\it#1}\endgraf}}
-\def\endverse{\vfill\eject}
-\def\par{\futurelet\next\s}
-\def\s{\ifx\next\endverse\else\leavevmode\endgraf\fi}
-\obeylines \let\par=\endgraf
+\gdef\title#1^^M{{\bf#1}\par}
+\gdef\date#1^^M{\hbox to10cm{\hss\it#1}\par}}
+\def\par{\leavevmode\endgraf} \obeylines \let\par=\endgraf
+
+\kern1cm
 
 \title ЗИМОЙ В ДЕРЕВНЕ
 
@@ -96,7 +92,7 @@
 
 \date Февраль 1988 г.
 
-\endverse
+\vfill\eject
 
 \title ЗА СЕЛОМ
 
@@ -138,7 +134,7 @@
 
 \date Январь 1985 г.
 
-\endverse
+\vfill\eject
 
 \title ВЕСЕННИЕ ЗАКАТЫ
 
@@ -169,7 +165,7 @@
 
 \date 1985 г.
 
-\endverse
+\vfill\eject
 
 \title НА СЕНОКОСЕ
 
@@ -200,7 +196,7 @@
 
 \date 1986 г.
 
-\endverse
+\vfill\eject
 
 \title ТЫРБЫЛ
 
@@ -244,6 +240,8 @@
 Там живые молнии ---
 Рыбы харьюзки.
 
+\vfill\eject
+
 За деревней Спасовкой,
 На ручье Тырбыл,
 Отдыхая в праздники,
@@ -256,7 +254,7 @@
 
 \date 1988 г.
 
-\endverse
+\vfill\eject
 
 \title НА РЫБАЛКЕ
 
@@ -300,9 +298,10 @@
 Сосна отряхивает крону,
 И радость шепчется с добром.
 
-\endverse
+\vfill\eject
 
-\kern-1cm
+\kern-1.3cm
+
 \title НОЧЁВКА У РЫБАЦКОГО КОСТРА
 
 Хлеба нарезали всем по горбушке,
@@ -346,7 +345,7 @@
 А дорогой порешили\dots
 Снова ехать в выходной.
 
-\endverse
+\vfill\eject
 
 \title К 70-ЛЕТИЮ РАЙОНА
 
@@ -390,6 +389,8 @@
 Хорошело село, разрасталось,
 Истощалась, мелела Барга.
 
+\vfill\eject
+
 Изобильный район и богатый,
 Очень важный для жизни страны.
 Люди в нем работящие, знатные,
@@ -410,7 +411,7 @@
 В нём живут настоящие люди,
 И с прогрессом они заодно.
 
-\endverse
+\vfill\eject
 
 \title В РОДНОЙ ДЕРЕВНЕ
 
@@ -446,7 +447,7 @@
 
 \date 1992 г.
 
-\endverse
+\vfill\eject
 
 \title ПАМЯТИ Е. И. МУХОРТОВА
 
@@ -485,7 +486,7 @@
 
 \date 1988 г.
 
-\endverse
+\vfill\eject
 
 \title КАФЕ
 
@@ -514,7 +515,7 @@
 Распивай чаи, кушай пряники,
 Хмурый зимний день станет праздником.
 
-\endverse
+\vfill\eject
 
 \title ЖЕНЩИНАМ
 
@@ -553,7 +554,7 @@
 
 \date Март 1986 г.
 
-\endverse
+\vfill\eject
 
 \title НЕОБХОДИМЫЙ ЧЕЛОВЕК
 
@@ -586,7 +587,7 @@
 И в этой жизни Шаповалов ---
 Необходимый человек.
 
-\endverse
+\vfill\eject
 
 \title ПОСЛЕ ДОЖДЯ
 
@@ -611,7 +612,7 @@
 Если б были все довольны,
 Я б ещё похлюпалась.
 
-\endverse
+\vfill\eject
 
 \title БАБУШКА И КОЗЫ
 
@@ -632,7 +633,7 @@
 Хорошо, что бабушки
 В нашей жизни есть.
 
-\endverse
+\vfill\eject
 
 \title СОЛЯНСКИЙ БАТАЛЬОН
 
@@ -671,7 +672,7 @@
 О тех, кто в далеких могилах лежит.
 Их помнят, а, вспомнив, рыдают.
 
-\endverse
+\vfill\eject
 
 \title ПАМЯТНИК
 
@@ -715,7 +716,7 @@
 И памятник у нас стоит
 Возле ДК среди Солянки.
 
-\endverse
+\vfill\eject
 
 \title МОЙ ОРДЕН
 
@@ -735,7 +736,7 @@
 Работаю честно и мир сторожу.
 И орден по праву ношу.
 
-\endverse
+\vfill\eject
 
 \title НА ВСТРЕЧЕ ``ОГНЕННЫЕ ДОРОГИ''
 
@@ -779,6 +780,8 @@
 На парня, что сзади за партой сидел,
 И трогал за длинные косы.
 
+\vfill\eject
+
 Ребята, что были на фронте тогда,
 Такие, как внуки сегодня,
 Теперь --- ветераны войны и труда,
@@ -802,7 +805,7 @@
 
 \date Март 1985 г.
 
-\endverse
+\vfill\eject
 
 \title ДРУГУ, ВЕТЕРАНУ, УЧИТЕЛЮ \endgraf %
 \ \ \ \ \ \ \ \ \ А.Д. МАКАРЕНКО
@@ -843,5 +846,79 @@
 А для Отечества --- солдат.
 
 \date 1988 г.
+
+\vfill\eject
+
+\kern1.2cm
+
+\title ДЕДУШКА И ВНУКИ
+
+Из садика вечером внуки пришли
+И деда упрашивать стали:
+``Ты нам о войне, о себе расскажи,
+За что ордена и медали?''
+
+А дедушка внуков руками обнял,
+Стал грустным, подумал немного,
+Вздохнул глубоко и тихонько начал:
+``Я вам не желаю такого.
+
+Когда над страной разразилась война,
+Мы в старшие классы ходили.
+Тяжёлые были тогда времена,
+И все в напряжении жили.
+
+От взрывов и крови стонала земля
+От Белого моря до Чёрного.
+Сражались солдаты, держалась Москва,
+И делали всё невозможное.
+
+А матери наши в полях, у станков,
+Работали и голодали,
+Мужей заменив, а мальчишки --- отцов,
+Для фронта победу ковали.
+
+Не год и не два, а четыре прошло,
+И мы в своё время успели
+В атаки сходить. Только нам повезло:
+Остались ранения в теле.
+
+\vfill\eject
+
+\kern.6cm
+
+Пятьдесят миллионов людей
+В войне этой в землю упрятаны.
+Неужто найдётся, как Гитлер, злодей,
+Который мечтает об атомной? \dots
+
+Идите, ребятки, а я посижу.
+Ложитесь и спите спокойно.
+А я, если надо, ещё послужу,
+Чтоб сгинули всякие войны.''
+
+\date Февраль 1986 г.
+
+\title ДЕТИ ВОЙНЫ
+
+Не мерить кровь и слезы тоннами\dots
+Кому и сколь пришлось страдать.
+И на машине электронной
+Статистикам не сосчитать.
+
+Мы шли на фронт землёй Смоленщины,
+Минуя минные поля,
+Участливо глядели женщины
+В освобождённых деревнях.
+
+То не деревни --- лишь названия,
+Испепелённая земля\dots
+Стояли печки --- изваяния
+В местах, где улица была.
+
+И нам, недавним малолеткам,
+Был за отцами путь один\dots
+Но мы шутили не по-детски:
+``Где тут дорога на Берлин?''
 
 \bye
