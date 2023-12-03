@@ -22,13 +22,12 @@ $$\vbox{\hsize=8.7cm
 \it\noindent NOTE: implicit space can be either a control sequence (``implicit-cs'') or an active character (``implicit-active'')}$$
 \medskip
 \noindent{\bf Overview:}\par
-\item{$\bullet$} In "\ss" we branch catcode 10 or not.
-\item{$\bullet$} In "\sx" we branch beween normal and funny.
-\item{$\bullet$} In "\sss" we branch between explicit and implicit.
-\item{$\bullet$} In "\ssss" we branch between explicit/implicit-active and
-implicit (in line 35).
+\item{$\bullet$} Lines 36--37 is the way to tell if catcode of a character token is 13.
+We do not do "\def~{}" before the "\ifcat" test because "~" is a macro by default. Without "\uppercase" implicit space character will have catcode 10. \footnote\dag{Note, that "\ifnum\catcode=13" can't be used to detect active character, because catcode is taken not from token, but from global charcode-catcode mapping (which may be different from
+ the token's catcode when the check is performed).}
 \item{$\bullet$} In "\testactive" we branch between implicit-cs and implicit-active.
-\item{$\bullet$} Parameter text for "\sss" is "#1 #2" because: if first token in token list is explicit
+\item{$\bullet$} Undelimited explicit spaces are ignored in macro arguments, so in parameter text for "\sss"
+we use explicit space as delimiter. The effect is the following: if first token in token list is explicit
 space, it is matched to the space in parameter text and hence "#1" will be empty. On the other
 hand,
 if the first token
@@ -39,8 +38,6 @@ In the first route
 In the second route (via argument "#1" to macros "\sss" and "\ssss", which leaves each
 space token intact) we detect
 explicit or implicit-active.
-\item{$\bullet$} In line 37 we branch between implicit-active and explicit. There is a subtlety: we use "\uppercase" to turn the active character from implicit space into a macro, to prevent substituting the active character with what is inside of it, during the "\ifcat" test ("~" is a macro by default; but "~" can also be any implicit character with catcode not equal to 10).
-\item{$\bullet$} Note, that "\ifnum\catcode=13" can't be used to detect active character, because catcode is taken not from token, but from global charcode-catcode mapping (which may be different from the token's catcode when the check is performed).
 \item{$\bullet$} For ``implicit-active'' there are two cases (let's assume that active character is `"+"'):
 \itemitem{[a]} "+" $\rightarrow$ normal
 \itemitem{[b]} "+" $\rightarrow$ funny
@@ -50,12 +47,13 @@ the space, that is inside the active character, has charcode 32; and when charco
 \itemitem{[d]} charcode of active character and charcode, which is inside of the active character, are the same (they must not be equal to 32 --- this is a sub-case of [c]; and they must not be equal to 126 --- it is used in line 37).
 \item{$\bullet$} Argument list for "\tact" is formed by
 running "\string" on the first token in token list (it is assumed that "\escapechar" is between 0 and 255). If this token is not active, there will be two or more tokens in arument list. If this token is an active character with
-charcode not 32, there will be one token in argument list; if this token is an active character with charcode 32, argument list will be empty. "\tact" simply checks if "#2" is "\s" or "#1" is "\s"
+charcode not 32, there will be one token in argument list; if this token is an active character with charcode 32, argument list will be empty because undelimited explicit spaces are ignored in macro arguments. "\tact" simply checks if "#2" is "\s" or if "#1" is "\s",
 in order to determine whether the token is an active character.
-\item{$\bullet$} We change "\escapechar" in line 34 in order that it cannot be equal
-to charcode of
-space (explicit or implicit) --- to guarantee that test in line 35 cannot
-be true for control sequences (this fact is used in line 36).
+\item{$\bullet$} Explicit spaces are separated from implicit-cs via "\string"$+$"\if" (here care is taken to
+guarantee that implicit-cs space does not have charcode of "\escapechar" because we do not want implicit-cs to pass this test; extra tokens produced by "\string" in implicit-cs case are ignored because the "\if"-test is false in such case). \footnote\ddag{Although the "\string"$+$"\if" test is not pure (some implicit-active spaces pass along with explicit ones), we use it first in the `funny' branch. If we tried to be more straightforward, we could
+first separate implicit-cs from explicit+implicit-active like in "\testactive"$+$"\tact" via "\string", but then it would be impossible to tell implicit-active from explicit because "\string"
+makes catcode 12 for both.} Explicit spaces are separated from implicit-active via
+"\uppercase"$+$"\ifcat".
 \item{$\bullet$} "\long" is used in case token list contains "\par".
 \vfil\eject
 \noindent\hrulefill\quad 0. Output is empty.\quad \hrulefill\null
