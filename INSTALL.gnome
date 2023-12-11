@@ -10,10 +10,7 @@ git clone https://github.com/bdaase/noannoyance noannoyance@daase.net
 Re-login
 Enable in Extensions
 
-Take screenshot - enable «whole screen», see resolution and create ~/.screen-size:
-  #!/bin/sh
-  echo WIDTHxHEIGHT
-chmod +x ~/.screen-size
-
-ln -s .screen-size ~/.gv-size
-(In Gnome3 it is not necessary to specify exact size - if size is bigger, it is adjusted automatically.)
+echo WIDTHxHEIGHT >~/.screen-size # take screenshot - enable
+                                  # «whole screen» and see resolution
+ln -s .screen-size ~/.gv-size # in Gnome3 it is not necessary to specify exact
+                              # gv-size - if size is bigger, it is adjusted automatically
