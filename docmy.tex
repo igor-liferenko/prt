@@ -135,13 +135,13 @@
 %%%%%%%%%%%%%%%%%% Příkazy \begtt, \endtt
 
 \def\begtt {\bgroup\printvabove
-   \setverb \catcode`\"=12 \catcode`\^^M=12 \obeyspaces
-   \begtthook\relax \setsmallprinting \startverb}
+   \uncatcodespecials \catcode`\"=12 \catcode`\^^M=12 \obeyspaces
+   \setsmallprinting \startverb}
 \def\begintt {\bgroup\printvabove
   \ttlineno=0
   \let\islinenumprinted+
-  \setverb \catcode`\"=12 \catcode`\^^M=12 \obeyspaces
-  \begtthook\relax \setsmallprinting \startverb}
+  \uncatcodespecials \catcode`\"=12 \catcode`\^^M=12 \obeyspaces
+  \setsmallprinting \startverb}
 {\catcode`\|=0 \catcode`\^^M=12 \catcode`\\=12 %
   |gdef|startverb^^M#1\endtt{|runttloop#1|end^^M}%
   |gdef|runttloop#1^^M{|ifx|end#1 |expandafter|endttloop%
@@ -286,7 +286,7 @@
   \catcode`\`=\active
   \catcode`\"=12 % unactivate
   \obeylines
-  \setverb
+  \uncatcodespecials
   \obeyspaces
   \everypar{\ttstrut}}
 {\obeyspaces\global\let =\ } % let active space = control space
