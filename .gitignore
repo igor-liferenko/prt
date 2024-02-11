@@ -1,3 +1,7 @@
+story.dvi
+story.log
+story.ps
+story.pdf
 pdftopdf/pdftopdf
 pdftopdf/pdftopdf-intervalset.o
 pdftopdf/pdftopdf-nup.o
