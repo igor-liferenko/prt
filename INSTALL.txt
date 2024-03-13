@@ -39,7 +39,6 @@ Unpack em repo
 Add before -lncursesw in Makefile (only if ncurses is built from source):
   -I$(HOME)/mytex/usr/include -L$(HOME)/mytex/usr/lib
 make
-Create ~/bin/em from em/README
 ==============================================================
 Calculate the number X (an example used in this setup):
 X = strlen "/home/gk.rosatom.local/ivliferenko" - strlen "/home/user" = 24
