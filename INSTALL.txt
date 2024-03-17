@@ -18,7 +18,7 @@ Unpack mytex repo
 ln -sf open.okular open
 ln -sf printer.okular printer
 ===============================================================
-ln -s ~/mytex/.bash_aliases $HOME
+sed 's/gnome-terminal-/fly-term/' ~/mytex/.bash_aliases >~/.bash_aliases
 mkdir ~/bin
 Re-login
 for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- MakeTeXPK dvi+ dvi- ctangle cweave tie ctie; do
