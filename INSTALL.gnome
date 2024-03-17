@@ -2,7 +2,7 @@ gsettings set org.gnome.Evince auto-reload false
 
 In gnome-terminal 'Compatibility' tab make backspace generate Control-H
 
-echo '[ $(cat /proc/$PPID/comm) = gnome-terminal- ] && stty -ixon erase ^H' >>~/.bashrc
+ln -s ~/mytex/.bash_aliases $HOME
 
 mkdir -p /home/user/.local/share/gnome-shell/extensions/
 cd /home/user/.local/share/gnome-shell/extensions/
