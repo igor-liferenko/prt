@@ -1,3 +1,4 @@
+stty erase ^H
 PS1="\[$(tput bold; tput setaf 2)\]pts/\l"
 PS1=$PS1"\[$(tput sgr0)\]:"
 PS1=$PS1"\[$(tput bold; tput setaf 4)\]\w"
