@@ -2,7 +2,7 @@ gsettings set org.gnome.Evince auto-reload false
 
 In gnome-terminal 'Compatibility' tab make backspace generate Control-H
 
-Add to .bashrc [ -z "$PS1" ] || stty -ixon
+echo stty -ixon >>~/.bashrc
 
 mkdir -p /home/user/.local/share/gnome-shell/extensions/
 cd /home/user/.local/share/gnome-shell/extensions/
