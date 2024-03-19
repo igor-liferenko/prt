@@ -2,7 +2,7 @@ gsettings set org.gnome.Evince auto-reload false
 
 In gnome-terminal 'Compatibility' tab make backspace generate Control-H
 
-ln -s ~/mytex/.bash_aliases $HOME
+Add to .bashrc [ -z "$PS1" ] || stty -ixon
 
 mkdir -p /home/user/.local/share/gnome-shell/extensions/
 cd /home/user/.local/share/gnome-shell/extensions/
@@ -14,5 +14,3 @@ echo WIDTHxHEIGHT >~/.screen-size # take screenshot - enable
                                   # «whole screen» and see resolution
 ln -s .screen-size ~/.gv-size # in Gnome3 it is not necessary to specify exact
                               # gv-size - if size is bigger, it is adjusted automatically
-
-Install mf-wayland repo

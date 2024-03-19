@@ -1,4 +1,4 @@
-Install 7 packages (user linadmin, pass 11): ed make patch flex bison gv inkscape
+Install 6 packages (user linadmin, pass 11): make patch flex bison gv inkscape
 == fly-term ==
 1) Set font 'Liberation Mono 12'
 2) cp ~/.config/rusbitech/fly-term.conf /tmp
@@ -18,7 +18,6 @@ Unpack mytex repo
 ln -sf open.okular open
 ln -sf printer.okular printer
 ===============================================================
-sed 's/gnome-terminal-/fly-term/' ~/mytex/.bash_aliases >~/.bash_aliases
 mkdir ~/bin
 Re-login
 for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- MakeTeXPK dvi+ dvi- ctangle cweave tie ctie; do
