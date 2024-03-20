@@ -8,4 +8,3 @@ s/„/``/g
 s/“/\x27\x27/g
 s/”/\x27\x27/g
 s/\xCC\x81//g # COMBINING ACUTE ACCENT
-s/\xEF\xBB\xBF//g # ZERO WIDTH NO-BREAK SPACE
