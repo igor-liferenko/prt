@@ -1,4 +1,4 @@
-# s/$/\n/
+s/$/\n/
 s/ / /g # NO-BREAK SPACE -> SPACE
 s/\r$//
 s/…/~\\dots{}/g
