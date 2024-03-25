@@ -1,6 +1,6 @@
+s/\r$//
 s/$/\n/
 s/ / /g # NO-BREAK SPACE -> SPACE
-s/\r$//
 s/…/~\\dots{}/g
 s/-/‐/g # HYPHEN-MINUS -> HYPHEN
 s/–/--/g # EN DASH
