@@ -5,3 +5,8 @@
 \advance\vsize by 4.4cm
 \advance\pdfvorigin by -2cm
 \footline={\hfil\rlap{\raise10pt\hbox{\kern20pt\tenrm\folio}}}
+
+\catcode`^^ff=\active
+\catcode`@=11
+\def^^ff{\nobreak\hskip\z@-\nobreak\hskip\z@}
+\catcode`@=12
