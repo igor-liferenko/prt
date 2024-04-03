@@ -2,15 +2,3 @@ story.dvi
 story.log
 story.ps
 story.pdf
-pdftopdf/pdftopdf
-pdftopdf/pdftopdf-intervalset.o
-pdftopdf/pdftopdf-nup.o
-pdftopdf/pdftopdf-pdftopdf.o
-pdftopdf/pdftopdf-pdftopdf_jcl.o
-pdftopdf/pdftopdf-pdftopdf_processor.o
-pdftopdf/pdftopdf-pptypes.o
-pdftopdf/pdftopdf-qpdf_cm.o
-pdftopdf/pdftopdf-qpdf_pdftopdf.o
-pdftopdf/pdftopdf-qpdf_pdftopdf_processor.o
-pdftopdf/pdftopdf-qpdf_tools.o
-pdftopdf/pdftopdf-qpdf_xobject.o
