@@ -27,17 +27,8 @@ ln -s ~/lhplain/dvipdf ~/bin/
 == cweb ==
 Unpack cweb repo
 make
-== ncurses (only on astra) ==
-Unpack ncurses
-./configure --enable-widec --with-default-terminfo-dir=/usr/lib/terminfo
-make install.libs DESTDIR=~/mytex
-ln -s . ~/mytex/usr/include/ncursesw
-Delete ~/ncurses-<version>/
 == em ==
 Unpack em repo
-Add before -lncursesw in Makefile (only if ncurses is built from source):
-  -I$(HOME)/mytex/usr/include -L$(HOME)/mytex/usr/lib
-make
 Create ~/bin/em from em/README
 ==============================================================
 Calculate the number X (an example used in this setup):
