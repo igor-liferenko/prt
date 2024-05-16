@@ -1,12 +1,22 @@
-grep -q 'begin reading\.tex' $1 && { echo ERROR: second run; exit 1; }
+if ! [ -t 0 ]; then
+  tmp=`mktemp -p /tmp XXXXXX`
+  cat >$tmp
+  set -- $tmp
+fi
+tr -d '\n' <$1 | grep '[[:cntrl:]]' >/dev/null && { echo CNTRL in input; exit 1; }
 iconv -f UTF-8 -t UCS-2 $1 >/dev/null 2>&1 || { echo Bad input; exit 1; }
-sed -i 's/\r$//' $1
-sed -i 's/$/\n/' $1
-sed -i 's/ / /g' $1 # NO-BREAK SPACE -> SPACE
-sed -i 's/…/~\\dots{}/g' $1
-sed -i 's/-/^^ff/g' $1 # HYPHEN (not MINUS)
-sed -i 's/–/--/g' $1 # EN DASH
-sed -i 's/—/---/g' $1 # EM DASH
-# sed -i 's/\xCC\x81//g' $1 # COMBINING ACUTE ACCENT
-{ rm $1; ( echo % begin reading.tex; cat ~/prt/reading.tex; echo % end reading.tex; cat ) >$1; } <$1
-echo '\bye' >>$1
+cat ~/prt/reading.tex
+cat $1 | \
+sed 's/…/~\\dots{}/g' | \
+sed 's/\(\w\)-\(\w\)/\1^^ff\2/g' | \
+sed 's/–/--/g' | \
+sed 's/—/---/g' | \
+sed 's/©//g' | \
+sed 's/„/,,/g' | \
+sed 's/“/``/g' | \
+sed "s/”/''/g" | \
+sed 's/ / /g' # NO-BREAK SPACE -> SPACE
+# sed 's/$/\n/'
+# sed 's/\xCC\x81//g' # COMBINING ACUTE ACCENT
+echo '\bye'
+[ -t 0 ] || rm $1
