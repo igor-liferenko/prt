@@ -1,22 +1,11 @@
-if ! [ -t 0 ]; then
-  tmp=`mktemp -p /tmp XXXXXX`
-  cat >$tmp
-  set -- $tmp
-fi
-tr -d '\n' <$1 | grep '[[:cntrl:]]' >/dev/null && { echo CNTRL in input; exit 1; }
+[ -e $1 ] || { echo No such file; exit 1; }
 iconv -f UTF-8 -t UCS-2 $1 >/dev/null 2>&1 || { echo Bad input; exit 1; }
+grep -q $'\r' $1 && { printf 'RUN:\nsed -i \47s/\\r$//\47 %s\n' $1; exit 1; }
+grep -q $'\xC2\xA0' $1 && { printf 'RUN:\nsed -i \47s/\\xC2\\xA0//g\47 %s\n' $1; exit 1; }
+grep -q $'\xCC\x81' $1 && { printf 'RUN:\nsed -i \47s/\\xCC\\x81//g\47 %s\n' $1; exit 1; }
 cat ~/prt/reading.tex
 cat $1 | \
 sed 's/…/~\\dots{}/g' | \
-sed 's/\(\w\)-\(\w\)/\1^^ff\2/g' | \
 sed 's/–/--/g' | \
-sed 's/—/---/g' | \
-sed 's/©//g' | \
-sed 's/„/,,/g' | \
-sed 's/“/``/g' | \
-sed "s/”/''/g" | \
-sed 's/ / /g' # NO-BREAK SPACE -> SPACE
-# sed 's/$/\n/'
-# sed 's/\xCC\x81//g' # COMBINING ACUTE ACCENT
+sed 's/—/---/g'
 echo '\bye'
-[ -t 0 ] || rm $1
