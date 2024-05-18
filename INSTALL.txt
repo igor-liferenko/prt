@@ -83,8 +83,4 @@ Unpack dvips repo
 make
 == lhplain ==
 Unpack lhplain repo
-Unpack pfb-files as said in lhplain/README
-== ghostscript ==
-Unpack ghostscript
-Follow ghostscript build instructions in lhplain/README
-Delete ~/ghostscript-<version>/
+See lhplain/README
