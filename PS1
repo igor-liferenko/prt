@@ -1,5 +1,5 @@
 stty erase ^H
-PS1="\[$(tput bold; tput setaf 2)\]pts/\l"
-PS1=$PS1"\[$(tput sgr0)\]:"
-PS1=$PS1"\[$(tput bold; tput setaf 4)\]\w"
-PS1=$PS1"\[$(tput sgr0)\]\$ "
+PS1=$'\[\E[1m\E[32m\]pts/\l' # pts/N in green
+PS1=$PS1$'\[\E[m\]:'         # : in black
+PS1=$PS1$'\[\E[1m\E[34m\]\w' # dir in blue
+PS1=$PS1$'\[\E[m\]$ '        # $ in black + space
