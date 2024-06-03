@@ -1,6 +1,7 @@
-I wonder which is a scenario where change 431 (tex82.bug) serves any purpose.
-If the assert() trap is ever triggered, describe the scenario
-that reproduces the trap in README.bug and delete this change-file.
+This check means that string is allocated (and assigned to cur_input.name_field).
+See explanation of wipet on sx where 'cur_input.name_field set to zero'.
+But base_ptr is not increased if string is not allocated (TODO: find this place in
+the code), so this check is not needed and hence this change is useless.
 
 @x
 case 'E': if (base_ptr > 0) if (input_stack[base_ptr].name_field >= 256) 
