@@ -1,8 +1,9 @@
+#!/bin/bash
 [ -e $1 ] || { echo No such file; exit 1; }
 iconv -f UTF-8 -t UCS-2 $1 >/dev/null 2>&1 || { echo Bad input; exit 1; }
-grep -q $'\r' $1 && { printf 'RUN:\nsed -i \47s/\\r$//\47 %s\n' $1; exit 1; }
-grep -q $'\xC2\xA0' $1 && { printf 'RUN:\nsed -i \47s/\\xC2\\xA0//g\47 %s\n' $1; exit 1; }
-grep -q $'\xCC\x81' $1 && { printf 'RUN:\nsed -i \47s/\\xCC\\x81//g\47 %s\n' $1; exit 1; }
+grep -q $'\r' $1 && { printf 'RUN:\nsed -i \x27s/\\r$//\x27 %s\n' $1; exit 1; }
+grep -q $'\xC2\xA0' $1 && { printf 'RUN:\nsed -i \x27s/\\xC2\\xA0//g\x27 %s\n' $1; exit 1; }
+grep -q $'\xCC\x81' $1 && { printf 'RUN:\nsed -i \x27s/\\xCC\\x81//g\x27 %s\n' $1; exit 1; }
 cat ~/prt/reading.tex
 cat $1 | \
 sed 's/…/~\\dots{}/g' | \
