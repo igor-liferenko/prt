@@ -40,6 +40,7 @@ Change in path.ch:
   format_default_length 35 -> 59
   format_area_length 26 -> 50
   user -> gk.rosatom.local/ivliferenko (3 times)
+Add ../prt/tex.ch to CHF in Makefile
 make
 == mf ==
 Unpack mf repo
@@ -52,6 +53,7 @@ Change in search.ch:
 Change in screen.ch:
   user -> gk.rosatom.local/ivliferenko
   mf-wayland -> mf
+Add ../prt/mf.ch to CHF in Makefile
 make
 echo WIDTHxHEIGHT >~/.gv-size # set red desktop backround, run gv,
   # stretch window borders to sides, create screenshot of it - enable «active window» and
