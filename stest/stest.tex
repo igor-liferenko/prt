@@ -19,13 +19,6 @@
 }
 \medskip
 \noindent{\bf Overview:}\par
-\item{$\bullet$} Lines 36--37 is the way to tell if "#1"'s catcode is 13.
-We use "\uppercase" to turn "#1" into a macro ("~" is a macro by default).
-The matter is that in "\ifcat" the meaning of each token is used,
-not the token itself. The exception is a macro: if the token is a macro, then the token
-itself is used (and to prevent it from being expanded according to the rules of "\ifcat",
-the token must be preceded by "\noexpand").
-
 \item{$\bullet$} Undelimited explicit spaces are ignored in macro arguments, so in parameter text for "\sss"
 we use explicit space as delimiter. The effect is the following: if first token in token list is explicit
 space, it is matched to the space in parameter text and hence "#1" will be empty. On the other
