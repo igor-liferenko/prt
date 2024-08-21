@@ -1,19 +1,19 @@
 % Dingbat characters as of 3-3-89 by Doug Henderson
 % To be run with plain.bas.
-% Last modified on 3-27-89
- 
+% Last modified on 3-20-96 by Marcus Ohlhaut (MO)
+
 font_size=10pt#; % make the pxl or pk files be in ...\pixel\pxl1500
- 
+
 def clear_all =
   clearit; clearxy;
 enddef;
- 
+
 %%%
 % turn pt,in,cm etc. into pixel values
 %%%
- 
+
 mode_setup;
- 
+
 %%%
 % define your variables here
 %%%
@@ -44,25 +44,25 @@ flu_height#:=30pt#;
 anchor_height#:=150pt#/anchor_scale;
 anchor_width#:=130pt#/anchor_scale;
 anchor_depth#:=0pt#;
- 
- 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 % Very thin weight stroke for flouron (not advised for < 600dpi)
 %thinish#:=.25pt#;
 %thinthick#:=.45pt#;
 %thickish#:=.75pt#;
- 
+
 % Normal weight stroke for flouron
 thinish#:=.5pt#;
 thinthick#:=1pt#;
 thickish#:=1.5pt#;
- 
+
 % Heavy weight stroke for flouron
 %thinish#:=1pt#;
 %thinthick#:=2pt#;
 %thickish#:=2.5pt#;
- 
+
 % Strokes widths for the flower from 1-12 (= 1 pixel - 4.5pt)
 flower_one#:=.25;
 flower_two#:=.5;
@@ -80,11 +80,11 @@ hand_scale=6;
 hand_width#:=110pt#/hand_scale;
 hand_height#:=80pt#/hand_scale;
 hand_depth#:=0pt#;
- 
+
 %%%
 % define your pixels here, do this for each variable defined above
 %%%
- 
+
 define_pixels(glyph_width,glyph_height,uniform_square,triangle_size);
 define_pixels(check_width,check_height,check_depth,dash,thinish,thickish);
 define_pixels(thinthick,flu_width,flu_height,a,b);
@@ -93,11 +93,11 @@ define_pixels(flower_six,flower_seven,flower_eight,flower_nine,flower_ten);
 define_pixels(flower_eleven,flower_twelve);
 define_pixels(hand_width,hand_height,hand_depth,dash);
 define_pixels(anchor_height,anchor_weight,anchor_depth);
- 
+
 %%%
 % define a macro which pauses until the user hits the return key
 %%%
- 
+
 def
  whoa= s0:= readstring;
 enddef;
@@ -120,11 +120,11 @@ pickup pensquare scaled 1.6pt;
 chunkypen:=savepen;
 pickup pencircle scaled .35pt;
 ringpen:=savepen;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Let the dingbat characters begin
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Anchor for TUG dingbat contest";
 beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
  %%%
@@ -138,7 +138,7 @@ beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
  x6=x14=x18=x19=90/130w;   % x6  x14  x18  x19
  x27=x28=x45=54/130w;      % x27 x28  x45
  x17=x35=x56=66/130w;      % x17 x35 x56
- 
+
  x7=107/130w;              % x7
  x8=114/130w;              % x8
  x10=112/130w;             % x10
@@ -150,25 +150,25 @@ beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
  x21=65/130w;              % x21
  x23=55/130w;              % x23
  x24=50/130w;              % x24
- 
+
  x29=53/130w;              % x29
  x30=48/130w;              % x30
  x32=21/130w;              % x32
  x33=26/130w;              % x33
- 
+
  %%%
  % y variables
  %%%
  y1=y10=65/150h;           % y1  y10
  y2=y8=43/150h;            % y2  y8
  y3=y7=45/150h;            % y3  y7
- 
+
  y4=y6=25/150h;            % y4  y6
  y5=13/150h;               % y5
  y21=y23=130/150h;         % y21 y23
  y22=136/150h;             % y22
  y45=y56=20/150h;          % y45 y56
- 
+
  y18=y26=y27=y35=118/150h; % y18 y26 y27 y35
  y19=y20=y24=y25=124/150h; % y19 y20 y24 y25
  y17=y28=40/150h;          % y17 y28
@@ -177,7 +177,7 @@ beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
  y14=y31=38/150h;          % y14 y31
  y13=y32=50/150h;          % y13 y32
  y12=y33=54/150h;          % y12 y33
- 
+
  %%%
  % path assignments
  %%%
@@ -186,7 +186,7 @@ beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
     z7--z8--z10--z12--z13 &  z13..z14..z16..z17 &
     z17--z35--z18--z19--cycle;
  ring_of_anchor =  z20..z22..z24;
- 
+
  tilted_anchor = the_anchor rotated akilter;
  tilted_ring = ring_of_anchor rotated akilter;
  %%%
@@ -196,7 +196,7 @@ beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
  fill the_anchor;
  pickup ringpen;
  draw ring_of_anchor;
- 
+
  %%%
  % after clearing previous path (upright anchor) fill the tilted path
  %%%
@@ -206,13 +206,13 @@ beginchar("O",anchor_width#,anchor_height#,anchor_depth#);
  %showit;
  %message"When thru viewing, press Enter to continue";
  %whoa;
- 
+
  labels(range 1 thru 4,45,5,56,range 6 thru 19);
  labels(range 20 thru 33,35);
- 
+
 endchar;
- 
- 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 "Hand pointer to the left";
 beginchar("N",hand_width#,hand_height#,hand_depth#);
@@ -245,7 +245,7 @@ beginchar("N",hand_width#,hand_height#,hand_depth#);
  x26=62.5/110w;         % x26
  x27=75/110w;           % x27
  x28=74/110w;           % x28
- 
+
  %%%
  % y variables
  %%%
@@ -274,21 +274,21 @@ beginchar("N",hand_width#,hand_height#,hand_depth#);
  y26=71/80h;            % y26
  y27=72/80h;            % y27
  y28=67/80h;            % y28
- 
+
  collar=z1..z2..z3  &  z3..z4..z5..z6..z7  & z7..z8..z9  & z9..z10..z1;
  thumb=z25..z26..z27..z28..z24;
  index_finger=z4..z25..z24..z23..z22..z21..z19..z20;
  the_bird=z17--z16..z18..z19;
  ring_finger=z14--z13..z15..z16;
  pinky_finger=z6..z11..z1112  &  z1112..z12..z13;
- 
+
  pickup razorpen;
- 
+
  draw collar; draw thumb; draw index_finger;
  draw the_bird; draw ring_finger; draw pinky_finger;
  labels(range 1 thru 11,1112,range 12 thru 28);
 endchar;
- 
+
 "Flowery flouron";
 beginchar("J",flu_width#,flu_height#,0);
  % first stroke = x1 thru x8
@@ -326,9 +326,9 @@ beginchar("J",flu_width#,flu_height#,0);
  penlabels(range 1 thru 19);
  flower_x:=currentpicture;
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Right flower";
 beginchar("K",flu_width#,flu_height#,0);
  currentpicture:=currentpicture+flower_x;
@@ -336,24 +336,24 @@ beginchar("K",flu_width#,flu_height#,0);
  currentpicture:=currentpicture shifted (w,0);
  flower_y:=currentpicture;
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 "Flipped left flower--matches J";
 beginchar("L",flu_width#,flu_height#,0);
  currentpicture:=currentpicture+flower_y;
  currentpicture:=currentpicture reflectedabout((0,.5[0,h]),(1,.5[0,h]));
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Flipped right flower--matches K";
 beginchar("M",flu_width#,flu_height#,0);
  currentpicture:=currentpicture+flower_x;
  currentpicture:=currentpicture reflectedabout((0,.5[0,h]),(1,.5[0,h]));
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "DLA satelite dish";
 beginchar("I",a#,b#,0);
  numeric zero; zero=0;
@@ -365,7 +365,7 @@ beginchar("I",a#,b#,0);
  x11=1/10(x2-x1); y11=9/10(b); x12=3/10(x2-x1);
  y12=.53(b); x13=9/10(x2-x1); y13=5/10(b);
  y10=4.5/10(b);
- 
+
  % draw the bottom platform of the dish
   pickup pensquare xscaled .5pt yscaled .5pt
   filldraw z1--z2--z3--z4--cycle;
@@ -382,9 +382,9 @@ beginchar("I",a#,b#,0);
 %  draw z11--z13;
   labels(range 1 thru 13);
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Left flouron";
 beginchar("E",flu_width#,flu_height#,0);
  pickup pencircle;
@@ -410,9 +410,9 @@ beginchar("E",flu_width#,flu_height#,0);
  penlabels(range 1 thru 18);
 holdit:=currentpicture;
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Right flouron";
 beginchar("F",flu_width#,flu_height#,0);
  currentpicture:=currentpicture+holdit;
@@ -421,25 +421,25 @@ beginchar("F",flu_width#,flu_height#,0);
  currentpicture:=currentpicture shifted (w,0);
  holdem:=currentpicture;
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Flipped left flouron--matches F";
 beginchar("G",flu_width#,flu_height#,0);
  currentpicture:=currentpicture+holdem;
  currentpicture:=currentpicture reflectedabout((0,.5[0,h]),(1,.5[0,h]));
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Flipped right flouron--matches E";
 beginchar("H",flu_width#,flu_height#,0);
  currentpicture:=currentpicture+holdit;
  currentpicture:=currentpicture reflectedabout((0,.5[0,h]),(1,.5[0,h]));
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Check mark";
 beginchar("D",check_width#,check_height#,check_depth#);
  pickup pencircle;
@@ -449,9 +449,9 @@ beginchar("D",check_width#,check_height#,check_depth#);
  penstroke z1e--z2e--z3e;
  penlabels(1,2,3);
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Square (filled) with dots border design";
 beginchar("C",triangle_size#,triangle_size#,0);
 x1=x3=good.x(1/2triangle_size);
@@ -461,7 +461,7 @@ x5=x6=good.x(3/10triangle_size);
 x7=x8=good.x(7/10triangle_size);
 x9=x10=good.x(2/10triangle_size);
 x12=x11=good.x(8/10triangle_size);
- 
+
 y1=good.y(1/10triangle_size);
 y9=y12=good.y(2/10triangle_size);
 y5=y8=good.y(3/10triangle_size);
@@ -469,18 +469,18 @@ y2=y4=good.y(1/2triangle_size);
 y6=y7=good.y(7/10triangle_size);
 y10=y11=good.y(8/10triangle_size);
 y3=good.y(9/10triangle_size);
- 
+
 pickup razorpen;
 fill z1..z5..z2 & z2..z6..z3 & z3..z7..z4 & z4..z8..z1..cycle;
 pickup bigdotpen;
 drawdot z9; drawdot z12; drawdot z10; drawdot z11;
- 
+
 labels(range 1 thru 12);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Square (unfilled) with dots border design";
 beginchar("B",triangle_size#,triangle_size#,0);
  x1=x3=good.x(1/2triangle_size);
@@ -490,7 +490,7 @@ beginchar("B",triangle_size#,triangle_size#,0);
  x7=x8=good.x(7/10triangle_size);
  x9=x10=good.x(2/10triangle_size);
  x12=x11=good.x(8/10triangle_size);
- 
+
  y1=good.y(1/10triangle_size);
  y9=y12=good.y(2/10triangle_size);
  y5=y8=good.y(3/10triangle_size);
@@ -498,24 +498,24 @@ beginchar("B",triangle_size#,triangle_size#,0);
  y6=y7=good.y(7/10triangle_size);
  y10=y11=good.y(8/10triangle_size);
  y3=good.y(9/10triangle_size);
- 
+
  pickup bigpen;
  draw z1..z5..z2;
  draw z2..z6..z3;
  draw z3..z7..z4;
  draw z4..z8..z1;
- 
+
  pickup bigdotpen;
  drawdot z9; drawdot z12; drawdot z10; drawdot z11;
  pickup lildotpen;
  erase drawdot z9; erase drawdot z12; erase drawdot z10;erase drawdot z11;
- 
+
  labels(range 1 thru 12);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Z border design";
 beginchar("Z",glyph_width#,glyph_height#,0);
 pickup bigger;
@@ -529,18 +529,18 @@ y1=y2=0;
 y7=y8=1/3good.y(glyph_height);
 y3=y4=2/3good.y(glyph_height);
 y5=y6=good.y(glyph_height);
- 
+
 draw z5--z6--z7--z8;
 draw z1--z2--z3--z4;
 %draw bot z5--z3;
 %draw top z1--z7;
- 
+
 labels(range 1 thru 8);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "S border design";
 beginchar("S",glyph_width#,glyph_height#,0);
 pickup bigger;
@@ -549,140 +549,158 @@ x1=x6=x7=0;
 x2=x3=x8=good.x(glyph_width);
 x4=good.x(2/8glyph_width);
 x5=good.x(6/8glyph_width);
- 
+
 y1=y2=0;
 y5=y6=good.y(1/3glyph_height);
 y3=y4=good.y(2/3glyph_height);
 y7=y8=good.y(glyph_height);
- 
+
 draw z1--z2--z3--z4;
 draw z5--z6--z7--z8;
 %draw top z1--z6;
 %draw bot z8--z3;
 cullit;
- 
+
 labels(range 1 thru 8);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 1 (top-left)";
 beginchar("a",uniform_square#,uniform_square#,0);
- 
+
 x1=x2=good.x(1/10uniform_square);
 x3=x4=good.x(4/10uniform_square);
 x5=x8=good.x(uniform_square);
 x6=x7=good.x(2/10uniform_square);
- 
+
 y1=y6=good.y(0);
 y2=y3=good.y(6/10uniform_square);
 y7=y8=good.y(8/10uniform_square);
 y4=y5=good.y(9/10uniform_square);
- 
+
 pickup chunkypen;
 draw z1--z2--z3--z4--z5;
 pickup bigpen;
 draw z6--z7--z8;
 p1:=currentpicture;
- 
+
 labels(range 1 thru 8);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 2 (top-middle)";
 beginchar("b",uniform_square#,uniform_square#,0);
- 
+
 x1=x3=good.x(0);
 x2=x4=good.x(uniform_square);
- 
+
 y1=y2=good.y(9/10uniform_square);
 y3=y4=good.y(8/10uniform_square);
- 
+
 pickup chunkypen;
 draw z1--z2;
 pickup bigpen;
 draw z3--z4;
 p2:=currentpicture;
- 
+
 labels(1,2,3,4);
- 
+
 endchar;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 3 (top-right)";
 beginchar("c",uniform_square#,uniform_square#,0);
- 
+
 x1=x6=good.x(0);
 x2=x3=good.x(6/10uniform_square);
 x7=x8=good.x(8/10uniform_square);
 x4=x5=good.x(9/10uniform_square);
- 
+
 y1=y2=good.y(9/10uniform_square);
 y6=y7=good.y(8/10uniform_square);
 y3=y4=good.y(6/10uniform_square);
 y5=y8=good.y(0);
- 
+
 pickup chunkypen;
 draw z1--z2--z3--z4--z5;
 pickup bigpen;
 draw z6--z7--z8;
 p3:=currentpicture;
- 
+
 labels(range 1 thru 8);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 4 (middle-left)";
 beginchar("d",uniform_square#,uniform_square#,0);
- 
+
 x1=x2=good.x(1/10uniform_square);
 x3=x4=good.x(2/10uniform_square);
 y1=y3=good.y(0);
 y2=y4=good.y(uniform_square);
- 
+
 pickup chunkypen;
 draw z1--z2;
 pickup bigpen;
 draw z3--z4;
 p4:=currentpicture;
- 
+
 labels(1,2,3,4);
- 
+
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
+% (MO) The following commented-out lines are Doug's original definitions.
+%
+% "Overlapping thick\thin line border design--- character 5 (middle-right)";
+% beginchar("e",uniform_square#,uniform_square#,0);
+% currentpicture:=currentpicture + p4;
+% currentpicture:=currentpicture reflectedabout((.5[0,0],0),(.5[0,0],1));
+% endchar;
+%
+% They have been replaced by
+
 "Overlapping thick\thin line border design--- character 5 (middle-right)";
 beginchar("e",uniform_square#,uniform_square#,0);
-currentpicture:=currentpicture + p4;
-currentpicture:=currentpicture reflectedabout((.5[0,0],0),(.5[0,0],1));
+x1=x2=good.x(9/10uniform_square);
+x3=x4=good.x(8/10uniform_square);
+y1=y3=good.y(0);
+y2=y4=good.y(uniform_square);
+pickup chunkypen;
+draw z1--z2;
+pickup bigpen;
+draw z3--z4;
+p4:=currentpicture;
+labels(1,2,3,4);
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 6 (bottom-left)";
 beginchar("f",uniform_square#,uniform_square#,0);
 currentpicture:=currentpicture + p1;
 currentpicture:=currentpicture
 reflectedabout((0,.5[0,uniform_square]),(1,.5[0,uniform_square]));
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 7 (bottom-middle)";
 beginchar("g",uniform_square#,uniform_square#,0);
 currentpicture:=currentpicture + p2;
 currentpicture:=currentpicture
 reflectedabout((0,.5[0,uniform_square]),(1,.5[0,uniform_square]));
 endchar;
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+
 "Overlapping thick\thin line border design--- character 8 (bottom-right)";
 beginchar("h",uniform_square#,uniform_square#,0);
 currentpicture:=currentpicture + p3;
