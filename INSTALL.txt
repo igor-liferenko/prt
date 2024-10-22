@@ -20,7 +20,7 @@ ln -sf printer.okular printer
 ===============================================================
 mkdir ~/bin
 Re-login
-for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- MakeTeXPK dvi+ dvi- ctangle cweave tie ctie; do
+for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
   ln -s ~/mytex/$i ~/bin/
 done
 ln -s ~/lhplain/dvipdf ~/bin/
