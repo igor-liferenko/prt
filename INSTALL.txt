@@ -78,6 +78,8 @@ make
 Unpack gftopk repo
 make
 == okular ==
+Disable 'Показывать заголовок документа в заголовке окна, если возможно'
+(non-ASCII characters in tex filenames are displayed incorrectly)
 Disable 'Обновлять файлы при обнаружении их изменения'
 (tex-, тех-, dvi- use different mode and dvipdf uses type1)
 == dvips ==
