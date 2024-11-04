@@ -23,7 +23,6 @@ Re-login
 for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
   ln -s ~/mytex/$i ~/bin/
 done
-ln -s ~/lhplain/dvipdf ~/bin/
 == cweb ==
 Unpack cweb repo
 make
@@ -85,6 +84,3 @@ Disable 'Обновлять файлы при обнаружении их изм
 == dvips ==
 Unpack dvips repo
 make
-== lhplain ==
-Unpack lhplain repo
-See lhplain/README
