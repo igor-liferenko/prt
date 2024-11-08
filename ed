@@ -1,6 +1,0 @@
-#!/bin/bash
-for i in `echo $PATH | cut -d: --output-delimiter=' ' -f2-`; do
-  [ -e $i/ed ] && break
-done
-[ -t 0 ] && exec $i/ed -v -p $'\e[1m\e[31m*\e[m' "$@"
-exec $i/ed "$@"
