@@ -18,6 +18,7 @@ Unpack mytex repo
 ln -sf open.okular open
 ln -sf printer.okular printer
 ===============================================================
+cat ~/prt/bashrc >>~/.bashrc
 mkdir ~/bin
 Re-login
 for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
