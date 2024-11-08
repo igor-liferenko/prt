@@ -89,4 +89,8 @@ mv dvips576/dvips/ ~/
  FLIBS= -lNeXT_s -lsys_s
 на
  FLIBS= -lm
+и
+  all : afm2tfm dvips tex.pro texps.pro texc.pro special.pro finclude.pro \
+на
+  all :         dvips tex.pro texps.pro texc.pro special.pro finclude.pro \
 make
