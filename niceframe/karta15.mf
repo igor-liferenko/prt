@@ -1,4 +1,4 @@
 %
 FontSize := 15pt#;
-input karta;
+input niceframe/karta;
 end.

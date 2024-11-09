@@ -6,7 +6,7 @@
 %    and Andreas H"orstemeier, Hemer %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-input umrand
+input niceframe/umrand
 
 def wood(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
@@ -31,11 +31,11 @@ def wood(expr W) =
         y5=8v;      y10=y19=y25=7v;
         y15=y22=6v;
         y11=5v;     y12=3v;     y1=v;       y6=0v;
-		CenterRot(W);
-		if abs(abs(sind(W))-abs(cosd(W))) < eps:
-			currenttransform := identity shifted(2u,0) 
-									transformed (currenttransform);
-		fi
+        CenterRot(W);
+        if abs(abs(sind(W))-abs(cosd(W))) < eps:
+            currenttransform := identity shifted(2u,0) 
+                transformed (currenttransform);
+        fi
         draw z2--z0--z1--z6--z5--z15;
         draw z10--z12--z22--z19--z11;
         draw z0--z16--z8--z7--z13;
@@ -54,7 +54,7 @@ def yingyang(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         x1=w-x2=0; y1=y2=y5=0.5h;
         y3=h-y4=0; x3=x4=x5=0.5w;
         x8=y8=w-x7=w-y7=w/4;
@@ -78,7 +78,7 @@ def dynacirc(expr W,Lines) =
         define_blacker_pixels(pw);
         pickup pencircle scaled pw;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         for i=0 upto Lines:
             penpos[i](pw,90);
             x[i]=0.5w;
@@ -167,33 +167,33 @@ def optb(expr W) =
 enddef;
 
 def kassette(expr W) =
-	if abs(abs(sind(W))-abs(cosd(W)))<eps:
-		fak:=sqrt(2)
-	else:
-		fak:=1
-	fi;
+    if abs(abs(sind(W))-abs(cosd(W)))<eps:
+        fak:=sqrt(2)
+    else:
+        fak:=1
+    fi;
     beginchar(incr nextchar,fak*charsize#,fak*charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw ((0,0)--(normw,0)--(normw,normh)--(0,normh)--cycle);
         draw ((normw/4,normh)--(normw/4,normh/4)--(normw,normh/4));
         draw 
-		((normw/4,3normh/4)--(3normw/4,3normh/4)--(3normw/4,normh/4));
+        ((normw/4,3normh/4)--(3normw/4,3normh/4)--(3normw/4,normh/4));
         fill ((0,0)--(normw/3,0)--(normw/3,normh/3)--(0,normh/3)--cycle);
     endchar;
 enddef;
 
 def kassetteb(expr W) =
-	if abs(abs(sind(W))-abs(cosd(W)))<eps:
-		fak:=sqrt(2)
-	else:
-		fak:=1
-	fi;
+    if abs(abs(sind(W))-abs(cosd(W)))<eps:
+        fak:=sqrt(2)
+    else:
+        fak:=1
+    fi;
     beginchar(incr nextchar,fak*charsize#,fak*charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw ((0,0)--(normw,0)--(normw,normh)--(0,normh)--cycle);
         draw ((normw/2,0)--(normw/2,normh/2)--(normw,normh/2));
         draw ((0,normh/5)--(normw/2,normh/5));
@@ -208,7 +208,7 @@ def qq(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
         pickup pencircle scaled penwid;
-		CenterRot(W);
+        CenterRot(W);
         draw (unitsquare scaled (w));
         fill (unitsquare scaled (w/2) shifted (w/4,h/4));
     endchar;
@@ -218,7 +218,7 @@ def oval(expr W) =
     beginchar(incr nextchar,(1+abs(cosd(W)))*charsize#,(1+abs(sind(W)))*charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=2;
-		CenterRot(W);
+        CenterRot(W);
         draw (fullcircle xscaled (2normw) yscaled (normw)
                               shifted (normw,normw/2));
     endchar;
@@ -228,7 +228,7 @@ def teilquad(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw ((0,h)--(0,0)--(w,0)--(w,h));
     endchar;
 enddef;
@@ -237,7 +237,7 @@ def gras(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw ((w/2,0){up}..{left}(0,h));
         draw ((w/2,0){up}..{right}(w,h));
         draw ((w/2,0){up}..{left}(0,2h/3));
@@ -251,7 +251,7 @@ def fish(expr W,xs) =
         pickup pencircle scaled penwid;
         path p;
         xscal:=2;
-		CenterRot(W);
+        CenterRot(W);
         x0=0; x1=x2=2normw/3; x3=x4=2.3*3normw/4; x5=x6=2normw; x7=2*11normw/12;
         y0=y7=normw/3; y1=normw; y2=y6=0; y4=normw/6; y5=2normw/3;
         y3=normw/2; x8=normw/5; y8=y0;
@@ -270,7 +270,7 @@ def xlines(expr W) =
     beginchar(incr nextchar,(1+abs(cosd(W)))*charsize#,(1+abs(sind(W)))*charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=2;
-		CenterRot(W);
+        CenterRot(W);
         draw ((0,0){right}..{right}(2normw,normw));
         draw ((0,normw){right}..{right}(2normw,0));
     endchar;
@@ -280,7 +280,7 @@ def xcirc(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw (fullcircle scaled w shifted (w/2,h/2));
     endchar;
 enddef;
@@ -289,7 +289,7 @@ def xquad(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw (unitsquare scaled w);
     endchar;
 enddef;
@@ -298,7 +298,7 @@ def xbcirc(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         draw (fullcircle scaled (sqrt(2)*w) shifted (w/2,h/2));
     endchar;
 enddef;
@@ -309,7 +309,7 @@ def flower(expr W,xs) =
         gr := w/9*0.9; kr := w/12*0.9;
         z0=(2kr+gr,h-2kr-gr); z1=(w-2kr-gr,2kr+gr);
         xscal:=1;
-		CenterRot(W);
+        CenterRot(W);
         fill (
             CenterMirror(xs,1,fullcircle scaled (2gr) shifted z0));
         for l:=0 upto 8-1:
@@ -343,7 +343,7 @@ def snake(expr W,xs) =
     beginchar(incr nextchar,(1+abs(cosd(W)))*charsize#,(1+abs(sind(W)))*charsize#,0cm#);
         pickup pencircle scaled penwid;
         xscal:=2;
-		CenterRot(W);
+        CenterRot(W);
         u:=2normw/100; v:=normw/43;
         def MYTR(expr a) = (CenterMirror(xs,1,a)) enddef;
           x0=24u; x1=26u; x2=34u; x3=46u; x4=54u; x5=65u; x6=74u;
@@ -411,7 +411,7 @@ for k=0 upto 4-1: snake(k*360/4,1); snake(k*360/4,-1); endfor;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (.5u,0)--(.5u,.5v)--(3.5u,.5v)--(3.5u,3.5v)--(1.5u,3.5v)--(1.5u,2.5v)--(2.5u,2.5v)--(2.5u,1.5v)--(.5u,1.5v)--(.5u,4.5v)--(4.5u,4.5v)--(4.5u,.5v)--(5u,.5v);
@@ -419,7 +419,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (0,.5v)--(3.5u,.5v)--(3.5u,3.5v)--(1.5u,3.5v)--(1.5u,2.5v)--(2.5u,2.5v)--(2.5u,1.5v)--(.5u,1.5v)--(.5u,4.5v)--(4.5u,4.5v)--(4.5u,.5v)--(5u,.5v);
@@ -427,7 +427,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (0,.5v)--(3.5u,.5v)--(3.5u,3.5v)--(1.5u,3.5v)--(1.5u,2.5v)--(2.5u,2.5v)--(2.5u,1.5v)--(.5u,1.5v)--(.5u,4.5v)--(4.5u,4.5v)--(4.5u,0);
@@ -435,7 +435,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (4.5u,5v)--(4.5u,4.5v)--(.5u,4.5v)--(.5u,.5v)--(3.5u,.5v)--(3.5u,2.5v)--(2.5u,2.5v)--(2.5u,1.5v)--(1.5u,1.5v)--(1.5u,3.5v)--(4.5u,3.5v)--(4.5u,0);
@@ -443,7 +443,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (4.5u,5v)--(4.5u,4.5v)--(1.5u,4.5v)--(1.5u,1.5v)--(3.5u,1.5v)--(3.5u,2.5v)--(2.5u,2.5v)--(2.5u,3.5v)--(4.5u,3.5v)--(4.5u,.5v)--(.5u,.5v)--(.5u,4.5v)--(0,4.5v);
@@ -451,7 +451,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (5u,4.5v)--(1.5u,4.5v)--(1.5u,1.5v)--(3.5u,1.5v)--(3.5u,2.5v)--(2.5u,2.5v)--(2.5u,3.5v)--(4.5u,3.5v)--(4.5u,.5v)--(.5u,.5v)--(.5u,4.5v)--(0,4.5v);
@@ -459,7 +459,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (5u,4.5v)--(1.5u,4.5v)--(1.5u,1.5v)--(3.5u,1.5v)--(3.5u,2.5v)--(2.5u,2.5v)--(2.5u,3.5v)--(4.5u,3.5v)--(4.5u,.5v)--(.5u,.5v)--(.5u,5v);
@@ -467,7 +467,7 @@ endchar;
 
 beginchar(incr nextchar,charsize#,charsize#,0cm#);
         xscal:=1;
-		CenterRot(0);
+        CenterRot(0);
         pickup pencircle scaled penwid;
         sec(5);
         draw (.5u,0)--(.5u,.5v)--(4.5u,.5v)--(4.5u,4.5v)--(1.5u,4.5v)--(1.5u,2.5v)--(2.5u,2.5v)--(2.5u,3.5v)--(3.5u,3.5v)--(3.5u,1.5v)--(.5u,1.5v)--(.5u,5v);

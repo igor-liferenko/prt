@@ -51,7 +51,7 @@ def CenterRotation(expr W,r) =
 enddef;
 
 def CenterRot(expr W) =
-	currenttransform := identity
+    currenttransform := identity
     shifted (-.5ow,-.5oh) rotated W shifted (.5w,.5h)
 enddef;
 

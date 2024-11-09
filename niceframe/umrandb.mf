@@ -7,7 +7,7 @@
 %      by Andreas Schrell, Wuppertal %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-input umrand
+input niceframe/umrand
 
 def randsix(expr W) =
     beginchar(incr nextchar,charsize#,charsize#,0cm#);
