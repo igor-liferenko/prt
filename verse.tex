@@ -2,11 +2,20 @@
 \advance\pdfvorigin by -2cm
 \advance\vsize by 3cm
 
-\font\titlefont=omssdc10 at 40pt
+\def\plainoutput{\shipout\vbox{\makeheadline
+    \ifnum\outputpenalty=-10001
+      \pagebody
+      \footline={\hfil}
+    \else
+      \PageBody
+    \fi
+  \makefootline}
+  \advancepageno
+  \ifnum\outputpenalty>-20000 \else\dosupereject\fi}
 
-\def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
+\def\PageBody{\vbox to\vsize{\boxmaxdepth=\maxdepth
   \vbox to0pt{
-    \font\\=./dingbat \\
+    \font\dingbat=./dingbat \dingbat
     \setbox0=\hbox{^^61}
     \dimen0=23\wd0 \advance\dimen0-\hsize
     \hbox{\kern-.5\dimen0^^61\hbox{\leaders\hbox{^^62}\hskip21\wd0}^^63}
@@ -17,25 +26,16 @@
   \nointerlineskip
   \moveright3cm \box255 \vss}}
 
-\def\plainoutput{\shipout\vbox{\makeheadline
-    \ifnum\outputpenalty=-10001
-      \vbox to\vsize{\boxmaxdepth=\maxdepth \pagecontents}
-    \else
-      \pagebody
-    \fi
-  \makefootline}
-  \advancepageno
-  \ifnum\outputpenalty>-20000 \else\dosupereject\fi}
+\font\titlefont=omssdc10 at 40pt
 
 {\catcode`\^^M=\active
 \gdef\title#1^^M{{\bf#1}\par}
 \gdef\date#1^^M{\hbox to10cm{\hss\it#1}\par}}
 \def\par{\leavevmode\endgraf} \obeylines \let\par=\endgraf
 
-\footline={\hfil\global\footline={\hss\tenrm\folio\hss}}%
 \kern1cm
-{\titlefont \baselineskip=50pt
-\hskip2cm Деревня\par}
+\moveright1.5cm\vbox{\titlefont \baselineskip=50pt
+Есть Прелесть в\par Жизни Деревенской}
 \vfill\penalty-10001
 
 \kern1cm
@@ -636,11 +636,9 @@
 В нашей жизни есть.
 
 \vfill\eject
-\footline={\hfil\global\footline={\hss\tenrm\folio\hss}}%
 \kern1cm
-{\titlefont \baselineskip=50pt
-\hskip1.1cm То Было
-\hskip1.1cm Трагедией Века\par}
+\moveright2cm\vbox{\titlefont \baselineskip=50pt
+То Было\par Трагедией Века}
 \vfill\penalty-10001
 
 \kern1cm
@@ -986,10 +984,10 @@
 
 \kern2.5cm
 
-\bgroup%
+\bgroup %
 \font\bf=omb10 at 12pt %
 \title РОДСТВЕННИЦЕ ПОГИБШЕГО СОЛДАТА
-\egroup%
+\egroup %
 
 Ты с укоризной не гляди
 Такой уж жребий нам достался:
@@ -1261,11 +1259,9 @@
 Таких безутешных, как я?
 
 \vfill\eject
-\footline={\hfil\global\footline={\hss\tenrm\folio\hss}}%
 \kern1cm
-{\titlefont \baselineskip=50pt
-\hskip2cm Школа ---
-\hskip2cm Моя Судьба\par}
+\moveright3cm\vbox{\titlefont \baselineskip=50pt
+Школа ---\par Моя Судьба}
 \vfill\penalty-10001
 
 \kern1.5cm
