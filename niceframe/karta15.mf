@@ -1,4 +1,0 @@
-%
-FontSize := 15pt#;
-input niceframe/karta;
-end.
