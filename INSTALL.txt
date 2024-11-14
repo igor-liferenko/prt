@@ -1,4 +1,4 @@
-Install 6 packages (user linadmin, pass 11): make patch flex bison gv inkscape
+Install 7 packages (user linadmin, pass 11): make patch flex bison gv inkscape ed
 == fly-term ==
 1) Set font 'Liberation Mono 12'
 2) cp ~/.config/rusbitech/fly-term.conf /tmp
