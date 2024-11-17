@@ -1,4 +1,4 @@
-% TODO: implement here work via wide characters
+% Перевод examples/wc.w из http://ftp.cs.stanford.edu/pub/cweb/cweb-3.64b.tar.gz
 
 \datethis
 \def\SPARC{SPARC\-\kern.1em station}
