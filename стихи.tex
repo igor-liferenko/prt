@@ -2,17 +2,6 @@
 \advance\pdfvorigin by -2cm
 \advance\vsize by 3cm
 
-\def\plainoutput{\shipout\vbox{\makeheadline
-    \ifnum\outputpenalty=-10001
-      \pagebody
-      \footline={\hfil}
-    \else
-      \PageBody
-    \fi
-  \makefootline}
-  \advancepageno
-  \ifnum\outputpenalty>-20000 \else\dosupereject\fi}
-
 \def\PageBody{\vbox to\vsize{\boxmaxdepth=\maxdepth
   \vbox to0pt{
     \font\dingbat=./dingbat \dingbat
@@ -25,6 +14,8 @@
     \vss}
   \nointerlineskip
   \moveright3cm \box255 \vss}}
+
+\output={\ifnum\outputpenalty=-10001 \footline={\hfil}\else\let\pagebody=\PageBody\fi\plainoutput}
 
 \font\titlefont=omssdc10 at 40pt
 
@@ -1637,7 +1628,7 @@ B путь с Русланом и Людмилой
 Этот лакомый кусочек
 Мне никак не по зубам.
 
-Слово "Таня" мне не ново,
+Слово ``Таня'' мне не ново,
 Дорожу им с первых дней,
 Потому что слово ``Таня'' ---
 Имя матери моей.
@@ -1831,12 +1822,12 @@ He очерствели наши души,
 
 \def\leaderfill{\leaders\hbox to 1em{\hss.\hss}\hfill}
 \def\conline{\hbox to10.5cm}
-\font\contitle=omssdc10 at 12pt
+\font\confont=omssdc10 at 12pt
 \hskip2cm {\bf Содержание}%
 
 \kern.1cm
 
-\noindent {\contitle Есть прелесть в жизни деревенской}
+\noindent {\confont Есть прелесть в жизни деревенской}
 
 \conline{Зимой в деревне\leaderfill 4}%
 \conline{За селом\leaderfill 5}%
@@ -1854,7 +1845,7 @@ He очерствели наши души,
 \conline{После дождя\leaderfill 21}%
 \conline{Бабушка и козы\leaderfill 22}%
 
-\noindent {\contitle То было трагедией века}
+\noindent {\confont То было трагедией века}
 
 \conline{Солянский батальон\leaderfill 24}%
 \conline{Памятник\leaderfill 25}%
@@ -1871,7 +1862,7 @@ He очерствели наши души,
 
 \kern1cm
 
-\noindent {\contitle Школа --- моя судьба}
+\noindent {\confont Школа --- моя судьба}
 
 \conline{Новая школа\leaderfill 42}%
 \conline{Школьникам о Пушкине\leaderfill 44}%
