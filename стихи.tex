@@ -2,20 +2,24 @@
 \advance\pdfvorigin by -2cm
 \advance\vsize by 3cm
 
-\def\PageBody{\vbox to\vsize{\boxmaxdepth=\maxdepth
-  \vbox to0pt{
-    \font\dingbat=./dingbat \dingbat
-    \setbox0=\hbox{^^61}
-    \dimen0=23\wd0 \advance\dimen0-\hsize
-    \hbox{\kern-.5\dimen0^^61\hbox{\leaders\hbox{^^62}\hskip21\wd0}^^63}
-    \leaders\hbox{\kern-.5\dimen0^^64\hskip21\wd0^^65}\vskip 34\ht0
-    \nointerlineskip
-    \hbox{\kern-.5\dimen0^^66\hbox{\leaders\hbox{^^67}\hskip21\wd0}^^68}
-    \vss}
-  \nointerlineskip
-  \moveright3cm \box255 \vss}}
-
-\output={\ifnum\outputpenalty=-10001 \footline={\hfil}\else\let\pagebody=\PageBody\fi\plainoutput}
+\output={
+  \ifnum\outputpenalty=-10001
+    \footline={\hfil}
+  \else
+    \def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
+      \vbox to0pt{
+        \font\dingbat=./dingbat \dingbat
+        \setbox0=\hbox{^^61}
+        \dimen0=23\wd0 \advance\dimen0-\hsize
+        \hbox{\kern-.5\dimen0^^61\hbox{\leaders\hbox{^^62}\hskip21\wd0}^^63}
+        \leaders\hbox{\kern-.5\dimen0^^64\hskip21\wd0^^65}\vskip 34\ht0
+        \nointerlineskip
+        \hbox{\kern-.5\dimen0^^66\hbox{\leaders\hbox{^^67}\hskip21\wd0}^^68}
+        \vss}
+      \nointerlineskip
+      \moveright3cm \box255 \vss}}
+  \fi
+  \plainoutput}
 
 \font\titlefont=omssdc10 at 40pt
 
