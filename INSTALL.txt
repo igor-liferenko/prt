@@ -5,25 +5,24 @@ Install 7 packages (user linadmin, pass 11): make patch flex bison gv inkscape e
 3) Set font 'Liberation Mono 14'
 4) Diff config and in lines, that differ, change 14 to 24
 5) In launcher add --workdir /tmp
-6) Add 'тех' to command menu
-7) Disable scrollbar
-8) Maximize window
-9) Disable tabs
-10) mkdir -p ~/.local/share/konsole
+6) Disable scrollbar
+7) Maximize window
+8) Disable tabs
+9) mkdir -p ~/.local/share/konsole
     cp /usr/share/konsole/default.keytab ~/.local/share/konsole/
   and change x7f -> b
-11) Set color scheme 'black on white'
+10) Set color scheme 'black on white'
 == mytex ==
 Unpack mytex repo
 ln -sf open.okular open
 ln -sf printer.okular printer
+for i in tex tex+ tex- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
+  ln -s ~/mytex/$i ~/bin/
+done
 ===============================================================
 cat ~/prt/bashrc >>~/.bashrc
 mkdir ~/bin
 Re-login
-for i in tex tex+ tex- тех тех+ тех- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
-  ln -s ~/mytex/$i ~/bin/
-done
 == cweb ==
 Unpack cweb repo
 make
