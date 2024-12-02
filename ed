@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ -t 0 ]; then
+  exec ed -v -p $'\e[1m\e[31m*\e[m' "$@"
+else
+  exec ed                           "$@"
+fi
