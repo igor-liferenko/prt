@@ -1,3 +1,9 @@
 *.log
 *.dvi
 *.ps
+wc
+wc.c
+wc.idx
+wc.scn
+wc.tex
+wc.toc
