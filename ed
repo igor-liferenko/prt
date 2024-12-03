@@ -1,6 +1,6 @@
 #!/bin/bash
-opt=`getopt -o s -- "$@" 2>/dev/null`
-if [ "$opt" = " -s --" ]; then
+s=`getopt -o s -- "$@" 2>/dev/null | sed 's/ --$//'`
+if [ "$s" ]; then
   exec ed                        "$@"
 else
   exec ed -p $'\e[1m\e[31m*\e[m' "$@"
