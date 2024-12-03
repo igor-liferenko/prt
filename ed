@@ -1,6 +1,7 @@
 #!/bin/bash
-if [ -t 0 ]; then
-  exec ed -p $'\e[1m\e[31m*\e[m' "$@"
-else
+opt=`getopt -o s -- "$@" 2>/dev/null`
+if [ "$opt" = " -s --" ]; then
   exec ed                        "$@"
+else
+  exec ed -p $'\e[1m\e[31m*\e[m' "$@"
 fi

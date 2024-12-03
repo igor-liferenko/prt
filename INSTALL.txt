@@ -1,4 +1,4 @@
-Install 7 packages (user linadmin, pass 11): make patch flex bison gv inkscape ed
+Install 8 packages (user linadmin, pass 11): make patch flex bison gv inkscape ed gawk
 == fly-term ==
 1) Set font 'Liberation Mono 12'
 2) cp ~/.config/rusbitech/fly-term.conf /tmp
@@ -12,17 +12,13 @@ Install 7 packages (user linadmin, pass 11): make patch flex bison gv inkscape e
     cp /usr/share/konsole/default.keytab ~/.local/share/konsole/
   and change x7f -> b
 10) Set color scheme 'black on white'
-== mytex ==
-Unpack mytex repo
-ln -sf open.okular open
-ln -sf printer.okular printer
-for i in tex tex+ tex- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
-  ln -s ~/mytex/$i ~/bin/
-done
 ===============================================================
 cat ~/prt/bashrc >>~/.bashrc
 mkdir ~/bin
 Re-login
+for i in tex tex+ tex- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
+  ln -s ~/mytex/$i ~/bin/
+done
 == cweb ==
 Unpack cweb repo
 make
@@ -60,6 +56,11 @@ echo WIDTHxHEIGHT >~/.gv-size # set red desktop backround, run gv,
   # «tex- 'story \end'» and decrease each value one by one separately, followed by
   # «tex- 'story \end'», until red stripe appears and back up by one
 ln -s .gv-size ~/.screen-size # same size
+== mytex ==
+Unpack mytex repo
+ln -sf open.okular open
+ln -sf printer.okular printer
+make
 == dvitype ==
 Unpack dvitype repo
 Change in path.ch:
