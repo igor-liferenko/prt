@@ -85,12 +85,13 @@ Disable 'Обновлять файлы при обнаружении их изм
 == dvips ==
 Download dvips from http://ftp.cs.stanford.edu/pub/dvips/dvips576.tar.gz
 mv dvips576/dvips/ ~/
-В Makefile заменить
- FLIBS= -lNeXT_s -lsys_s
-на
- FLIBS= -lm
-и
+In Makefile change
+  FLIBS= -lNeXT_s -lsys_s
+into
+  FLIBS= -lm
+and
   all : afm2tfm dvips tex.pro texps.pro texc.pro special.pro finclude.pro \
-на
+into
   all :         dvips tex.pro texps.pro texc.pro special.pro finclude.pro \
 make
+In config.ps add 00 to m

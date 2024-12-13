@@ -1,6 +1,7 @@
 %&12pt
-\advance\pdfvorigin by -2cm
-\advance\vsize by 3cm
+\magnification=\magstep2
+\advance\pdfvorigin by-2truecm
+\advance\vsize by3truecm
 
 \output={
   \ifnum\outputpenalty=-10001
@@ -8,7 +9,7 @@
   \else
     \def\pagebody{\vbox to\vsize{\boxmaxdepth=\maxdepth
       \vbox to0pt{
-        \font\dingbat=dingbat \dingbat
+        \font\dingbat=dingbat at10truept \dingbat
         \setbox0=\hbox{^^61}
         \dimen0=23\wd0 \advance\dimen0-\hsize
         \hbox{\kern-.5\dimen0^^61\hbox{\leaders\hbox{^^62}\hskip21\wd0}^^63}
@@ -17,11 +18,11 @@
         \hbox{\kern-.5\dimen0^^66\hbox{\leaders\hbox{^^67}\hskip21\wd0}^^68}
         \vss}
       \nointerlineskip
-      \moveright3cm \box255 \vss}}
+      \moveright.5cm \box255 \vss}}
   \fi
   \plainoutput}
 
-\font\titlefont=omssdc10 at 40pt
+\font\titlefont=omssdc10 at30pt
 
 \pageno=3
 
@@ -37,7 +38,7 @@
 \vfil\penalty-10001
 
 \kern1cm
-\moveright1.5cm\vbox{\titlefont \baselineskip=50pt
+\moveright1cm\vbox{\titlefont \baselineskip=35pt
 Есть Прелесть в\par Жизни Деревенской}
 \vfil\penalty-10001
 
@@ -649,7 +650,7 @@
 
 \vfil\eject
 \kern1cm
-\moveright2cm\vbox{\titlefont \baselineskip=50pt
+\moveright1.4cm\vbox{\titlefont \baselineskip=35pt
 То Было\par Трагедией Века}
 \vfil\penalty-10001
 
@@ -1272,7 +1273,7 @@
 
 \vfil\eject
 \kern1cm
-\moveright3cm\vbox{\titlefont \baselineskip=50pt
+\moveright2cm\vbox{\titlefont \baselineskip=35pt
 Школа ---\par Моя Судьба}
 \vfil\penalty-10001
 
