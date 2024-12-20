@@ -37,7 +37,7 @@
 \parskip=0pt
 {\catcode`\^^M=\active
 \gdef\title#1^^M{{\bf#1}\par}
-\gdef\date#1^^M^^M{\ifhmode\errmessage{j}\fi\hbox to10cm{\hss\it#1}}}
+\gdef\date#1^^M^^M{\hbox to10cm{\hss\it#1}}}
 \def\par{\leavevmode\endgraf} \obeylines \let\par=\endgraf
 
 \line{}
