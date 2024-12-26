@@ -1,7 +1,7 @@
 %&12pt
 \magnification=\magstep2
 \advance\pdfvorigin by-2truecm
-\advance\vsize by3.5truecm
+\vsize=2\vsize
 
 \output={
   \ifnum\outputpenalty=-10001
@@ -20,24 +20,16 @@
         \hbox{\kern-.5\dimen0^^66\hbox{\leaders\hbox{^^67}\hskip22\wd0}^^68}
         \vss}
       \nointerlineskip
-      \moveright.5cm \vbox to\vsize{\boxmaxdepth=\maxdepth
-        \dimen0=\dp255 \unvbox255
-        \kern-\dimen0 \vfil}}
+      \moveright.5cm \vbox to18cm{\unvbox255\vss}}
+    \font\twelverm=omr9 % footline
   \fi
   \plainoutput}
 
-\def\makefootline{\baselineskip=25pt
-  \lineskiplimit=0pt
-  \font\twelverm=omr9
-  \line{\the\footline}}
-
 \font\titlefont=omssdc10 at27.778pt
 
-\raggedbottom
-\parskip=0pt
 {\catcode`\^^M=\active
 \gdef\title#1^^M{{\bf#1}\par}
-\gdef\date#1^^M^^M{\hbox to10cm{\hss\it#1}}}
+\gdef\date#1^^M{\hbox to10cm{\hss\it#1}}}
 \def\par{\leavevmode\endgraf} \obeylines \let\par=\endgraf
 
 \line{}
@@ -150,7 +142,7 @@
 Какие дивные закаты.
 Дрожат последние лучи.
 Как в сказку, мысль несёт куда-то,
-И я молчу\dots И ты молчи\dots
+И я молчу\dots{\spacefactor=3000} И ты молчи\dots
 
 \date 1985 г.
 
@@ -285,7 +277,7 @@
 \kern.2pt
 
 Вот осмотрел рыбак машину,
-Сложил все снасти: стой - не стой\dots
+Сложил все снасти: стой --- не стой\dots
 Прошёл, ногой потрогал шину,
 Завёл --- и тронулся домой.
 
@@ -696,7 +688,7 @@
 Пусть памятник напоминает
 О тех, кто в далеких могилах лежит.
 Их помнят, а, вспомнив, рыдают.
-%
+
 \eject
 
 \kern-2.2cm
@@ -742,7 +734,7 @@
 Снаряды рвутся, мчатся танки,
 И памятник у нас стоит
 Возле ДК среди Солянки.
-%
+
 \eject
 
 \kern-1cm
@@ -751,7 +743,7 @@
 
 Мне орден лучистый вручила страна.
 В нём надпись словами по кругу:
-ОТЕЧЕСТВЕННАЯ ВОЙНА.
+«ОТЕЧЕСТВЕННАЯ ВОЙНА».
 Я был среди тех, кто за Родину встал,
 Когда враг жестокий коварно напал.
 Коробился, гнулся металл.
@@ -934,7 +926,7 @@
 \kern-4pt
 \date Февраль 1986 г.
 
-^^M\title ДЕТИ ВОЙНЫ
+\title ДЕТИ ВОЙНЫ
 
 Не мерить кровь и слезы тоннами\dots
 Кому и сколь пришлось страдать.
@@ -1388,7 +1380,7 @@
 \kern-5pt
 \date 1986 г.
 
-^^M\title ШКОЛЬНИКАМ О ПУШКИНЕ
+\title ШКОЛЬНИКАМ О ПУШКИНЕ
 
 Всем мальчишкам и девчушкам
 Я хочу сказать о том:
@@ -1574,7 +1566,7 @@ B путь с Русланом и Людмилой
 
 \date 1986 г.
 
-^^M\title РАССТАВАНИЕ
+\title РАССТАВАНИЕ
 
 Все закончены науки.
 Годы позади.
@@ -1657,7 +1649,7 @@ B путь с Русланом и Людмилой
 Жалко, возраст мой не тот.
 И как в басне говорится
 \leavevmode\llap{``}Видит око, зуб неймёт.''
-%
+
 \eject
 
 \kern-1cm
