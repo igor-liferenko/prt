@@ -5,9 +5,9 @@
 
 \output={
   \ifnum\outputpenalty=-10001
-    \footline={\hfil}
+    \shipout\vbox{\unvbox255\vss}
   \else
-    \def\pagebody{
+    \shipout\vbox{
       \vbox to0pt{
         \font\dingbat=dingbat at10truept \dingbat
         \setbox0=\hbox{^^61}
@@ -20,10 +20,15 @@
         \hbox{\kern-.5\dimen0^^66\hbox{\leaders\hbox{^^67}\hskip22\wd0}^^68}
         \vss}
       \nointerlineskip
-      \moveright.5cm \vbox to18cm{\unvbox255\vss}}
-    \font\twelverm=omr9 % footline
+      \moveright.5cm \vbox to18.8cm{\unvbox255\vss}
+      \nointerlineskip
+      \centerline{\font\ninerm=omr9 \ninerm\number\pageno}}
   \fi
-  \plainoutput}
+  \global\advance\pageno by 1}
+
+\shipout\vbox{}
+\shipout\vbox{}
+\pageno=3
 
 \font\titlefont=omssdc10 at27.778pt
 
@@ -32,16 +37,10 @@
 \gdef\date#1^^M{\hbox to10cm{\hss\it#1}}}
 \def\par{\leavevmode\endgraf} \obeylines \let\par=\endgraf
 
-\line{}
-\vfil\penalty-10001
-
-\line{}
-\vfil\penalty-10001
-
 \kern.25cm
 \moveright.78cm\vbox{\titlefont \baselineskip=34.7pt
 Есть Прелесть в\par Жизни Деревенской}
-\vfil\penalty-10001
+\penalty-10001
 
 \kern.5cm
 
@@ -648,7 +647,7 @@
 \kern.4cm
 \moveright1.13cm\vbox{\titlefont \baselineskip=34.7pt
 То Было\par Трагедией Века}
-\vfil\penalty-10001
+\penalty-10001
 
 \kern-2.1cm
 
@@ -1271,7 +1270,7 @@
 \kern.4cm
 \moveright1.825cm\vbox{\titlefont \baselineskip=34.7pt
 Школа ---\par Моя Судьба}
-\vfil\penalty-10001
+\penalty-10001
 
 \kern-1cm
 
