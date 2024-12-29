@@ -6,7 +6,7 @@ grep -q $'\xC2\xA0' $1 && { printf 'RUN:\nsed -i \x27s/\\xC2\\xA0//g\x27 %s\n' $
 grep -q $'\xCC\x81' $1 && { printf 'RUN:\nsed -i \x27s/\\xCC\\x81//g\x27 %s\n' $1; exit 1; }
 cat ~/prt/reading.tex
 cat $1 | \
-sed 's/…/~\\dots{}/g' | \
+sed 's/…/.../g' | \
 sed 's/–/--/g' | \
 sed 's/—/---/g'
 echo '\bye'
