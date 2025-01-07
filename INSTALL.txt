@@ -87,5 +87,5 @@ previously opened via tex+, via tex-, the former will change)
 == dvips ==
 Unpack dvips repo (differs from dvips/ in http://ftp.cs.stanford.edu/pub/dvips/dvips576.tar.gz)
 make
-== fonts for copy-paste ==
+== fonts for copy-search ==
 Unpack th repo
