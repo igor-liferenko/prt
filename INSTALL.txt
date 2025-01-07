@@ -19,7 +19,6 @@ Re-login
 for i in tex tex+ tex- mf mf+ mf- dvi+ dvi- ctangle cweave tie ctie; do
   ln -s ~/mytex/$i ~/bin/
 done
-ln -s ~/th/dvi ~/bin/
 == cweb ==
 Unpack cweb repo
 make
@@ -87,5 +86,3 @@ previously opened via tex+, via tex-, the former will change)
 == dvips ==
 Unpack dvips repo (differs from dvips/ in http://ftp.cs.stanford.edu/pub/dvips/dvips576.tar.gz)
 make
-== fonts for copy-search ==
-Unpack th repo
