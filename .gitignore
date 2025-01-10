@@ -1,9 +1,9 @@
-wc.log
-wc.dvi
-wc.ps
+*.log
+*.dvi
+*.ps
+*.c
+*.idx
+*.scn
+*.tex
+*.toc
 wc
-wc.c
-wc.idx
-wc.scn
-wc.tex
-wc.toc
