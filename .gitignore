@@ -1,6 +1,6 @@
-*.log
-*.dvi
-*.ps
+wc.log
+wc.dvi
+wc.ps
 wc
 wc.c
 wc.idx
