@@ -1,4 +1,4 @@
-% Translation of examples/wc.w from original CWEB.
+% Translation of examples/wc.w from http://ftp.cs.stanford.edu/pub/cweb/cweb.tar.gz
 
 \datethis
 \def\SPARC{SPARC\-\kern.1em station}
