@@ -78,8 +78,6 @@ make
 == okular ==
 Disable 'Показывать заголовок документа в заголовке окна, если возможно'
 (non-ASCII characters in tex filenames are displayed incorrectly)
-Disable 'Обновлять файлы при обнаружении их изменения'
-(tex- uses different mode than tex+)
 == dvips ==
 Unpack dvips repo (differs from dvips/ in http://ftp.cs.stanford.edu/pub/dvips/dvips576.tar.gz)
 make

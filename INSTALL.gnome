@@ -1,5 +1,3 @@
-gsettings set org.gnome.Evince auto-reload false
-
 In gnome-terminal 'Compatibility' tab make backspace generate Control-H
 
 echo stty -ixon >>~/.bashrc
