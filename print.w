@@ -1,10 +1,12 @@
 \noinx
-@* Intro. Printer device file must not be created if it does not
-already exist. This is similar to `\.{cat >}', but |open|
-syscall is without \.{O\_CREAT}.
+@* Intro.
+
+Printer device file must not be created if it does not
+already exist. To achieve this, we do not use |O_CREAT| in |open|.
 
 @c
-@<Header files@>@;
+#include <fcntl.h>
+#include <unistd.h>
 
 int main(void)
 {
@@ -25,7 +27,3 @@ int main(void)
   close(fd);
   return 0;
 }
-
-@ @<Header files@>=
-#include <fcntl.h> /* |@!O_WRONLY|, |@!open| */
-#include <unistd.h> /* |@!STDIN_FILENO|, |@!read|, |@!write| */
