@@ -83,4 +83,6 @@ Unpack dvips repo (differs from dvips/ in http://ftp.cs.stanford.edu/pub/dvips/d
 make
 == keyboard ==
 15 characters are already missing in /usr/share/X11/xkb/symbols/ru -- `[]'~@#$^&{}|<>
-just make another two characters missing by replacing \/ with «»
+Just make another two characters missing by replacing \/ with «»
+sudo sed -i '/BKSL> {\s\+\[\s\+backslash,\s\+bar\s\+\]/{s/backslash/guillemotleft/;s/bar/guillemotright/}' /usr/share/X11/xkb/symbols/ru
+Make Menu the language switching key
