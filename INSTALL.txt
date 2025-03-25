@@ -84,5 +84,5 @@ make
 == keyboard ==
 15 characters are already missing in /usr/share/X11/xkb/symbols/ru -- `[]'~@#$^&{}|<>
 Just make another two characters missing by replacing \/ with «»
-sudo sed -i '/BKSL> {\s\+\[\s\+backslash,\s\+bar\s\+\]/{s/backslash/guillemotleft/;s/bar/guillemotright/}' /usr/share/X11/xkb/symbols/ru
+sudo sed -i '/BKSL> {\s\+\[\s\+backslash,\s\+slash\s\+\]/{s/backslash/guillemotleft/;s/slash/guillemotright/}' /usr/share/X11/xkb/symbols/ru
 Make Menu the language switching key
