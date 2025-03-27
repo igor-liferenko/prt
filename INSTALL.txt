@@ -83,6 +83,6 @@ Unpack dvips repo (differs from dvips/ in http://ftp.cs.stanford.edu/pub/dvips/d
 make
 == keyboard ==
 15 characters are already missing in /usr/share/X11/xkb/symbols/ru -- `[]'~@#$^&{}|<>
-Just make another two characters missing by replacing \/ with «» by changing BKSL line
-in /usr/share/X11/xkb/symbols/ru to use guillemotleft, guillemotright
+Just make another two characters missing via replacing \/ with «» by changing BKSL line
+  in /usr/share/X11/xkb/symbols/ru to use guillemotleft, guillemotright
 Make Menu the language switching key
