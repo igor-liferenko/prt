@@ -1397,9 +1397,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710683"
-     inkscape:cx="501.76957"
-     inkscape:cy="219.407"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="620.71996"
+     inkscape:cy="512.19171"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -2434,17 +2434,6 @@
        style="fill:none;stroke:#000000;stroke-width:0.13;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.52, 0.26;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker2546)"
        d="m 69.62867,57.688991 -2.779456,-0.03086"
        id="path1043-9-8-5-6-5-6-89-11-8-4-7" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="57.305176"
-       y="264.13959"
-       id="text1110-8-1-2-5-9-7"
-       transform="rotate(-33.693657)"><tspan
-         sodipodi:role="line"
-         id="tspan1886-0-5"
-         x="57.305176"
-         y="264.13959">collective_subscript</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.13;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.52, 0.260002;stroke-dashoffset:0;stroke-opacity:1"
        d="m 251.32064,115.85813 0.005,40.37432"
@@ -2457,13 +2446,6 @@
        style="fill:none;stroke:#000000;stroke-width:0.129999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.52, 0.260001;stroke-dashoffset:0;stroke-opacity:1"
        d="m 251.32618,156.23245 -112.40993,0.003"
        id="path1043-9-9-4-6-7-6-1-8" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:0.136141"
-       id="rect833-5-0-2-1-9-8-8-8-0-9"
-       width="11.498682"
-       height="8.8526974"
-       x="193.6109"
-       y="179.55806" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:0.136141"
        id="rect833-5-0-2-1-9-8-8-8-0-6"
@@ -2780,5 +2762,23 @@
        height="4.400331"
        x="26.685907"
        y="31.823963" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.41111px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="35.916737"
+       y="199.51131"
+       id="text1110-8-1-2-5-9-7-4"
+       transform="rotate(-33.693657)"><tspan
+         sodipodi:role="line"
+         id="tspan1886-0-5-3"
+         x="35.916737"
+         y="199.51131">collective_subscript</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.136141"
+       id="rect833-5-0-2-1-9-8-8-8-0-9-3"
+       width="11.498682"
+       height="8.8526974"
+       x="139.96265"
+       y="137.65157" />
   </g>
 </svg>
