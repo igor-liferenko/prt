@@ -12,5 +12,3 @@ echo WIDTHxHEIGHT >~/.screen-size # take screenshot - enable
                                   # «whole screen» and see resolution
 ln -s .screen-size ~/.gv-size # in Gnome3 it is not necessary to specify exact
                               # gv-size - if size is bigger, it is adjusted automatically
-
-Do not use cweb repo and do not create symlinks for tie ctie ctangle cweave
