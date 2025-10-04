@@ -1,3 +1,4 @@
+// crontab -e: @reboot $HOME/0000-print
        #include <errno.h>
        #include <poll.h>
        #include <stdio.h>
