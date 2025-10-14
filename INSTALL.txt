@@ -58,6 +58,12 @@ ln -s .gv-size ~/.screen-size # same size
 Unpack mytex repo
 ln -sf open.okular open
 ln -sf printer.okular printer
+Set in Makefile:
+  TEXFORMATS to the same path as in tex/path.ch
+  TEXINPUTS to the same path as in tex/path.ch
+  TEXFONTS to the same path as in tex/path.ch
+  MFINPUTS to the same path as in mf/path.ch
+  PKFONTS to the same path as in mf/Makefile
 make
 == dvitype ==
 Unpack dvitype repo
