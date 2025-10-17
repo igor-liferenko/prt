@@ -70,7 +70,7 @@ Set in Makefile:
   cweb path to the path where you unpacked cweb
   QUIRE path to the path where you unpacked QUIRE
 make
-In dvips set PKFONTS to the same path as in Makefile (use $HOME instead of ~)
+In dvips set PKFONTS to the same path as pkfonts in Makefile (use $HOME instead of ~)
 == dvitype ==
 Unpack dvitype repo
 Change in path.ch:
