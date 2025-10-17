@@ -58,17 +58,6 @@ ln -s .gv-size ~/.screen-size # same size
 Unpack mytex repo
 ln -sf open.okular open
 ln -sf printer.okular printer
-In dvips set PKFONTS (use $HOME instead of ~)
-In tex,tex-,tex+ change virtex path to the path where you unpacked tex
-In mf,mf-,mf+ change virmf path to the path where you unpacked mf
-Set in MakePK:
-  tex path to the path where you unpacked tex
-  mf path to the path where you unpacked mf
-Set in Makefile:
-  TEX to the path where you unpacked tex
-  MF to the path where you unpacked mf
-  cweb path to the path where you unpacked cweb
-  QUIRE path to the path where you unpacked QUIRE
 make
 == dvitype ==
 Unpack dvitype repo
