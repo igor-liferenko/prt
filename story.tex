@@ -1,4 +1,28 @@
 %&14pt
+\pdfpagewidth=297mm
+\pdfpageheight=210mm
+\pdfhorigin=1in
+\pdfvorigin=0pt
+\input QUIRE
+\shhtotal=\pdfpagewidth
+\htotal=.5\shhtotal
+\vtotal=\pdfpageheight
+\shoutline=0pt
+\shstaplewidth=0pt
+\shcrop=0pt
+\shfootline={}
+\shthickness=.27mm
+\quire{36}
+
+\horigin=9mm
+\hoffset=9mm
+\hsize=\htotal \advance\hsize by-2\horigin \advance\hsize by-\hoffset
+\advance\hsize by-\QUIRE
+\output={\ifodd\pageno\else\hoffset=\QUIRE\fi \plainoutput}
+
+\vorigin=15mm
+\vsize=\topskip \advance\vsize by35\baselineskip
+
 \raggedbottom
 \advance\hsize by 2cm
 \advance\pdfhorigin by -1cm
