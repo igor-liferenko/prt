@@ -4,9 +4,12 @@
 Printer device file must not be created if it does not
 already exist. To achieve this, we do not use |O_CREAT| in |open|.
 
-The same may be achieved without compiling this program - by
-creating a user which has no write permission to /dev/usb/ and
-changing root@p to user@p in mytex/printer.
+The same may be achieved without compiling this program - create
+user 'user' on 'p' and change
+  ssh root@p print
+into
+  ssh user@p 'cat >/dev/usb/lp0'
+(adjust zenity for error codes if /dev/usb/lp0 does not exist and if network not available)
 
 @c
 #include <fcntl.h>
