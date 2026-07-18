@@ -4,6 +4,10 @@
 Printer device file must not be created if it does not
 already exist. To achieve this, we do not use |O_CREAT| in |open|.
 
+The same may be achieved without compiling this program - by
+creating a user which has no write permission to /dev/usb/ and
+changing root@p to user@p in mytex/printer.
+
 @c
 #include <fcntl.h>
 #include <unistd.h>
