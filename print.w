@@ -7,9 +7,9 @@ already exist. To achieve this, we do not use |O_CREAT| in |open|.
 The same may be achieved without compiling this program - create
 user 'user' on 'p', configure automatic adding of write permission to 'other' for
 /dev/usb/lp0 and change
-  ssh root@p print
+  ssh root@192.168.1.8 print
 into
-  ssh user@p 'cat >/dev/usb/lp0'
+  ssh user@192.168.1.8 'cat >/dev/usb/lp0'
 (adjust zenity for error codes if /dev/usb/lp0 does not exist and if network not available)
 
 @c
